@@ -26,8 +26,8 @@ export default class Rectangle extends GameObject {
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x <= 0 || this.x + this.width >= this._scene.width) this.velocity.x *= -1;
-		else if (this.y <= 0 || this.y + this.height >= this._scene.height) this.velocity.y *= -1;
+		if (this.x <= 0 || this.x + this.width >= this._scene.width) this.velocity.x *= -this.bounce.x;
+		else if (this.y <= 0 || this.y + this.height >= this._scene.height) this.velocity.y *= -this.bounce.y;
 	}
 
 	_overlapObjects() {
@@ -47,5 +47,12 @@ export default class Rectangle extends GameObject {
 	_renderType() {
 		this._scene.context.fillRect(this.x, this.y, this.width, this.height);
 		this._scene.context.strokeRect(this.x, this.y, this.width, this.height);
+	}
+
+	_debug() {
+		if (!this.active) return;
+		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
+		this._scene.context.strokeStyle = this._strokeDebugColor;
+		this._renderType();
 	}
 }

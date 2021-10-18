@@ -13,6 +13,9 @@ export default class Impacto {
 		this.width = config.width;
 		this.height = config.height;
 		this.backgroundColor = config.backgroundColor;
+		this.debug = config.debug;
+
+
 		this.children = [];
 
 		this.deltaTime = 0;
@@ -67,7 +70,9 @@ export default class Impacto {
 		}
 
 		for (let i = 0; i < this.children.length; i++) {
-			this.children[i]._render();
+			const children = this.children[i];
+			children._render();
+			if (this.debug) children._debug();
 		}
 	}
 }

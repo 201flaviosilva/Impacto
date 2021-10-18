@@ -1,0 +1,23 @@
+{
+  "name": "impacto",
+  "version": "1.0.0",
+  "description": "Um simples motor de fisica em JavaScript",
+  "main": "/src/Impacto.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/201flaviosilva/Impacto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/201flaviosilva/Impacto/issues"
+  },
+  "homepage": "https://github.com/201flaviosilva/Impacto#readme"
+}

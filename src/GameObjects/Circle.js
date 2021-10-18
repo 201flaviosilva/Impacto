@@ -15,18 +15,18 @@ export default class Circle extends GameObject {
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.width) this.velocity.x *= -1;
-		else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.height) this.velocity.y *= -1;
+		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.width) this.velocity.x *= -this.bounce.x;
+		else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.height) this.velocity.y *= -this.bounce.y;
 	}
 
 	_overlapObjects() {
 		this.overlapObjects.map(obj => {
-			let isColliding;
+			let isOverlapping;
 
-			if (obj._type === "Rect") isColliding = this._overlapDetection.rectangleAndCircle(obj, this);
-			else if (obj._type === "Circle") isColliding = this._overlapDetection.circleAndCircle(this, obj);
+			if (obj._type === "Rect") isOverlapping = this._overlapDetection.rectangleAndCircle(obj, this);
+			else if (obj._type === "Circle") isOverlapping = this._overlapDetection.circleAndCircle(this, obj);
 
-			if (isColliding) {
+			if (isOverlapping) {
 				this.setVelocity(0);
 				obj.setVelocity(0);
 			}
@@ -38,5 +38,12 @@ export default class Circle extends GameObject {
 		this._scene.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
 		this._scene.context.fill();
 		this._scene.context.stroke();
+	}
+
+	_debug() {
+		if (!this.active) return;
+		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
+		this._scene.context.strokeStyle = this._strokeDebugColor;
+		this._renderType();
 	}
 }

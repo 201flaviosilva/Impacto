@@ -14,6 +14,7 @@ for (let i = 0; i < randomBalls; i++) {
 	const newCircle = impacto.createCircle(0, 0, utils.randomNumber(2, 20), utils.randomColor());
 	newCircle.setRandomPosition();
 	newCircle.setVelocity(utils.randomNumber(-5, 5), utils.randomNumber(-5, 5));
+	newCircle.setBounce(1);
 	newCircle.setCollisionWorldBounds(true);
 
 	objects.map(object => newCircle.addOverlapObject(object));
