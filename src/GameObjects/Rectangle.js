@@ -1,12 +1,11 @@
 import GameObject from './GameObject.js';
 
 export default class Rectangle extends GameObject {
-	constructor(scene, x, y, width, height, fillColor) {
-		super(x, y, fillColor);
+	constructor(scene, x, y, width = 100, height = 100, fillColor = "#00ff00") {
+		super(scene, x, y, fillColor);
 		this.width = width;
 		this.height = height;
 
-		this._scene = scene;
 		this._type = "Rect";
 	}
 
@@ -26,8 +25,8 @@ export default class Rectangle extends GameObject {
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x <= 0 || this.x + this.width >= this._scene.width) this.velocity.x *= -this.bounce.x;
-		else if (this.y <= 0 || this.y + this.height >= this._scene.height) this.velocity.y *= -this.bounce.y;
+		if (this.x <= 0 || this.x + this.width >= this._scene.configuration.width) this.velocity.x *= -this.bounce.x;
+		else if (this.y <= 0 || this.y + this.height >= this._scene.configuration.height) this.velocity.y *= -this.bounce.y;
 	}
 
 	_overlapObjects() {

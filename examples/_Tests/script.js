@@ -1,24 +1,33 @@
+console.clear();
 import Impacto from "../../src/Impacto.js";
-import Utils from "../../src/Utils/Utils.js";
 
-const impacto = new Impacto({
+class Game extends Impacto.Scene {
+	constructor(canvas) {
+		super(canvas);
+	}
+
+	start() {
+		const rect = new Impacto.Rectangle(this, 0, 0, 100, 100);
+		rect.setRandomPosition();
+		rect.setVelocity(Impacto.Utils.randomNumber(-20, 20), Impacto.Utils.randomNumber(-20, 20));
+		rect.setBounce(1);
+		rect.setCollisionWorldBounds(true);
+		this.addChild(rect);
+
+		const circle = new Impacto.Circle(this, 0, 0, 25);
+		circle.setRandomPosition();
+		circle.setVelocity(Impacto.Utils.randomNumber(-20, 20), Impacto.Utils.randomNumber(-20, 20));
+		circle.setBounce(1);
+		circle.setCollisionWorldBounds(true);
+		this.addChild(circle);
+	}
+}
+
+const canvas = new Impacto.Game({
 	width: 800,
 	height: 600,
-	parent: "gameDiv",
+	parent: "GameContainer",
 	backgroundColor: "#f0f0f0",
 	debug: true,
+	scene: Game,
 });
-
-const myRect1 = impacto.createRectangle(100, 100, 50, 50, "#ff0000");
-myRect1.setVelocity(5, 5);
-myRect1.setCollisionWorldBounds(true);
-myRect1.setBounce(0.5);
-myRect1.setVisible(false);
-myRect1.setActive(false);
-
-const myCircle1 = impacto.createCircle(200, 200, 10, "#0000ff");
-myCircle1.setVelocity(5, 5);
-myCircle1.setCollisionWorldBounds(true);
-myCircle1.setBounce(0.5);
-setTimeout(() => myCircle1.setVisible(false), 1000);
-setTimeout(() => myCircle1.setActive(false), 2000);

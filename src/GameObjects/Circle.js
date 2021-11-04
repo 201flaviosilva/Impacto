@@ -1,22 +1,20 @@
 import GameObject from './GameObject.js';
 
 export default class Circle extends GameObject {
-	constructor(scene, x, y, radius, fillColor) {
-		super(x, y, fillColor);
+	constructor(scene, x, y, radius = 10, fillColor = "#00ff00") {
+		super(scene, x, y, fillColor);
 		this.radius = radius;
 
-		this._scene = scene;
 		this._type = "Circle";
 	}
 
 	setRadius(radius) { this.radius = radius; }
 
 
-
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.width) this.velocity.x *= -this.bounce.x;
-		else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.height) this.velocity.y *= -this.bounce.y;
+		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.configuration.width) this.velocity.x *= -this.bounce.x;
+		else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.configuration.height) this.velocity.y *= -this.bounce.y;
 	}
 
 	_overlapObjects() {

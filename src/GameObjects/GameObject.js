@@ -2,7 +2,9 @@ import Utils from "../Utils/Utils.js";
 const utils = new Utils();
 
 export default class GameObject {
-	constructor(x, y, fillColor = "#000000", strokeColor = "#000000") {
+	constructor(scene, x, y, fillColor, strokeColor = "#000000") {
+		this._scene = scene;
+
 		// Render
 		this.x = x;
 		this.y = y;
@@ -30,8 +32,8 @@ export default class GameObject {
 	}
 	setRandomPosition() {
 		this.setPosition(
-			Math.random() * this._scene.canvas.width,
-			Math.random() * this._scene.canvas.height
+			Math.random() * this._scene.configuration.width,
+			Math.random() * this._scene.configuration.height
 		);
 	}
 
@@ -46,16 +48,14 @@ export default class GameObject {
 
 	setVelocityX(x) { this.setVelocity(x, this.velocity.y); }
 	setVelocityY(y) { this.setVelocity(this.velocity.x, y); }
-	setVelocity(x, y) {
-		if (!y) y = x;
+	setVelocity(x, y = x) {
 		this.velocity.x = x;
 		this.velocity.y = y;
 	}
 
 	setBounceX(x) { this.setBounce(x, this.bounce.y); }
 	setBounceY(y) { this.setBounce(this.bounce.x, y); }
-	setBounce(x, y) {
-		if (!y) y = x;
+	setBounce(x, y = x) {
 		this.bounce.x = x;
 		this.bounce.y = y;
 	}
