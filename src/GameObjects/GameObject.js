@@ -30,10 +30,10 @@ export default class GameObject {
 		this.x = x;
 		this.y = y;
 	}
-	setRandomPosition() {
+	setRandomPosition(x = 0, y = 0, width = this._scene.configuration.width, height = this._scene.configuration.height) {
 		this.setPosition(
-			Math.random() * this._scene.configuration.width,
-			Math.random() * this._scene.configuration.height
+			x + Math.random() * width,
+			y + Math.random() * height
 		);
 	}
 
