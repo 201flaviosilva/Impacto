@@ -2,8 +2,8 @@ console.clear();
 import Impacto from "../../src/Impacto.js";
 
 class Game extends Impacto.Scene {
-	constructor(canvas) {
-		super(canvas);
+	constructor(data) {
+		super(data);
 	}
 
 	start() {
@@ -23,7 +23,7 @@ class Game extends Impacto.Scene {
 	}
 }
 
-const canvas = new Impacto.Game({
+const game = new Impacto.Game({
 	width: 800,
 	height: 600,
 	parent: "GameContainer",

@@ -12,7 +12,42 @@
 <body>
 	<h1>Impacto - Random Bounce Balls</h1>
 
-	<script src="./script.js" type="module"></script>
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+			constructor(data) {
+				super(data);
+			}
+
+			start() {
+				const objects = [];
+				const randomBalls = Impacto.Utils.randomNumber(10, 100);
+
+				for (let i = 0; i < randomBalls; i++) {
+					const newObject = new Impacto.Circle(this, 0, 0, Impacto.Utils.randomNumber(2, 20), Impacto.Utils.randomColor());
+					newObject.setRandomPosition();
+					newObject.setVelocity(Impacto.Utils.randomNumber(-5, 5), Impacto.Utils.randomNumber(-5, 5));
+					newObject.setBounce(1);
+					newObject.setCollisionWorldBounds(true);
+
+					objects.map(object => newObject.addOverlapObject(object));
+
+					objects.push(newObject);
+					this.addChild(newObject);
+				}
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			scene: Game,
+		});
+
+	</script>
 </body>
 
 </html>
