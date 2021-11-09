@@ -27,7 +27,7 @@ export default class Rectangle extends GameObject {
 	}
 	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.width, height: this.height }; }
 
-	// Get Collision
+	// Check Overlap
 	checkTopOverlap(obj) { return obj.getBottom() >= this.getTop() && obj.getTop() <= this.getTop(); }
 	checkBottomOverlap(obj) { return obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getBottom(); }
 	checkLeftOverlap(obj) { return obj.getRight() >= this.getLeft() && obj.getLeft() <= this.getLeft(); }
@@ -40,17 +40,6 @@ export default class Rectangle extends GameObject {
 	}
 
 	// ----- Private methods -----
-	_collisionWorldBounds() {
-		if (this.x <= 0 || this.x + this.width >= this._scene.configuration.width) {
-			this.velocity.x *= -this.bounce.x;
-			this.x += this.velocity.x * this._scene.deltaTime;
-		}
-		else if (this.y <= 0 || this.y + this.height >= this._scene.configuration.height) {
-			this.velocity.y *= -this.bounce.y;
-			this.y += this.velocity.y * this._scene.deltaTime;
-		}
-	}
-
 	_overlapObjects() {
 		this.overlapObjects.map(obj => {
 			let isColliding;

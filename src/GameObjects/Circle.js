@@ -23,16 +23,6 @@ export default class Circle extends GameObject {
 
 
 	// ----- Private methods -----
-	_collisionWorldBounds() {
-		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.configuration.width) {
-			this.velocity.x *= -this.bounce.x;
-			this.x += this.velocity.x * this._scene.deltaTime;
-		} else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.configuration.height) {
-			this.velocity.y *= -this.bounce.y;
-			this.y += this.velocity.y * this._scene.deltaTime;
-		}
-	}
-
 	_overlapObjects() {
 		this.overlapObjects.map(obj => {
 			let isOverlapping;

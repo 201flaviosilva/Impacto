@@ -37,10 +37,12 @@ export default class GameObject {
 		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 	}
 	setRandomPosition(x = 0, y = 0, width = this._scene.configuration.width, height = this._scene.configuration.height) {
-		this.setPosition(
-			x + Math.random() * width,
-			y + Math.random() * height
-		);
+		do {
+			this.setPosition(
+				x + Math.random() * width,
+				y + Math.random() * height
+			);
+		} while (!this.checkIsInsideWorldBounds());
 	}
 
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
@@ -82,8 +84,38 @@ export default class GameObject {
 	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
 	addOverlapObject(gameObject) { this.overlapObjects.push(gameObject); }
 
+	// Check Collision With World Bounds
+	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
+	checkBottomCollisionWorldBounds() { return this.getBottom() >= this._scene.configuration.height; }
+	checkLeftCollisionWorldBounds() { return this.getLeft() <= 0; }
+	checkRightCollisionWorldBounds() { return this.getRight() >= this._scene.configuration.width; }
+	checkCollisionWorldBounds() {
+		return this.checkTopCollisionWorldBounds() ||
+			this.checkBottomCollisionWorldBounds() ||
+			this.checkLeftCollisionWorldBounds() ||
+			this.checkRightCollisionWorldBounds();
+	}
+
+	checkIsInsideWorldBounds() {
+		return this.getLeft() >= 0 &&
+			this.getRight() <= this._scene.configuration.width &&
+			this.getTop() >= 0 &&
+			this.getBottom() <= this._scene.configuration.height;
+	}
+
 
 	// ----- Private methods -----
+	_collisionWorldBounds() {
+		if (this.checkLeftCollisionWorldBounds() || this.checkRightCollisionWorldBounds()) {
+			this.velocity.x *= -this.bounce.x;
+			this.x += this.velocity.x * this._scene.deltaTime;
+		}
+		else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
+			this.velocity.y *= -this.bounce.y;
+			this.y += this.velocity.y * this._scene.deltaTime;
+		}
+	}
+
 	_step() {
 		if (!this.active) return;
 
