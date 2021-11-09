@@ -2,7 +2,7 @@ import Utils from "../Utils/Utils.js";
 const utils = new Utils();
 
 export default class GameObject {
-	constructor(scene, x, y, fillColor, strokeColor = "#000000") {
+	constructor(scene, x, y, fillColor, strokeColor) {
 		this._scene = scene;
 
 		// Render
@@ -16,8 +16,9 @@ export default class GameObject {
 
 		// Physics
 		this.active = true;
-		this.velocity = { x: 0, y: 0 };
-		this.bounce = { x: 0, y: 0 };
+		this.velocity = { x: 0, y: 0, };
+		this.bounce = { x: 0, y: 0, };
+		this.friction = { x: 1, y: 1, };
 		this.collisionWorldBounds = false;
 		this.overlapObjects = [];
 		this._overlapDetection = utils.overlapDetection;
@@ -74,6 +75,13 @@ export default class GameObject {
 		this.velocity.y = y;
 	}
 
+	setFrictionX(x) { this.setFriction(x, this.friction.y); }
+	setFrictionY(y) { this.setFriction(this.friction.x, y); }
+	setFriction(x, y = x) {
+		this.friction.x = x;
+		this.friction.y = y;
+	}
+
 	setBounceX(x) { this.setBounce(x, this.bounce.y); }
 	setBounceY(y) { this.setBounce(this.bounce.x, y); }
 	setBounce(x, y = x) {
@@ -109,8 +117,7 @@ export default class GameObject {
 		if (this.checkLeftCollisionWorldBounds() || this.checkRightCollisionWorldBounds()) {
 			this.velocity.x *= -this.bounce.x;
 			this.x += this.velocity.x * this._scene.deltaTime;
-		}
-		else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
+		} else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
 			this.velocity.y *= -this.bounce.y;
 			this.y += this.velocity.y * this._scene.deltaTime;
 		}
@@ -118,6 +125,9 @@ export default class GameObject {
 
 	_step() {
 		if (!this.active) return;
+
+		this.velocity.x *= this.friction.x;
+		this.velocity.y *= this.friction.y;
 
 		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 		this.x += this.velocity.x * this._scene.deltaTime;
@@ -136,49 +146,42 @@ export default class GameObject {
 		this._renderType();
 	}
 
+	_debug() {
+		if (!this.active) return;
+		// this._debugBody();
+		this._debugBound();
+		this._debugVelocity();
+	}
+
 	_debugBound() {
+		this._scene.context.strokeStyle = "#000000";
 		this._scene.context.fillStyle = "#ffffff";
 		const radius = 3;
 
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getTopLeft().x, this.getTopLeft().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
+		drawDebug(this._scene.context, this.getTopLeft().x, this.getTopLeft().y);
+		drawDebug(this._scene.context, this.getTopCenter().x, this.getTopCenter().y);
+		drawDebug(this._scene.context, this.getTopRight().x, this.getTopRight().y);
 
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getTopCenter().x, this.getTopCenter().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
+		drawDebug(this._scene.context, this.getLeftCenter().x, this.getLeftCenter().y);
+		drawDebug(this._scene.context, this.getRightCenter().x, this.getRightCenter().y);
+		drawDebug(this._scene.context, this.getBottomLeft().x, this.getBottomLeft().y);
 
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getTopRight().x, this.getTopRight().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
+		drawDebug(this._scene.context, this.getBottomCenter().x, this.getBottomCenter().y);
+		drawDebug(this._scene.context, this.getCenter().x, this.getCenter().y);
+		drawDebug(this._scene.context, this.getBottomRight().x, this.getBottomRight().y);
 
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getLeftCenter().x, this.getLeftCenter().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
+		function drawDebug(context, x, y) {
+			context.beginPath();
+			context.arc(x, y, radius, 0, 2 * Math.PI);
+			context.fill();
+			context.stroke();
+		}
+	}
 
+	_debugVelocity() {
 		this._scene.context.beginPath();
-		this._scene.context.arc(this.getRightCenter().x, this.getRightCenter().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
-
-
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getBottomLeft().x, this.getBottomLeft().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
-
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getBottomCenter().x, this.getBottomCenter().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
-
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.getBottomRight().x, this.getBottomRight().y, radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
+		this._scene.context.moveTo(this.x, this.y);
+		this._scene.context.lineTo(this.x + this.velocity.x, this.y + this.velocity.y);
 		this._scene.context.stroke();
 	}
 }

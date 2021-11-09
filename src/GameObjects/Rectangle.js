@@ -1,8 +1,8 @@
 import GameObject from './GameObject.js';
 
 export default class Rectangle extends GameObject {
-	constructor(scene, x, y, width = 100, height = 100, fillColor = "#00ff00") {
-		super(scene, x, y, fillColor);
+	constructor(scene, x, y, width = 100, height = 100, fillColor = "#ffffff", strokeColor = "#000000") {
+		super(scene, x, y, fillColor, strokeColor);
 		this.width = width;
 		this.height = height;
 
@@ -59,11 +59,9 @@ export default class Rectangle extends GameObject {
 		this._scene.context.strokeRect(this.x, this.y, this.width, this.height);
 	}
 
-	_debug() {
-		if (!this.active) return;
+	_debugBody() {
 		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
 		this._scene.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
-		this._debugBound();
 	}
 }
