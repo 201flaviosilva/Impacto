@@ -24,8 +24,13 @@ export default class Circle extends GameObject {
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.configuration.width) this.velocity.x *= -this.bounce.x;
-		else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.configuration.height) this.velocity.y *= -this.bounce.y;
+		if (this.x - this.radius <= 0 || this.x + this.radius >= this._scene.configuration.width) {
+			this.velocity.x *= -this.bounce.x;
+			this.x += this.velocity.x * this._scene.deltaTime;
+		} else if (this.y - this.radius <= 0 || this.y + this.radius >= this._scene.configuration.height) {
+			this.velocity.y *= -this.bounce.y;
+			this.y += this.velocity.y * this._scene.deltaTime;
+		}
 	}
 
 	_overlapObjects() {
@@ -54,5 +59,7 @@ export default class Circle extends GameObject {
 		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
 		this._scene.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
+
+		this._debugBound();
 	}
 }

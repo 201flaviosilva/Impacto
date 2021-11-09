@@ -15,8 +15,8 @@ export default class Rectangle extends GameObject {
 	getLeft() { return this.x; }
 	getRight() { return this.x + this.width; }
 
-	getCenterX() { return this.x - this.width / 2; }
-	getCenterY() { return this.y - this.height / 2; }
+	getCenterX() { return this.x + this.width / 2; }
+	getCenterY() { return this.y + this.height / 2; }
 
 	// Size
 	setWidth(width) { this.setSize(width, this.height); }
@@ -41,8 +41,14 @@ export default class Rectangle extends GameObject {
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {
-		if (this.x <= 0 || this.x + this.width >= this._scene.configuration.width) this.velocity.x *= -this.bounce.x;
-		else if (this.y <= 0 || this.y + this.height >= this._scene.configuration.height) this.velocity.y *= -this.bounce.y;
+		if (this.x <= 0 || this.x + this.width >= this._scene.configuration.width) {
+			this.velocity.x *= -this.bounce.x;
+			this.x += this.velocity.x * this._scene.deltaTime;
+		}
+		else if (this.y <= 0 || this.y + this.height >= this._scene.configuration.height) {
+			this.velocity.y *= -this.bounce.y;
+			this.y += this.velocity.y * this._scene.deltaTime;
+		}
 	}
 
 	_overlapObjects() {
@@ -69,5 +75,6 @@ export default class Rectangle extends GameObject {
 		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
 		this._scene.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
+		this._debugBound();
 	}
 }

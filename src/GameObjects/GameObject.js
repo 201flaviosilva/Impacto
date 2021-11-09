@@ -9,6 +9,7 @@ export default class GameObject {
 		this.x = x;
 		this.y = y;
 		this.z = 0;
+		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
 		this.visible = true;
@@ -33,6 +34,7 @@ export default class GameObject {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 	}
 	setRandomPosition(x = 0, y = 0, width = this._scene.configuration.width, height = this._scene.configuration.height) {
 		this.setPosition(
@@ -43,7 +45,7 @@ export default class GameObject {
 
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
-	getTopLeft() { return { x: this.getTopLeft(), y: this.getTop() }; }
+	getTopLeft() { return { x: this.getLeft(), y: this.getTop() }; }
 	getTopCenter() { return { x: this.getCenterX(), y: this.getTop() }; }
 	getTopRight() { return { x: this.getRight(), y: this.getTop() }; }
 
@@ -85,6 +87,7 @@ export default class GameObject {
 	_step() {
 		if (!this.active) return;
 
+		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 		this.x += this.velocity.x * this._scene.deltaTime;
 		this.y += this.velocity.y * this._scene.deltaTime;
 
@@ -99,5 +102,51 @@ export default class GameObject {
 		this._scene.context.fillStyle = this.fillColor;
 		this._scene.context.strokeStyle = this.strokeColor;
 		this._renderType();
+	}
+
+	_debugBound() {
+		this._scene.context.fillStyle = "#ffffff";
+		const radius = 3;
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getTopLeft().x, this.getTopLeft().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getTopCenter().x, this.getTopCenter().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getTopRight().x, this.getTopRight().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getLeftCenter().x, this.getLeftCenter().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getRightCenter().x, this.getRightCenter().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getBottomLeft().x, this.getBottomLeft().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getBottomCenter().x, this.getBottomCenter().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
+
+		this._scene.context.beginPath();
+		this._scene.context.arc(this.getBottomRight().x, this.getBottomRight().y, radius, 0, 2 * Math.PI);
+		this._scene.context.fill();
+		this._scene.context.stroke();
 	}
 }
