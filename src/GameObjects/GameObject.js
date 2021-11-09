@@ -8,6 +8,7 @@ export default class GameObject {
 		// Render
 		this.x = x;
 		this.y = y;
+		this.z = 0;
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
 		this.visible = true;
@@ -24,11 +25,14 @@ export default class GameObject {
 
 	// Render
 	// Position
-	setX(x) { this.setPosition(x, this.y); }
-	setY(y) { this.setPosition(this.x, y); }
-	setPosition(x, y) {
+	setX(x) { this.setPosition(x, this.y, this.z); }
+	setY(y) { this.setPosition(this.x, y, this.z); }
+	setZ(z) { this.setPosition(this.x, this.y, z); }
+	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
+	setPosition(x, y, z = this.z) {
 		this.x = x;
 		this.y = y;
+		this.z = z;
 	}
 	setRandomPosition(x = 0, y = 0, width = this._scene.configuration.width, height = this._scene.configuration.height) {
 		this.setPosition(
@@ -36,6 +40,19 @@ export default class GameObject {
 			y + Math.random() * height
 		);
 	}
+
+	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
+
+	getTopLeft() { return { x: this.getTopLeft(), y: this.getTop() }; }
+	getTopCenter() { return { x: this.getCenterX(), y: this.getTop() }; }
+	getTopRight() { return { x: this.getRight(), y: this.getTop() }; }
+
+	getBottomLeft() { return { x: this.getLeft(), y: this.getBottom() }; }
+	getBottomCenter() { return { x: this.getCenterX(), y: this.getBottom() }; }
+	getBottomRight() { return { x: this.getRight(), y: this.getBottom() }; }
+
+	getLeftCenter() { return { x: this.getLeft(), y: this.getCenterY() }; }
+	getRightCenter() { return { x: this.getRight(), y: this.getCenterY() }; }
 
 	// Color
 	setFillColor(fillColor) { this.fillColor = fillColor; }

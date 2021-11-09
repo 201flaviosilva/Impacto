@@ -10,6 +10,11 @@ export default class Rectangle extends GameObject {
 	}
 
 	// Get Positions
+	getTop() { return this.y; }
+	getBottom() { return this.y + this.height; }
+	getLeft() { return this.x; }
+	getRight() { return this.x + this.width; }
+
 	getCenterX() { return this.x - this.width / 2; }
 	getCenterY() { return this.y - this.height / 2; }
 
@@ -20,8 +25,19 @@ export default class Rectangle extends GameObject {
 		this.width = width;
 		this.height = height;
 	}
+	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.width, height: this.height }; }
 
-
+	// Get Collision
+	checkTopOverlap(obj) { return obj.getBottom() >= this.getTop() && obj.getTop() <= this.getTop(); }
+	checkBottomOverlap(obj) { return obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getBottom(); }
+	checkLeftOverlap(obj) { return obj.getRight() >= this.getLeft() && obj.getLeft() <= this.getLeft(); }
+	checkRightOverlap(obj) { return obj.getLeft() <= this.getRight() && obj.getRight() >= this.getRight(); }
+	checkOverlap(obj) {
+		return obj.getLeft() <= this.getRight() &&
+			obj.getRight() >= this.getLeft() &&
+			obj.getTop() <= this.getBottom() &&
+			obj.getBottom() >= this.getTop();
+	}
 
 	// ----- Private methods -----
 	_collisionWorldBounds() {

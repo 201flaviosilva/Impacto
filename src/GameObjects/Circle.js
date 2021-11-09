@@ -8,7 +8,18 @@ export default class Circle extends GameObject {
 		this._type = "Circle";
 	}
 
+	getRadius() { return this.radius; }
 	setRadius(radius) { this.radius = radius; }
+
+	getTop() { return this.y - this.radius; }
+	getBottom() { return this.y + this.radius; }
+	getLeft() { return this.x - this.radius; }
+	getRight() { return this.x + this.radius; }
+
+	getCenterX() { return this.x; }
+	getCenterY() { return this.y; }
+
+	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.radius * 2, height: this.radius * 2 }; }
 
 
 	// ----- Private methods -----
