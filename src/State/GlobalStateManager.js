@@ -1,10 +1,14 @@
 import SceneManager from "../Scenes/SceneManager.js";
 
 export default class GlobalStateManager {
-	constructor(config) {
+	constructor() {
 		if (GlobalStateManager.instance instanceof GlobalStateManager) return GlobalStateManager.instance;
 		GlobalStateManager.instance = this;
 
+		this.sceneManager = new SceneManager();
+	}
+
+	setConfig(config) {
 		this.parentDom = config.parentDom;
 		this.canvas = config.canvas;
 		this.context = config.context;
@@ -15,7 +19,7 @@ export default class GlobalStateManager {
 		this.backgroundColor = config.backgroundColor;
 		this.debug = config.debug;
 
-		this.sceneManager = new SceneManager();
+
 		this.sceneManager.addScene(config.scene);
 		this.sceneManager.startScene(0);
 	}

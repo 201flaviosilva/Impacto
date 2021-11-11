@@ -20,17 +20,17 @@
 		class Game extends Impacto.Scene {
 			start() {
 				this.speed = 10;
-				this.circleInput = new Impacto.Circle(400, 300, 25);
-				this.addChild(this.circleInput);
+				this.circle = new Impacto.Circle(400, 300, 25);
+				this.addChild(this.circle);
 			}
 
 			update() {
 				const { left, up, right, down } = Impacto.Inputs.KeyBoard.keys;
-				if (Impacto.Inputs.KeyBoard.isKeyPressed(left) || Impacto.Inputs.KeyBoard.isKeyPressed("a")) this.circleInput.setVelocity(-this.speed, 0);
-				else if (Impacto.Inputs.KeyBoard.isKeyPressed(up) || Impacto.Inputs.KeyBoard.isKeyPressed("w")) this.circleInput.setVelocity(0, -this.speed);
-				else if (Impacto.Inputs.KeyBoard.isKeyPressed(right) || Impacto.Inputs.KeyBoard.isKeyPressed("d")) this.circleInput.setVelocity(this.speed, 0);
-				else if (Impacto.Inputs.KeyBoard.isKeyPressed(down) || Impacto.Inputs.KeyBoard.isKeyPressed("s")) this.circleInput.setVelocity(0, this.speed);
-				else this.circleInput.setVelocity(0, 0);
+				if (Impacto.Inputs.KeyBoard.isKeyPressed(left) || Impacto.Inputs.KeyBoard.isKeyPressed("a")) this.circle.setVelocity(-this.speed, 0);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(up) || Impacto.Inputs.KeyBoard.isKeyPressed("w")) this.circle.setVelocity(0, -this.speed);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(right) || Impacto.Inputs.KeyBoard.isKeyPressed("d")) this.circle.setVelocity(this.speed, 0);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(down) || Impacto.Inputs.KeyBoard.isKeyPressed("s")) this.circle.setVelocity(0, this.speed);
+				else this.circle.setVelocity(0, 0);
 			}
 		}
 

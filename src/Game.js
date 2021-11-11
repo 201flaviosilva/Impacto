@@ -13,7 +13,8 @@ export default class Game {
 
 		this.configuration = config;
 
-		new GlobalStateManager({
+		const globalStateManager = new GlobalStateManager();
+		globalStateManager.setConfig({
 			parentDom: document.getElementById(config.parent),
 			canvas: this.canvas,
 			context: this.context,

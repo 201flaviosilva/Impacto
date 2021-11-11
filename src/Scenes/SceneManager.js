@@ -50,6 +50,8 @@ export default class SceneManager {
 	}
 
 	render() {
+		if (!this.globalStateManager.context) return;
+
 		this.globalStateManager.context.clearRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
 
 		if (this.globalStateManager.backgroundColor) {

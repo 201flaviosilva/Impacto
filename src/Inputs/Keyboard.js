@@ -19,7 +19,6 @@ export default class KeyboardManager {
 	}
 
 	isKeyPressed(key) {
-		// console.log(key, typeof key);
 		if (typeof key === "string") return this.isKeyPressedName(key);
 		else if (typeof key === "number") return this.isKeyPressedKeyCode(key);
 	}
