@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto - Keyboard Movement</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Keyboard Movement</h1>
+	<div id="GameContainer"></div>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+			start() {
+				this.speed = 10;
+				this.circleInput = new Impacto.Circle(400, 300, 25);
+				this.addChild(this.circleInput);
+			}
+
+			update() {
+				const { left, up, right, down } = Impacto.Inputs.KeyBoard.keys;
+				if (Impacto.Inputs.KeyBoard.isKeyPressed(left) || Impacto.Inputs.KeyBoard.isKeyPressed("a")) this.circleInput.setVelocity(-this.speed, 0);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(up) || Impacto.Inputs.KeyBoard.isKeyPressed("w")) this.circleInput.setVelocity(0, -this.speed);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(right) || Impacto.Inputs.KeyBoard.isKeyPressed("d")) this.circleInput.setVelocity(this.speed, 0);
+				else if (Impacto.Inputs.KeyBoard.isKeyPressed(down) || Impacto.Inputs.KeyBoard.isKeyPressed("s")) this.circleInput.setVelocity(0, this.speed);
+				else this.circleInput.setVelocity(0, 0);
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			parent: "GameContainer",
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>
