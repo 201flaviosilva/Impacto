@@ -23,21 +23,21 @@
 			}
 
 			start() {
-				const myRect1 = new Impacto.Rectangle(this, 100, 100, 50, 50, "#ff0000");
+				const myRect1 = new Impacto.Rectangle(100, 100, 50, 50, "#ff0000");
 				myRect1.setVelocity(5, 5);
 				this.addChild(myRect1);
 
-				const myRect2 = new Impacto.Rectangle(this, 200, 200, 50, 50, "#0000ff");
+				const myRect2 = new Impacto.Rectangle(200, 200, 50, 50, "#0000ff");
 				myRect2.setVelocity(-5, -5);
 				myRect2.addOverlapObject(myRect1);
 				this.addChild(myRect2);
 
-				const myCircle1 = new Impacto.Circle(this, 300, 300, 10, "#00ff00");
+				const myCircle1 = new Impacto.Circle(300, 300, 10, "#00ff00");
 				myCircle1.setVelocity(-5, -5);
 				myCircle1.addOverlapObject(myRect2);
 				this.addChild(myCircle1);
 
-				const myCircle2 = new Impacto.Circle(this, 350, 350, 10, "#ffff00");
+				const myCircle2 = new Impacto.Circle(350, 350, 10, "#ffff00");
 				myCircle2.setVelocity(-5, -5);
 				myCircle2.addOverlapObject(myCircle1);
 				this.addChild(myCircle2);

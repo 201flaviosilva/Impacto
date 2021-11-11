@@ -1,9 +1,13 @@
+import GlobalStateManager from "../State/GlobalStateManager.js";
+import SceneManager from "../Scenes/SceneManager.js";
+
 import Utils from "../Utils/Utils.js";
 const utils = new Utils();
 
 export default class GameObject {
-	constructor(scene, x, y, fillColor, strokeColor) {
-		this._scene = scene;
+	constructor(x, y, fillColor, strokeColor) {
+		this._globalStateManager = new GlobalStateManager();
+		this._sceneManager = new SceneManager();
 
 		// Render
 		this.x = x;
@@ -37,7 +41,7 @@ export default class GameObject {
 		this.z = z;
 		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 	}
-	setRandomPosition(x = 0, y = 0, width = this._scene.configuration.width, height = this._scene.configuration.height) {
+	setRandomPosition(x = 0, y = 0, width = this._globalStateManager.viewportDimensions.width, height = this._globalStateManager.viewportDimensions.height) {
 		do {
 			this.setPosition(
 				x + Math.random() * width,
@@ -94,9 +98,9 @@ export default class GameObject {
 
 	// Check Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
-	checkBottomCollisionWorldBounds() { return this.getBottom() >= this._scene.configuration.height; }
+	checkBottomCollisionWorldBounds() { return this.getBottom() >= this._globalStateManager.viewportDimensions.height; }
 	checkLeftCollisionWorldBounds() { return this.getLeft() <= 0; }
-	checkRightCollisionWorldBounds() { return this.getRight() >= this._scene.configuration.width; }
+	checkRightCollisionWorldBounds() { return this.getRight() >= this._globalStateManager.viewportDimensions.width; }
 	checkCollisionWorldBounds() {
 		return this.checkTopCollisionWorldBounds() ||
 			this.checkBottomCollisionWorldBounds() ||
@@ -106,9 +110,9 @@ export default class GameObject {
 
 	checkIsInsideWorldBounds() {
 		return this.getLeft() >= 0 &&
-			this.getRight() <= this._scene.configuration.width &&
+			this.getRight() <= this._globalStateManager.viewportDimensions.width &&
 			this.getTop() >= 0 &&
-			this.getBottom() <= this._scene.configuration.height;
+			this.getBottom() <= this._globalStateManager.viewportDimensions.height;
 	}
 
 
@@ -116,10 +120,10 @@ export default class GameObject {
 	_collisionWorldBounds() {
 		if (this.checkLeftCollisionWorldBounds() || this.checkRightCollisionWorldBounds()) {
 			this.velocity.x *= -this.bounce.x;
-			this.x += this.velocity.x * this._scene.deltaTime;
+			this.x += this.velocity.x * this._sceneManager.deltaTime;
 		} else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
 			this.velocity.y *= -this.bounce.y;
-			this.y += this.velocity.y * this._scene.deltaTime;
+			this.y += this.velocity.y * this._sceneManager.deltaTime;
 		}
 	}
 
@@ -130,8 +134,8 @@ export default class GameObject {
 		this.velocity.y *= this.friction.y;
 
 		this._lastPosition = { x: this.x, y: this.y, z: this.z };
-		this.x += this.velocity.x * this._scene.deltaTime;
-		this.y += this.velocity.y * this._scene.deltaTime;
+		this.x += this.velocity.x * this._sceneManager.deltaTime;
+		this.y += this.velocity.y * this._sceneManager.deltaTime;
 
 		if (this.collisionWorldBounds) this._collisionWorldBounds();
 
@@ -141,8 +145,8 @@ export default class GameObject {
 	_render() {
 		if (!this.visible) return;
 
-		this._scene.context.fillStyle = this.fillColor;
-		this._scene.context.strokeStyle = this.strokeColor;
+		this._globalStateManager.context.fillStyle = this.fillColor;
+		this._globalStateManager.context.strokeStyle = this.strokeColor;
 		this._renderType();
 	}
 
@@ -154,21 +158,21 @@ export default class GameObject {
 	}
 
 	_debugBound() {
-		this._scene.context.strokeStyle = "#000000";
-		this._scene.context.fillStyle = "#ffffff";
+		this._globalStateManager.context.strokeStyle = "#000000";
+		this._globalStateManager.context.fillStyle = "#ffffff";
 		const radius = 3;
 
-		drawDebug(this._scene.context, this.getTopLeft().x, this.getTopLeft().y);
-		drawDebug(this._scene.context, this.getTopCenter().x, this.getTopCenter().y);
-		drawDebug(this._scene.context, this.getTopRight().x, this.getTopRight().y);
+		drawDebug(this._globalStateManager.context, this.getTopLeft().x, this.getTopLeft().y);
+		drawDebug(this._globalStateManager.context, this.getTopCenter().x, this.getTopCenter().y);
+		drawDebug(this._globalStateManager.context, this.getTopRight().x, this.getTopRight().y);
 
-		drawDebug(this._scene.context, this.getLeftCenter().x, this.getLeftCenter().y);
-		drawDebug(this._scene.context, this.getRightCenter().x, this.getRightCenter().y);
-		drawDebug(this._scene.context, this.getBottomLeft().x, this.getBottomLeft().y);
+		drawDebug(this._globalStateManager.context, this.getLeftCenter().x, this.getLeftCenter().y);
+		drawDebug(this._globalStateManager.context, this.getRightCenter().x, this.getRightCenter().y);
+		drawDebug(this._globalStateManager.context, this.getBottomLeft().x, this.getBottomLeft().y);
 
-		drawDebug(this._scene.context, this.getBottomCenter().x, this.getBottomCenter().y);
-		drawDebug(this._scene.context, this.getCenter().x, this.getCenter().y);
-		drawDebug(this._scene.context, this.getBottomRight().x, this.getBottomRight().y);
+		drawDebug(this._globalStateManager.context, this.getBottomCenter().x, this.getBottomCenter().y);
+		drawDebug(this._globalStateManager.context, this.getCenter().x, this.getCenter().y);
+		drawDebug(this._globalStateManager.context, this.getBottomRight().x, this.getBottomRight().y);
 
 		function drawDebug(context, x, y) {
 			context.beginPath();
@@ -179,9 +183,9 @@ export default class GameObject {
 	}
 
 	_debugVelocity() {
-		this._scene.context.beginPath();
-		this._scene.context.moveTo(this.x, this.y);
-		this._scene.context.lineTo(this.x + this.velocity.x, this.y + this.velocity.y);
-		this._scene.context.stroke();
+		this._globalStateManager.context.beginPath();
+		this._globalStateManager.context.moveTo(this.getCenterX(), this.getCenterY());
+		this._globalStateManager.context.lineTo(this.getCenterX() + this.velocity.x, this.getCenterY() + this.velocity.y);
+		this._globalStateManager.context.stroke();
 	}
 }

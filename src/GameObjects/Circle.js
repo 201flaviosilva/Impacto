@@ -1,8 +1,8 @@
-import GameObject from './GameObject.js';
+import GameObject from "./GameObject.js";
 
 export default class Circle extends GameObject {
-	constructor(scene, x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
-		super(scene, x, y, fillColor, strokeColor);
+	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
+		super(x, y, fillColor, strokeColor);
 		this.radius = radius;
 
 		this._type = "Circle";
@@ -38,16 +38,16 @@ export default class Circle extends GameObject {
 	}
 
 	_renderType() {
-		this._scene.context.beginPath();
-		this._scene.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-		this._scene.context.fill();
-		this._scene.context.stroke();
+		this._globalStateManager.context.beginPath();
+		this._globalStateManager.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+		this._globalStateManager.context.fill();
+		this._globalStateManager.context.stroke();
 	}
 
 	_debugBody() {
 		if (!this.active) return;
-		this._scene.context.fillStyle = "rgba(0, 0, 0, 0)";
-		this._scene.context.strokeStyle = this._strokeDebugColor;
+		this._globalStateManager.context.fillStyle = "rgba(0, 0, 0, 0)";
+		this._globalStateManager.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
 	}
 }

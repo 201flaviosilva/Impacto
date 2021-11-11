@@ -1,3 +1,5 @@
+import GlobalStateManager from "./State/GlobalStateManager.js";
+
 export default class Game {
 	constructor(config) {
 		this.canvas = document.createElement("canvas");
@@ -6,15 +8,22 @@ export default class Game {
 
 		this.context = this.canvas.getContext("2d");
 
-		if (config.parent) document.getElementById(config.parent).appendChild(this.canvas);
+		if (config.parent) document.getElementById(config.parent)?.appendChild(this.canvas);
 		else document.body.appendChild(this.canvas);
 
 		this.configuration = config;
 
-		new config.scene({
+		new GlobalStateManager({
+			parentDom: document.getElementById(config.parent),
 			canvas: this.canvas,
 			context: this.context,
-			configuration: this.configuration,
+			viewportDimensions: {
+				width: config.width,
+				height: config.height,
+			},
+			backgroundColor: config.backgroundColor,
+			debug: config.debug,
+			scene: config.scene,
 		});
 	}
 }
