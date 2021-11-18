@@ -14,11 +14,11 @@ export default class OverlapDetection {
 		let dx = Math.abs(circle.x - (rect.x + rect.width / 2));
 		let dy = Math.abs(circle.y - (rect.y + rect.height / 2));
 
-		if (dx > circle.radius + rect.width / 2) { return (false); }
-		if (dy > circle.radius + rect.height / 2) { return (false); }
+		if (dx > circle.radius + rect.width / 2) return (false);
+		if (dy > circle.radius + rect.height / 2) return (false);
 
-		if (dx <= rect.width) { return (true); }
-		if (dy <= rect.height) { return (true); }
+		if (dx <= rect.width) return (true);
+		if (dy <= rect.height) return (true);
 
 		dx = dx - rect.width;
 		dy = dy - rect.height
@@ -31,5 +31,4 @@ export default class OverlapDetection {
 		const distance = Math.sqrt(dx * dx + dy * dy);
 		return (distance < circle1.radius + circle2.radius);
 	}
-
 }

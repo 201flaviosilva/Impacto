@@ -20,6 +20,7 @@ export default class GameObject {
 
 		// Physics
 		this.active = true;
+		this.immutable = false;
 		this.velocity = { x: 0, y: 0, };
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
@@ -36,10 +37,12 @@ export default class GameObject {
 	setZ(z) { this.setPosition(this.x, this.y, z); }
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
 	setPosition(x, y, z = this.z) {
+		if (this.immutable) return;
+		this._lastPosition = { x: this.x, y: this.y, z: this.z };
+
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 	}
 	setRandomPosition(x = 0, y = 0, width = this._globalStateManager.viewportDimensions.width, height = this._globalStateManager.viewportDimensions.height) {
 		do {
@@ -71,10 +74,13 @@ export default class GameObject {
 
 	// Physics
 	setActive(isActive) { this.active = isActive; }
+	setImmutable(isImmutable) { this.immutable = isImmutable; }
 
 	setVelocityX(x) { this.setVelocity(x, this.velocity.y); }
 	setVelocityY(y) { this.setVelocity(this.velocity.x, y); }
 	setVelocity(x, y = x) {
+		if (this.immutable) return;
+
 		this.velocity.x = x;
 		this.velocity.y = y;
 	}
@@ -117,27 +123,31 @@ export default class GameObject {
 
 
 	// ----- Private methods -----
-	_collisionWorldBounds() {
+	_handleCollisionWorldBounds() {
 		if (this.checkLeftCollisionWorldBounds() || this.checkRightCollisionWorldBounds()) {
-			this.velocity.x *= -this.bounce.x;
-			this.x += this.velocity.x * this._sceneManager.deltaTime;
+			this.setVelocityX(-this.velocity.x * this.bounce.x);
+			this.setX(this._lastPosition.x + this.velocity.x * this._sceneManager.deltaTime);
 		} else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
-			this.velocity.y *= -this.bounce.y;
-			this.y += this.velocity.y * this._sceneManager.deltaTime;
+			this.setVelocityY(-this.velocity.y * this.bounce.y);
+			this.setY(this._lastPosition.y + this.velocity.y * this._sceneManager.deltaTime);
 		}
 	}
 
 	_step() {
 		if (!this.active) return;
 
-		this.velocity.x *= this.friction.x;
-		this.velocity.y *= this.friction.y;
+		this.setVelocity(
+			this.velocity.x * this.friction.x,
+			this.velocity.y * this.friction.y
+		);
 
-		this._lastPosition = { x: this.x, y: this.y, z: this.z };
-		this.x += this.velocity.x * this._sceneManager.deltaTime;
-		this.y += this.velocity.y * this._sceneManager.deltaTime;
+		if (this.collisionWorldBounds) this._handleCollisionWorldBounds();
 
-		if (this.collisionWorldBounds) this._collisionWorldBounds();
+		this.setPosition(
+			this.x + this.velocity.x * this._sceneManager.deltaTime,
+			this.y + this.velocity.y * this._sceneManager.deltaTime
+		);
+
 
 		this._overlapObjects();
 	}
