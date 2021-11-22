@@ -4,6 +4,9 @@ import SceneManager from "../Scenes/SceneManager.js";
 import Utils from "../Utils/Utils.js";
 const utils = new Utils();
 
+import PositionPrevisions from "../Utils/PositionPrevisions.js";
+const positionPrevisions = new PositionPrevisions();
+
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
 		this._globalStateManager = new GlobalStateManager();
@@ -102,7 +105,7 @@ export default class GameObject {
 	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
 	addOverlapObject(gameObject) { this.overlapObjects.push(gameObject); }
 
-	// Check Collision With World Bounds
+	// Check Current Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
 	checkBottomCollisionWorldBounds() { return this.getBottom() >= this._globalStateManager.viewportDimensions.height; }
 	checkLeftCollisionWorldBounds() { return this.getLeft() <= 0; }
@@ -123,25 +126,25 @@ export default class GameObject {
 
 
 	// ----- Private methods -----
-	_handleCollisionWorldBounds() {
-		if (this.checkLeftCollisionWorldBounds() || this.checkRightCollisionWorldBounds()) {
-			this.setVelocityX(-this.velocity.x * this.bounce.x);
-			this.setX(this._lastPosition.x + this.velocity.x * this._sceneManager.deltaTime);
-		} else if (this.checkTopCollisionWorldBounds() || this.checkBottomCollisionWorldBounds()) {
-			this.setVelocityY(-this.velocity.y * this.bounce.y);
-			this.setY(this._lastPosition.y + this.velocity.y * this._sceneManager.deltaTime);
-		}
-	}
-
 	_step() {
 		if (!this.active) return;
+
+		if (this.collisionWorldBounds) {
+			if (positionPrevisions.checkNextPrevisionTopCollisionWorldBounds(this)
+				|| positionPrevisions.checkNextPrevisionBottomCollisionWorldBounds(this)) {
+				this.setVelocityY(-(this.velocity.y * this.bounce.y));
+			}
+
+			if (positionPrevisions.checkNextPrevisionLeftCollisionWorldBounds(this)
+				|| positionPrevisions.checkNextPrevisionRightCollisionWorldBounds(this)) {
+				this.setVelocityX(-(this.velocity.x * this.bounce.x));
+			}
+		}
 
 		this.setVelocity(
 			this.velocity.x * this.friction.x,
 			this.velocity.y * this.friction.y
 		);
-
-		if (this.collisionWorldBounds) this._handleCollisionWorldBounds();
 
 		this.setPosition(
 			this.x + this.velocity.x * this._sceneManager.deltaTime,
