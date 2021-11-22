@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto - Gravity</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Gravity</h1>
+	<div id="GameContainer"></div>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+			start() {
+				const circle = new Impacto.Circle(400, 300, 25);
+				circle.setCollisionWorldBounds(true);
+				this.addChild(circle);
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			gravity: { x: -1, y: 2, },
+			parent: "GameContainer",
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>

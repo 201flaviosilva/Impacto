@@ -132,25 +132,24 @@ export default class GameObject {
 		if (this.collisionWorldBounds) {
 			if (positionPrevisions.checkNextPrevisionTopCollisionWorldBounds(this)
 				|| positionPrevisions.checkNextPrevisionBottomCollisionWorldBounds(this)) {
-				this.setVelocityY(-(this.velocity.y * this.bounce.y));
+				this.setVelocityY(-(this.velocity.y * this.bounce.y + this._globalStateManager.gravity.y));
 			}
 
 			if (positionPrevisions.checkNextPrevisionLeftCollisionWorldBounds(this)
 				|| positionPrevisions.checkNextPrevisionRightCollisionWorldBounds(this)) {
-				this.setVelocityX(-(this.velocity.x * this.bounce.x));
+				this.setVelocityX(-(this.velocity.x * this.bounce.x + this._globalStateManager.gravity.x));
 			}
 		}
 
 		this.setVelocity(
-			this.velocity.x * this.friction.x,
-			this.velocity.y * this.friction.y
+			this.velocity.x * this.friction.x + this._globalStateManager.gravity.x,
+			this.velocity.y * this.friction.y + this._globalStateManager.gravity.y
 		);
 
 		this.setPosition(
 			this.x + this.velocity.x * this._sceneManager.deltaTime,
 			this.y + this.velocity.y * this._sceneManager.deltaTime
 		);
-
 
 		this._overlapObjects();
 	}

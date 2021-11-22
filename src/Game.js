@@ -13,6 +13,10 @@ export default class Game {
 
 		this.configuration = config;
 
+		if (!config.gravity) config.gravity = { x: 0, y: 0, };
+		if (config.gravity.x === undefined) config.gravity.x = 0;
+		if (config.gravity.y === undefined) config.gravity.y = 0;
+
 		const globalStateManager = new GlobalStateManager();
 		globalStateManager.setConfig({
 			parentDom: document.getElementById(config.parent),
@@ -24,6 +28,7 @@ export default class Game {
 			},
 			backgroundColor: config.backgroundColor,
 			debug: config.debug,
+			gravity: config.gravity,
 			scene: config.scene,
 		});
 	}

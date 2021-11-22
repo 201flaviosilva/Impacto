@@ -18,7 +18,7 @@ export default class GlobalStateManager {
 		};
 		this.backgroundColor = config.backgroundColor;
 		this.debug = config.debug;
-
+		this.gravity = config.gravity;
 
 		this.sceneManager.addScene(config.scene);
 		this.sceneManager.startScene(0);
