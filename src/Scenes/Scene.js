@@ -1,6 +1,9 @@
 export default class Scene {
 	constructor() {
 		this.children = [];
+		this.collisions = {
+			layer1: [],
+		};
 	}
 
 	addChild(child) {

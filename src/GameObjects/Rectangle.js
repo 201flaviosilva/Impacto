@@ -1,4 +1,7 @@
-import GameObject from './GameObject.js';
+import GameObject from "./GameObject.js";
+
+import PositionPrevisions from "../Utils/PositionPrevisions.js";
+const positionPrevisions = new PositionPrevisions();
 
 export default class Rectangle extends GameObject {
 	constructor(x, y, width = 100, height = 100, fillColor = "#ffffff", strokeColor = "#000000") {
@@ -37,6 +40,22 @@ export default class Rectangle extends GameObject {
 			obj.getRight() >= this.getLeft() &&
 			obj.getTop() <= this.getBottom() &&
 			obj.getBottom() >= this.getTop();
+	}
+
+	checkIsCollidingWith(other) {
+		const nextPosition = positionPrevisions.getNextPrevPosition(this);
+
+		const nextBoxBounds = {
+			x: nextPosition.x,
+			y: nextPosition.y,
+			width: this.width,
+			height: this.height
+		};
+
+		if (other._type === "Rect") return this._overlapDetection.rectangleAndRectangle(nextBoxBounds, other);
+		else if (other._type === "Circle") return this._overlapDetection.rectangleAndCircle(nextBoxBounds, other);
+
+		return false;
 	}
 
 	// ----- Private methods -----

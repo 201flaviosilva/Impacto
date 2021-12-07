@@ -37,6 +37,30 @@ export default class SceneManager {
 		this.updateDeltaTime();
 
 		if (this.currentScene) {
+			// Collision
+			const layersKeys = Object.keys(this.currentScene.collisions);
+			layersKeys.forEach(layerKey => {
+				const layer = this.currentScene.collisions[layerKey];
+				layer.forEach((gameObject1, index1) => {
+					layer.forEach((gameObject2, index2) => {
+						if (index1 < index2) {
+							if (gameObject1.checkIsCollidingWith(gameObject2)) {
+								gameObject1.setVelocity(
+									(gameObject1.velocity.x - gameObject2.velocity.x) * gameObject1.bounce.x - this.globalStateManager.gravity.x,
+									(gameObject1.velocity.y - gameObject2.velocity.y) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+								);
+
+								gameObject2.setVelocity(
+									(gameObject2.velocity.x - gameObject1.velocity.x) * gameObject2.bounce.x - this.globalStateManager.gravity.x,
+									(gameObject2.velocity.y - gameObject1.velocity.y) * gameObject2.bounce.y - this.globalStateManager.gravity.y
+								);
+
+							}
+						}
+					});
+				});
+			});
+
 			this.currentScene.children.forEach(child => {
 				child._step();
 			});

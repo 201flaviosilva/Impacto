@@ -1,5 +1,8 @@
 import GameObject from "./GameObject.js";
 
+import PositionPrevisions from "../Utils/PositionPrevisions.js";
+const positionPrevisions = new PositionPrevisions();
+
 export default class Circle extends GameObject {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
@@ -20,6 +23,21 @@ export default class Circle extends GameObject {
 	getCenterY() { return this.y; }
 
 	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.radius * 2, height: this.radius * 2 }; }
+
+	checkIsCollidingWith(other) {
+		const nextPosition = positionPrevisions.getNextPrevPosition(this);
+
+		const nextCircleBounds = {
+			x: nextPosition.x - this.radius,
+			y: nextPosition.y - this.radius,
+			width: this.radius * 2,
+		};
+
+		if (other._type === "Rect") return this._overlapDetection.rectangleAndCircle(other, nextCircleBounds);
+		else if (other._type === "Circle") return this._overlapDetection.circleAndCircle(nextCircleBounds, other);
+
+		return false;
+	}
 
 
 	// ----- Private methods -----
