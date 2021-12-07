@@ -37,11 +37,11 @@ export default class SceneManager {
 		this.updateDeltaTime();
 
 		if (this.currentScene) {
-			this.currentScene.update(this.deltaTime);
-
 			this.currentScene.children.forEach(child => {
 				child._step();
 			});
+
+			this.currentScene.update(this.deltaTime);
 
 			this.render();
 		}
