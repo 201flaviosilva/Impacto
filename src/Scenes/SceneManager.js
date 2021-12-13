@@ -83,7 +83,8 @@ export default class SceneManager {
 			this.globalStateManager.context.fillRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
 		}
 
-		this.currentScene.children.forEach(child => {
+		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
+		zSortedChildren.forEach(child => {
 			child._render();
 			if (this.globalStateManager.debug) child._debug();
 		});
