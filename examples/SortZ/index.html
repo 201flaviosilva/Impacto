@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Sort Z</h1>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+
+			start() {
+				const collisionRect1 = new Impacto.Rectangle(100, 100, 50, 50, "#ff0000");
+				this.addChild(collisionRect1);
+
+				const collisionRect2 = new Impacto.Rectangle(125, 125, 50, 50, "#00ff00");
+				collisionRect2.setZ(2);
+				this.addChild(collisionRect2);
+
+				const collisionRect3 = new Impacto.Rectangle(150, 150, 50, 50, "#0000ff");
+				collisionRect3.setZ(1);
+				this.addChild(collisionRect3);
+
+				const collisionRect4 = new Impacto.Rectangle(175, 175, 50, 50, "#ff00ff");
+				collisionRect4.setZ(0);
+				this.addChild(collisionRect4);
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>
