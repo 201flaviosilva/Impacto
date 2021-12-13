@@ -42,20 +42,41 @@ export default class Rectangle extends GameObject {
 			obj.getBottom() >= this.getTop();
 	}
 
-	checkIsCollidingWith(other) {
+	getNextBoxBound() {
 		const nextPosition = positionPrevisions.getNextPrevPosition(this);
-
-		const nextBoxBounds = {
+		return {
 			x: nextPosition.x,
 			y: nextPosition.y,
 			width: this.width,
 			height: this.height
 		};
+	}
 
-		if (other._type === "Rect") return this._overlapDetection.rectangleAndRectangle(nextBoxBounds, other);
-		else if (other._type === "Circle") return this._overlapDetection.rectangleAndCircle(nextBoxBounds, other);
+	checkWillCollideTopWith(other) {
+		const nextBoxBounds = this.getNextBoxBound();
+		return other.getBottom() >= nextBoxBounds.y && other.getTop() <= nextBoxBounds.y;
+	}
 
-		return false;
+	checkWillCollideBottomWith(other) {
+		const nextBoxBounds = this.getNextBoxBound();
+		return other.getTop() <= nextBoxBounds.y + nextBoxBounds.height && other.getBottom() <= nextBoxBounds.y + nextBoxBounds.height;
+	}
+
+	checkWillCollideLeftWith(other) {
+		const nextBoxBounds = this.getNextBoxBound();
+		return other.getRight() >= nextBoxBounds.x && other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width;
+	}
+
+	checkWillCollideRightWith(other) {
+		const nextBoxBounds = this.getNextBoxBound();
+		return other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width && other.getRight() >= nextBoxBounds.x;
+	}
+
+	checkWillCollideWith(other) {
+		return this.checkWillCollideTopWith(other) ||
+			this.checkWillCollideBottomWith(other) ||
+			this.checkWillCollideLeftWith(other) ||
+			this.checkWillCollideRightWith(other);
 	}
 
 	// ----- Private methods -----

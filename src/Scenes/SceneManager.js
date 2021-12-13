@@ -44,18 +44,50 @@ export default class SceneManager {
 				layer.forEach((gameObject1, index1) => {
 					layer.forEach((gameObject2, index2) => {
 						if (index1 < index2) {
-							if (gameObject1.checkIsCollidingWith(gameObject2)) {
-								gameObject1.setVelocity(
-									(gameObject1.velocity.x - gameObject2.velocity.x) * gameObject1.bounce.x - this.globalStateManager.gravity.x,
+							const lastGameObject1XVelocity = gameObject1.velocity.x;
+							const lastGameObject1YVelocity = gameObject1.velocity.y;
+
+							if (gameObject1.checkWillCollideTopWith(gameObject2)) {
+
+								gameObject1.setVelocityY(
+									-(gameObject1.velocity.y - gameObject2.velocity.y) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+								);
+
+								gameObject2.setVelocityY(
+									(gameObject2.velocity.y - lastGameObject1YVelocity) * gameObject2.bounce.y - this.globalStateManager.gravity.y,
+								);
+							}
+
+							if (gameObject1.checkWillCollideBottomWith(gameObject2)) {
+								gameObject1.setVelocityY(
 									(gameObject1.velocity.y - gameObject2.velocity.y) * gameObject1.bounce.y - this.globalStateManager.gravity.y
 								);
 
-								gameObject2.setVelocity(
-									(gameObject2.velocity.x - gameObject1.velocity.x) * gameObject2.bounce.x - this.globalStateManager.gravity.x,
-									(gameObject2.velocity.y - gameObject1.velocity.y) * gameObject2.bounce.y - this.globalStateManager.gravity.y
+								gameObject2.setVelocityY(
+									-(gameObject2.velocity.y - lastGameObject1YVelocity) * gameObject2.bounce.y - this.globalStateManager.gravity.x,
+								);
+							}
+
+							if (gameObject1.checkWillCollideLeftWith(gameObject2)) {
+								gameObject1.setVelocityX(
+									-(gameObject1.velocity.x - gameObject2.velocity.x) * gameObject1.bounce.x - this.globalStateManager.gravity.x
 								);
 
+								gameObject2.setVelocityX(
+									(gameObject2.velocity.x - lastGameObject1XVelocity) * gameObject2.bounce.x - this.globalStateManager.gravity.x,
+								);
 							}
+
+							if (gameObject1.checkWillCollideRightWith(gameObject2)) {
+								gameObject1.setVelocityX(
+									(gameObject1.velocity.x - gameObject2.velocity.x) * gameObject1.bounce.x - this.globalStateManager.gravity.x,
+								);
+
+								gameObject2.setVelocityX(
+									-(gameObject2.velocity.x - lastGameObject1XVelocity) * gameObject2.bounce.x - this.globalStateManager.gravity.x,
+								);
+							}
+
 						}
 					});
 				});
