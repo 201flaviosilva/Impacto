@@ -2,13 +2,32 @@
   "name": "impacto",
   "version": "0.5.0",
   "description": "Um simples motor de fisica em JavaScript",
-  "main": "/src/Impacto.js",
+  "main": "dist/Impacto.cjs.js",
+  "module": "dist/Impacto.esm.js",
+  "browser": "dist/Impacto.umd.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clear": "rm -rf dist",
+    "build": "npm run clear && rollup -c",
+    "test": "node test/spec",
+    "pretest": "npm run build",
+    "beta": "npm run build && npm publish --tag beta",
+    "package": "npm run build && npm publish"
   },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "rollup": "^2.61.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/201flaviosilva/Impacto.git"
