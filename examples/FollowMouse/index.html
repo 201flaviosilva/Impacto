@@ -19,8 +19,8 @@
 
 		class Game extends Impacto.Scene {
 			start() {
-				this.circle = new Impacto.Circle(400, 300, 25);
-				this.addChild(this.circle);
+				this.rectangle = new Impacto.Rectangle(400, 300, 25, 25);
+				this.addChild(this.rectangle);
 			}
 
 			update() {
@@ -30,7 +30,7 @@
 				// console.log(Impacto.Inputs.Mouse.getButtonKeyByName("right"));
 				// console.log(Impacto.Inputs.Mouse.isButtonDownByName("left"));
 				// console.log(Impacto.Inputs.Mouse.isButtonDownByButtonCode(2));
-				this.circle.setPosition(Impacto.Inputs.Mouse.getPosition().x, Impacto.Inputs.Mouse.getPosition().y);
+				this.rectangle.setPosition(Impacto.Inputs.Mouse.getPosition().x, Impacto.Inputs.Mouse.getPosition().y);
 			}
 		}
 

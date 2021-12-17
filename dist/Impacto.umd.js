@@ -167,9 +167,20 @@
             layer.forEach(function (gameObject1, index1) {
               layer.forEach(function (gameObject2, index2) {
                 if (index1 < index2) {
-                  if (gameObject1.checkIsCollidingWith(gameObject2)) {
-                    gameObject1.setVelocity((gameObject1.velocity.x - gameObject2.velocity.x) * gameObject1.bounce.x - _this2.globalStateManager.gravity.x, (gameObject1.velocity.y - gameObject2.velocity.y) * gameObject1.bounce.y - _this2.globalStateManager.gravity.y);
-                    gameObject2.setVelocity((gameObject2.velocity.x - gameObject1.velocity.x) * gameObject2.bounce.x - _this2.globalStateManager.gravity.x, (gameObject2.velocity.y - gameObject1.velocity.y) * gameObject2.bounce.y - _this2.globalStateManager.gravity.y);
+                  var lastGameObject1XVelocity = gameObject1.velocity.x;
+                  var lastGameObject1YVelocity = gameObject1.velocity.y;
+                  var lastGameObject2XVelocity = gameObject2.velocity.x;
+                  var lastGameObject2YVelocity = gameObject2.velocity.y; // Vertical
+
+                  if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
+                    gameObject1.setVelocityY(lastGameObject2YVelocity * gameObject1.bounce.y - _this2.globalStateManager.gravity.y);
+                    gameObject2.setVelocityY(lastGameObject1YVelocity * gameObject2.bounce.y - _this2.globalStateManager.gravity.y);
+                  } // Horizontal
+
+
+                  if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
+                    gameObject1.setVelocityX(lastGameObject2XVelocity * gameObject1.bounce.x - _this2.globalStateManager.gravity.x);
+                    gameObject2.setVelocityX(lastGameObject1XVelocity * gameObject2.bounce.x - _this2.globalStateManager.gravity.x);
                   }
                 }
               });
@@ -296,6 +307,11 @@
       value: function removeChild(child) {
         var index = this.children.indexOf(child);
         if (index > -1) this.children.splice(index, 1);
+      }
+    }, {
+      key: "createNewCollisionLayer",
+      value: function createNewCollisionLayer(name) {
+        this.collisions[name] = [];
       }
     }, {
       key: "start",
@@ -435,7 +451,7 @@
   }();
 
   var utils = new Utils();
-  var positionPrevisions$2 = new PositionPrevisions();
+  var positionPrevisions$1 = new PositionPrevisions();
 
   var GameObject = /*#__PURE__*/function () {
     function GameObject(x, y, fillColor, strokeColor) {
@@ -471,7 +487,6 @@
         y: 1
       };
       this.collisionWorldBounds = false;
-      this.overlapObjects = [];
       this._overlapDetection = utils.overlapDetection;
       this._strokeDebugColor = "#00ff00";
     } // Render
@@ -683,11 +698,6 @@
       key: "setCollisionWorldBounds",
       value: function setCollisionWorldBounds(collisionWorldBounds) {
         this.collisionWorldBounds = collisionWorldBounds;
-      }
-    }, {
-      key: "addOverlapObject",
-      value: function addOverlapObject(gameObject) {
-        this.overlapObjects.push(gameObject);
       } // Check Current Collision With World Bounds
 
     }, {
@@ -727,19 +737,17 @@
         if (!this.active) return;
 
         if (this.collisionWorldBounds) {
-          if (positionPrevisions$2.checkNextPrevisionTopCollisionWorldBounds(this) || positionPrevisions$2.checkNextPrevisionBottomCollisionWorldBounds(this)) {
+          if (positionPrevisions$1.checkNextPrevisionTopCollisionWorldBounds(this) || positionPrevisions$1.checkNextPrevisionBottomCollisionWorldBounds(this)) {
             this.setVelocityY(-(this.velocity.y * this.bounce.y + this._globalStateManager.gravity.y));
           }
 
-          if (positionPrevisions$2.checkNextPrevisionLeftCollisionWorldBounds(this) || positionPrevisions$2.checkNextPrevisionRightCollisionWorldBounds(this)) {
+          if (positionPrevisions$1.checkNextPrevisionLeftCollisionWorldBounds(this) || positionPrevisions$1.checkNextPrevisionRightCollisionWorldBounds(this)) {
             this.setVelocityX(-(this.velocity.x * this.bounce.x + this._globalStateManager.gravity.x));
           }
         }
 
         this.setVelocity(this.velocity.x * this.friction.x + this._globalStateManager.gravity.x, this.velocity.y * this.friction.y + this._globalStateManager.gravity.y);
         this.setPosition(this.x + this.velocity.x * this._sceneManager.deltaTime, this.y + this.velocity.y * this._sceneManager.deltaTime);
-
-        this._overlapObjects();
       }
     }, {
       key: "_render",
@@ -798,7 +806,7 @@
     return GameObject;
   }();
 
-  var positionPrevisions$1 = new PositionPrevisions();
+  var positionPrevisions = new PositionPrevisions();
 
   var Rectangle = /*#__PURE__*/function (_GameObject) {
     _inherits(Rectangle, _GameObject);
@@ -905,37 +913,60 @@
       key: "checkOverlap",
       value: function checkOverlap(obj) {
         return obj.getLeft() <= this.getRight() && obj.getRight() >= this.getLeft() && obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getTop();
-      }
+      } // Zone: Detect Collision
+
     }, {
-      key: "checkIsCollidingWith",
-      value: function checkIsCollidingWith(other) {
-        var nextPosition = positionPrevisions$1.getNextPrevPosition(this);
-        var nextBoxBounds = {
+      key: "getNextBoxBound",
+      value: function getNextBoxBound() {
+        var nextPosition = positionPrevisions.getNextPrevPosition(this);
+        return {
           x: nextPosition.x,
           y: nextPosition.y,
           width: this.width,
           height: this.height
         };
-        if (other._type === "Rect") return this._overlapDetection.rectangleAndRectangle(nextBoxBounds, other);else if (other._type === "Circle") return this._overlapDetection.rectangleAndCircle(nextBoxBounds, other);
-        return false;
-      } // ----- Private methods -----
-
-    }, {
-      key: "_overlapObjects",
-      value: function _overlapObjects() {
-        var _this2 = this;
-
-        this.overlapObjects.map(function (obj) {
-          var isColliding;
-          if (obj._type === "Rect") isColliding = _this2._overlapDetection.rectangleAndRectangle(_this2, obj);else if (obj._type === "Circle") isColliding = _this2._overlapDetection.rectangleAndCircle(_this2, obj);
-
-          if (isColliding) {
-            _this2.setVelocity(0);
-
-            obj.setVelocity(0);
-          }
-        });
       }
+    }, {
+      key: "checkWillCollideTopWith",
+      value: function checkWillCollideTopWith(other) {
+        var nextBoxBounds = this.getNextBoxBound();
+        return other.getBottom() >= nextBoxBounds.y && other.getTop() <= nextBoxBounds.y + nextBoxBounds.height;
+      }
+    }, {
+      key: "checkWillCollideBottomWith",
+      value: function checkWillCollideBottomWith(other) {
+        var nextBoxBounds = this.getNextBoxBound();
+        return other.getTop() <= nextBoxBounds.y + nextBoxBounds.height && other.getBottom() >= nextBoxBounds.y;
+      }
+    }, {
+      key: "checkWillCollideLeftWith",
+      value: function checkWillCollideLeftWith(other) {
+        var nextBoxBounds = this.getNextBoxBound();
+        return other.getRight() >= nextBoxBounds.x && other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width;
+      }
+    }, {
+      key: "checkWillCollideRightWith",
+      value: function checkWillCollideRightWith(other) {
+        var nextBoxBounds = this.getNextBoxBound();
+        return other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width && other.getRight() >= nextBoxBounds.x;
+      }
+    }, {
+      key: "checkWillCollideVerticalWith",
+      value: function checkWillCollideVerticalWith(other) {
+        return this.checkWillCollideTopWith(other) || this.checkWillCollideBottomWith(other);
+      }
+    }, {
+      key: "checkWillCollideHorizontalWith",
+      value: function checkWillCollideHorizontalWith(other) {
+        return this.checkWillCollideLeftWith(other) || this.checkWillCollideRightWith(other);
+      }
+    }, {
+      key: "checkWillCollideWith",
+      value: function checkWillCollideWith(other) {
+        return this.checkWillCollideTopWith(other) || this.checkWillCollideBottomWith(other) || this.checkWillCollideLeftWith(other) || this.checkWillCollideRightWith(other);
+      } // End Zone: Detect Collision
+      // ----- Private methods -----
+
     }, {
       key: "_renderType",
       value: function _renderType() {
@@ -956,7 +987,7 @@
     return Rectangle;
   }(GameObject);
 
-  var positionPrevisions = new PositionPrevisions();
+  new PositionPrevisions();
 
   var Circle = /*#__PURE__*/function (_GameObject) {
     _inherits(Circle, _GameObject);
@@ -1027,36 +1058,8 @@
           width: this.radius * 2,
           height: this.radius * 2
         };
-      }
-    }, {
-      key: "checkIsCollidingWith",
-      value: function checkIsCollidingWith(other) {
-        var nextPosition = positionPrevisions.getNextPrevPosition(this);
-        var nextCircleBounds = {
-          x: nextPosition.x - this.radius,
-          y: nextPosition.y - this.radius,
-          width: this.radius * 2
-        };
-        if (other._type === "Rect") return this._overlapDetection.rectangleAndCircle(other, nextCircleBounds);else if (other._type === "Circle") return this._overlapDetection.circleAndCircle(nextCircleBounds, other);
-        return false;
       } // ----- Private methods -----
 
-    }, {
-      key: "_overlapObjects",
-      value: function _overlapObjects() {
-        var _this2 = this;
-
-        this.overlapObjects.map(function (obj) {
-          var isOverlapping;
-          if (obj._type === "Rect") isOverlapping = _this2._overlapDetection.rectangleAndCircle(obj, _this2);else if (obj._type === "Circle") isOverlapping = _this2._overlapDetection.circleAndCircle(_this2, obj);
-
-          if (isOverlapping) {
-            _this2.setVelocity(0);
-
-            obj.setVelocity(0);
-          }
-        });
-      }
     }, {
       key: "_renderType",
       value: function _renderType() {

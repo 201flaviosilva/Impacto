@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<h1>Impacto - Random Bounce Balls</h1>
+	<h1>Impacto - Friction Bounce</h1>
 
 	<script type="module">
 		console.clear();
@@ -22,18 +22,12 @@
 				const objects = [];
 				const randomBalls = Impacto.Utils.randomNumber(10, 100);
 
-				for (let i = 0; i < randomBalls; i++) {
-					const newObject = new Impacto.Circle(0, 0, Impacto.Utils.randomNumber(2, 20), Impacto.Utils.randomColor());
-					newObject.setRandomPosition();
-					newObject.setVelocity(Impacto.Utils.randomNumber(-5, 5), Impacto.Utils.randomNumber(-5, 5));
-					newObject.setBounce(1);
-					newObject.setCollisionWorldBounds(true);
-
-					objects.map(object => newObject.addOverlapObject(object));
-
-					objects.push(newObject);
-					this.addChild(newObject);
-				}
+				this.rectangle = new Impacto.Rectangle(800 / 2, 600 / 2);
+				this.rectangle.setVelocity(50, 50);
+				this.rectangle.setBounce(1);
+				this.rectangle.setFriction(0.99);
+				this.rectangle.setCollisionWorldBounds(true);
+				this.addChild(this.rectangle);
 			}
 		}
 
@@ -41,6 +35,7 @@
 			width: 800,
 			height: 600,
 			backgroundColor: "#f0f0f0",
+			debug: true,
 			scene: Game,
 		});
 
