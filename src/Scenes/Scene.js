@@ -15,6 +15,10 @@ export default class Scene {
 		if (index > -1) this.children.splice(index, 1);
 	}
 
+	createNewCollisionLayer(name) {
+		this.collisions[name] = [];
+	}
+
 	start() { }
 	update(delta) { }
 }
