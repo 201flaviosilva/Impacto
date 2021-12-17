@@ -14,9 +14,9 @@
     "test": "node test/spec",
     "pretest": "npm run build",
     "beta": "npm run build && npm publish --tag beta",
-    "patch": "npm version patch --force && npm run package",
-    "minor": "npm version minor --force && npm run package",
-    "major": "npm version major --force && npm run package",
+    "patch": "npm run package && npm version patch --force",
+    "minor": "npm run package && npm version minor --force",
+    "major": "npm run package && npm version major --force",
     "package": "npm run build && npm publish"
   },
   "devDependencies": {
