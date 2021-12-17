@@ -24,37 +24,7 @@ export default class Circle extends GameObject {
 
 	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.radius * 2, height: this.radius * 2 }; }
 
-	checkIsCollidingWith(other) {
-		const nextPosition = positionPrevisions.getNextPrevPosition(this);
-
-		const nextCircleBounds = {
-			x: nextPosition.x - this.radius,
-			y: nextPosition.y - this.radius,
-			width: this.radius * 2,
-		};
-
-		if (other._type === "Rect") return this._overlapDetection.rectangleAndCircle(other, nextCircleBounds);
-		else if (other._type === "Circle") return this._overlapDetection.circleAndCircle(nextCircleBounds, other);
-
-		return false;
-	}
-
-
 	// ----- Private methods -----
-	_overlapObjects() {
-		this.overlapObjects.map(obj => {
-			let isOverlapping;
-
-			if (obj._type === "Rect") isOverlapping = this._overlapDetection.rectangleAndCircle(obj, this);
-			else if (obj._type === "Circle") isOverlapping = this._overlapDetection.circleAndCircle(this, obj);
-
-			if (isOverlapping) {
-				this.setVelocity(0);
-				obj.setVelocity(0);
-			}
-		});
-	}
-
 	_renderType() {
 		this._globalStateManager.context.beginPath();
 		this._globalStateManager.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);

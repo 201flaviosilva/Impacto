@@ -91,20 +91,6 @@ export default class Rectangle extends GameObject {
 	// End Zone: Detect Collision
 
 	// ----- Private methods -----
-	_overlapObjects() {
-		this.overlapObjects.map(obj => {
-			let isColliding;
-
-			if (obj._type === "Rect") isColliding = this._overlapDetection.rectangleAndRectangle(this, obj);
-			else if (obj._type === "Circle") isColliding = this._overlapDetection.rectangleAndCircle(this, obj);
-
-			if (isColliding) {
-				this.setVelocity(0);
-				obj.setVelocity(0);
-			}
-		});
-	}
-
 	_renderType() {
 		this._globalStateManager.context.fillRect(this.x, this.y, this.width, this.height);
 		this._globalStateManager.context.strokeRect(this.x, this.y, this.width, this.height);

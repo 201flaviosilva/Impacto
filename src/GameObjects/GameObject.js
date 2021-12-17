@@ -28,7 +28,6 @@ export default class GameObject {
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
 		this.collisionWorldBounds = false;
-		this.overlapObjects = [];
 		this._overlapDetection = utils.overlapDetection;
 		this._strokeDebugColor = "#00ff00";
 	}
@@ -103,7 +102,6 @@ export default class GameObject {
 	}
 
 	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
-	addOverlapObject(gameObject) { this.overlapObjects.push(gameObject); }
 
 	// Check Current Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
@@ -150,8 +148,6 @@ export default class GameObject {
 			this.x + this.velocity.x * this._sceneManager.deltaTime,
 			this.y + this.velocity.y * this._sceneManager.deltaTime
 		);
-
-		this._overlapObjects();
 	}
 
 	_render() {
