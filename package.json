@@ -1,6 +1,6 @@
 {
   "name": "impacto",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Um simples motor de fisica em JavaScript",
   "main": "dist/Impacto.cjs.js",
   "module": "dist/Impacto.esm.js",
@@ -14,9 +14,9 @@
     "test": "node test/spec",
     "pretest": "npm run build",
     "beta": "npm run build && npm publish --tag beta",
-    "patch": "npm run package && npm version patch --force",
-    "minor": "npm run package && npm version minor --force",
-    "major": "npm run package && npm version major --force",
+    "patch": "npm run build && npm version patch --force && npm publish",
+    "minor": "npm run build && npm version minor --force && npm publish",
+    "major": "npm run build && npm version major --force && npm publish",
     "package": "npm run build && npm publish"
   },
   "devDependencies": {
