@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<h1>Impacto - Friction Bounce Ball</h1>
+	<h1>Impacto - Friction Bounce</h1>
 
 	<script type="module">
 		console.clear();
@@ -22,12 +22,12 @@
 				const objects = [];
 				const randomBalls = Impacto.Utils.randomNumber(10, 100);
 
-				this.circle = new Impacto.Circle(800 / 2, 600 / 2, 25);
-				this.circle.setVelocity(50, 50);
-				this.circle.setBounce(1);
-				this.circle.setFriction(0.99);
-				this.circle.setCollisionWorldBounds(true);
-				this.addChild(this.circle);
+				this.rectangle = new Impacto.Rectangle(800 / 2, 600 / 2);
+				this.rectangle.setVelocity(50, 50);
+				this.rectangle.setBounce(1);
+				this.rectangle.setFriction(0.99);
+				this.rectangle.setCollisionWorldBounds(true);
+				this.addChild(this.rectangle);
 			}
 		}
 
