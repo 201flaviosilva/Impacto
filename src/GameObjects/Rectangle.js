@@ -31,15 +31,15 @@ export default class Rectangle extends GameObject {
 	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.width, height: this.height }; }
 
 	// Check Overlap
-	checkTopOverlap(obj) { return obj.getBottom() >= this.getTop() && obj.getTop() <= this.getTop(); }
-	checkBottomOverlap(obj) { return obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getBottom(); }
-	checkLeftOverlap(obj) { return obj.getRight() >= this.getLeft() && obj.getLeft() <= this.getLeft(); }
-	checkRightOverlap(obj) { return obj.getLeft() <= this.getRight() && obj.getRight() >= this.getRight(); }
-	checkOverlap(obj) {
-		return obj.getLeft() <= this.getRight() &&
-			obj.getRight() >= this.getLeft() &&
-			obj.getTop() <= this.getBottom() &&
-			obj.getBottom() >= this.getTop();
+	checkTopOverlap(other) { return other.getBottom() >= this.getTop() && other.getTop() <= this.getTop(); }
+	checkBottomOverlap(other) { return other.getTop() <= this.getBottom() && other.getBottom() >= this.getBottom(); }
+	checkLeftOverlap(other) { return other.getRight() >= this.getLeft() && other.getLeft() <= this.getLeft(); }
+	checkRightOverlap(other) { return other.getLeft() <= this.getRight() && other.getRight() >= this.getRight(); }
+	checkOverlap(other) {
+		return other.getLeft() <= this.getRight() &&
+			other.getRight() >= this.getLeft() &&
+			other.getTop() <= this.getBottom() &&
+			other.getBottom() >= this.getTop();
 	}
 
 	// Zone: Detect Collision
@@ -53,24 +53,42 @@ export default class Rectangle extends GameObject {
 		};
 	}
 
+	getNextBoxBoundTop() { return this.getNextBoxBound().y; }
+	getNextBoxBoundBottom() { return this.getNextBoxBound().y + this.height; }
+	getNextBoxBoundLeft() { return this.getNextBoxBound().x; }
+	getNextBoxBoundRight() { return this.getNextBoxBound().x + this.getNextBoxBound().width; }
+
+	checkWillTopOverlap(other) { return other.getBottom() >= this.getNextBoxBoundTop() && other.getTop() <= this.getNextBoxBoundTop(); }
+	checkWillBottomOverlap(other) { return other.getTop() <= this.getNextBoxBoundBottom() && other.getBottom() >= this.getNextBoxBoundBottom(); }
+	checkWillLeftOverlap(other) { return other.getRight() >= this.getNextBoxBoundLeft() && other.getLeft() <= this.getNextBoxBoundLeft(); }
+	checkWillRightOverlap(other) { return other.getLeft() <= this.getNextBoxBoundRight() && other.getRight() >= this.getNextBoxBoundRight(); }
+
 	checkWillCollideTopWith(other) {
-		const nextBoxBounds = this.getNextBoxBound();
-		return other.getBottom() >= nextBoxBounds.y && other.getTop() <= nextBoxBounds.y + nextBoxBounds.height;
+		if (this.checkWillLeftOverlap(other) || this.checkWillRightOverlap(other)) {
+			return other.getBottom() >= this.getNextBoxBoundTop() && other.getTop() <= this.getNextBoxBoundBottom();
+		}
+		return false;
 	}
 
 	checkWillCollideBottomWith(other) {
-		const nextBoxBounds = this.getNextBoxBound();
-		return other.getTop() <= nextBoxBounds.y + nextBoxBounds.height && other.getBottom() >= nextBoxBounds.y;
+		if (this.checkWillLeftOverlap(other) || this.checkWillRightOverlap(other)) {
+			return other.getTop() <= this.getNextBoxBoundBottom() && other.getBottom() >= this.getNextBoxBoundTop();
+		}
+		return false;
 	}
 
 	checkWillCollideLeftWith(other) {
-		const nextBoxBounds = this.getNextBoxBound();
-		return other.getRight() >= nextBoxBounds.x && other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width;
+		if (this.checkWillTopOverlap(other) || this.checkWillBottomOverlap(other)) {
+			return other.getRight() >= this.getNextBoxBoundLeft() && other.getLeft() <= this.getNextBoxBoundRight();
+		}
+		return false;
 	}
 
 	checkWillCollideRightWith(other) {
-		const nextBoxBounds = this.getNextBoxBound();
-		return other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width && other.getRight() >= nextBoxBounds.x;
+		if (this.checkWillTopOverlap(other) || this.checkWillBottomOverlap(other)) {
+			return other.getLeft() <= this.getNextBoxBoundRight() && other.getRight() >= this.getNextBoxBoundLeft();
+		}
+		return false;
 	}
 
 	checkWillCollideVerticalWith(other) {
