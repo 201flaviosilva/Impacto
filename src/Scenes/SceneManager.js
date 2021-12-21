@@ -44,31 +44,26 @@ export default class SceneManager {
 				layer.forEach((gameObject1, index1) => {
 					layer.forEach((gameObject2, index2) => {
 						if (index1 < index2) {
-							const lastGameObject1XVelocity = gameObject1.velocity.x;
-							const lastGameObject1YVelocity = gameObject1.velocity.y;
-							const lastGameObject2XVelocity = gameObject2.velocity.x;
-							const lastGameObject2YVelocity = gameObject2.velocity.y;
-
 							// Vertical
 							if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
 
 								gameObject1.setVelocityY(
-									lastGameObject2YVelocity * gameObject1.bounce.y - this.globalStateManager.gravity.y
+									(gameObject1.velocity.y * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
 								);
 
 								gameObject2.setVelocityY(
-									lastGameObject1YVelocity * gameObject2.bounce.y - this.globalStateManager.gravity.y,
+									(gameObject2.velocity.y * -1) * gameObject2.bounce.y - this.globalStateManager.gravity.y
 								);
 							}
 
 							// Horizontal
 							if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
 								gameObject1.setVelocityX(
-									lastGameObject2XVelocity * gameObject1.bounce.x - this.globalStateManager.gravity.x
+									(gameObject1.velocity.x * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
 								);
 
 								gameObject2.setVelocityX(
-									lastGameObject1XVelocity * gameObject2.bounce.x - this.globalStateManager.gravity.x,
+									(gameObject2.velocity.x * -1) * gameObject2.bounce.x - this.globalStateManager.gravity.x
 								);
 							}
 						}
