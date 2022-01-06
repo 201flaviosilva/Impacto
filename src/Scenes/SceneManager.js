@@ -46,25 +46,54 @@ export default class SceneManager {
 						if (index1 < index2) {
 							// Vertical
 							if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
+								const lastGameObject1YVelocity = gameObject1.velocity.y;
+								const lastGameObject2YVelocity = gameObject2.velocity.y;
 
-								gameObject1.setVelocityY(
-									(gameObject1.velocity.y * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
-								);
+								if ((lastGameObject1YVelocity > 0 && lastGameObject2YVelocity > 0) ||
+									(lastGameObject1YVelocity < 0 && lastGameObject2YVelocity < 0)
+								) { // Check if the objects are moving in the same direction
+									gameObject1.setVelocityY(
+										(lastGameObject2YVelocity * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+									);
 
-								gameObject2.setVelocityY(
-									(gameObject2.velocity.y * -1) * gameObject2.bounce.y - this.globalStateManager.gravity.y
-								);
+									gameObject2.setVelocityY(
+										lastGameObject1YVelocity * gameObject2.bounce.y - this.globalStateManager.gravity.y
+									);
+								} else {
+									gameObject1.setVelocityY(
+										(lastGameObject1YVelocity * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+									);
+
+									gameObject2.setVelocityY(
+										(lastGameObject2YVelocity * -1) * gameObject2.bounce.y - this.globalStateManager.gravity.y
+									);
+								}
 							}
 
 							// Horizontal
 							if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
-								gameObject1.setVelocityX(
-									(gameObject1.velocity.x * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
-								);
+								const lastGameObject1XVelocity = gameObject1.velocity.x;
+								const lastGameObject2XVelocity = gameObject2.velocity.x;
 
-								gameObject2.setVelocityX(
-									(gameObject2.velocity.x * -1) * gameObject2.bounce.x - this.globalStateManager.gravity.x
-								);
+								if ((lastGameObject1XVelocity > 0 && lastGameObject2XVelocity > 0) ||
+									(lastGameObject1XVelocity < 0 && lastGameObject2XVelocity < 0)
+								) { // Check if the objects are moving in the same direction
+									gameObject1.setVelocityX(
+										(lastGameObject2XVelocity * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
+									);
+
+									gameObject2.setVelocityX(
+										lastGameObject1XVelocity * gameObject2.bounce.x - this.globalStateManager.gravity.x
+									);
+								} else { // Check if the objects are moving in the opposite direction
+									gameObject1.setVelocityX(
+										(lastGameObject1XVelocity * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
+									);
+
+									gameObject2.setVelocityX(
+										(lastGameObject2XVelocity * -1) * gameObject2.bounce.x - this.globalStateManager.gravity.x
+									);
+								}
 							}
 						}
 					});
