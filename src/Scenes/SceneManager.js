@@ -53,7 +53,7 @@ export default class SceneManager {
 									(lastGameObject1YVelocity < 0 && lastGameObject2YVelocity < 0)
 								) { // Check if the objects are moving in the same direction
 									gameObject1.setVelocityY(
-										(lastGameObject2YVelocity * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+										lastGameObject2YVelocity * gameObject1.bounce.y - this.globalStateManager.gravity.y
 									);
 
 									gameObject2.setVelocityY(
@@ -61,11 +61,11 @@ export default class SceneManager {
 									);
 								} else {
 									gameObject1.setVelocityY(
-										(lastGameObject1YVelocity * -1) * gameObject1.bounce.y - this.globalStateManager.gravity.y
+										lastGameObject2YVelocity * gameObject1.bounce.y - this.globalStateManager.gravity.y
 									);
 
 									gameObject2.setVelocityY(
-										(lastGameObject2YVelocity * -1) * gameObject2.bounce.y - this.globalStateManager.gravity.y
+										lastGameObject1YVelocity * gameObject2.bounce.y - this.globalStateManager.gravity.y
 									);
 								}
 							}
@@ -79,7 +79,7 @@ export default class SceneManager {
 									(lastGameObject1XVelocity < 0 && lastGameObject2XVelocity < 0)
 								) { // Check if the objects are moving in the same direction
 									gameObject1.setVelocityX(
-										(lastGameObject2XVelocity * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
+										lastGameObject2XVelocity * gameObject1.bounce.x - this.globalStateManager.gravity.x
 									);
 
 									gameObject2.setVelocityX(
@@ -87,11 +87,11 @@ export default class SceneManager {
 									);
 								} else { // Check if the objects are moving in the opposite direction
 									gameObject1.setVelocityX(
-										(lastGameObject1XVelocity * -1) * gameObject1.bounce.x - this.globalStateManager.gravity.x
+										lastGameObject2XVelocity * gameObject1.bounce.x - this.globalStateManager.gravity.x
 									);
 
 									gameObject2.setVelocityX(
-										(lastGameObject2XVelocity * -1) * gameObject2.bounce.x - this.globalStateManager.gravity.x
+										lastGameObject1XVelocity * gameObject2.bounce.x - this.globalStateManager.gravity.x
 									);
 								}
 							}
