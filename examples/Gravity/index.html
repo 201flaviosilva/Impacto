@@ -19,7 +19,7 @@
 
 		class Game extends Impacto.Scene {
 			start() {
-				const circle = new Impacto.Rectangle(400, 300, 50, 50);
+				const circle = new Impacto.Rectangle(400, 300, 50, 50, "#0000ff");
 				circle.setBounce(0.5);
 				circle.setCollisionWorldBounds(true);
 				this.addChild(circle);
