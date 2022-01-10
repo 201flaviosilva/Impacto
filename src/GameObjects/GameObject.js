@@ -1,11 +1,7 @@
 import GlobalStateManager from "../State/GlobalStateManager.js";
 import SceneManager from "../Scenes/SceneManager.js";
 
-import Utils from "../Utils/Utils.js";
-const utils = new Utils();
-
-import PositionPrevisions from "../Utils/PositionPrevisions.js";
-const positionPrevisions = new PositionPrevisions();
+import { PositionPrevisionsInstance } from "../Utils/PositionPrevisions.js";
 
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
@@ -28,7 +24,6 @@ export default class GameObject {
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
 		this.collisionWorldBounds = false;
-		this._overlapDetection = utils.overlapDetection;
 		this._strokeDebugColor = "#00ff00";
 	}
 
@@ -54,6 +49,8 @@ export default class GameObject {
 			);
 		} while (!this.checkIsInsideWorldBounds());
 	}
+
+	getType() { return this._type; }
 
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
@@ -128,13 +125,13 @@ export default class GameObject {
 		if (!this.active) return;
 
 		if (this.collisionWorldBounds) {
-			if (positionPrevisions.checkNextPrevisionTopCollisionWorldBounds(this)
-				|| positionPrevisions.checkNextPrevisionBottomCollisionWorldBounds(this)) {
+			if (PositionPrevisionsInstance.checkNextPrevisionTopCollisionWorldBounds(this)
+				|| PositionPrevisionsInstance.checkNextPrevisionBottomCollisionWorldBounds(this)) {
 				this.setVelocityY(-(this.velocity.y * this.bounce.y + this._globalStateManager.gravity.y));
 			}
 
-			if (positionPrevisions.checkNextPrevisionLeftCollisionWorldBounds(this)
-				|| positionPrevisions.checkNextPrevisionRightCollisionWorldBounds(this)) {
+			if (PositionPrevisionsInstance.checkNextPrevisionLeftCollisionWorldBounds(this)
+				|| PositionPrevisionsInstance.checkNextPrevisionRightCollisionWorldBounds(this)) {
 				this.setVelocityX(-(this.velocity.x * this.bounce.x + this._globalStateManager.gravity.x));
 			}
 		}

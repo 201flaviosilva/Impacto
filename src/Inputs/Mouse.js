@@ -1,6 +1,5 @@
 import GlobalStateManager from "../State/GlobalStateManager.js";
 
-
 export default class Mouse {
 	constructor() {
 		this._globalStateManager = new GlobalStateManager();
@@ -81,3 +80,5 @@ export default class Mouse {
 		this.isDown[this.getNameByButtonCode(e.button)] = false;
 	}
 }
+
+export const MouseInstance = new Mouse();

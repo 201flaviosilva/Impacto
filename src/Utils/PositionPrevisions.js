@@ -40,3 +40,5 @@ export default class PositionPrevisions {
 		};
 	}
 }
+
+export const PositionPrevisionsInstance = new PositionPrevisions();

@@ -24,3 +24,5 @@ export default class GlobalStateManager {
 		this.sceneManager.startScene(0);
 	}
 }
+
+export const GlobalStateManagerInstance = new GlobalStateManager();

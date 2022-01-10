@@ -44,3 +44,5 @@ export default class KeyboardManager {
 		this.isPressed[this.getNameByKeyCode(e.keyCode)] = false;
 	}
 }
+
+export const KeyboardManagerInstance = new KeyboardManager();
