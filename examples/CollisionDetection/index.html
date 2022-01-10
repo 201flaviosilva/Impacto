@@ -42,6 +42,13 @@
 				this.addChild(collisionRect3);
 				this.collisions.layer1Horizontal.push(collisionRect3);
 
+				const collisionRect4 = new Impacto.Rectangle(500, 100, 50, 50, "#000000");
+				collisionRect4.setCollisionWorldBounds(true);
+				collisionRect4.setBounce(1);
+				collisionRect4.setVelocityX(10);
+				this.addChild(collisionRect4);
+				this.collisions.layer1Horizontal.push(collisionRect4);
+
 				// Vertical
 				this.createNewCollisionLayer("layer2Vertical");
 				const collisionRectVertical1 = new Impacto.Rectangle(250, 10, 50, 50, "#ffff00");
@@ -64,6 +71,13 @@
 				collisionRectVertical3.setVelocityY(10);
 				this.addChild(collisionRectVertical3);
 				this.collisions.layer2Vertical.push(collisionRectVertical3);
+
+				const collisionRectVertical4 = new Impacto.Rectangle(500, 100, 50, 50, "#ffffff");
+				collisionRectVertical4.setCollisionWorldBounds(true);
+				collisionRectVertical4.setBounce(1);
+				collisionRectVertical4.setVelocityY(10);
+				this.addChild(collisionRectVertical4);
+				this.collisions.layer2Vertical.push(collisionRectVertical4);
 			}
 		}
 
@@ -71,6 +85,7 @@
 			width: 800,
 			height: 600,
 			backgroundColor: "#f0f0f0",
+			debug: true,
 			scene: Game,
 		});
 

@@ -2,6 +2,7 @@
   "name": "impacto",
   "version": "0.6.1",
   "description": "Um simples motor de fisica em JavaScript",
+  "homepage": "https://201flaviosilva.github.io/Impacto/",
   "main": "dist/Impacto.cjs.js",
   "module": "dist/Impacto.esm.js",
   "browser": "dist/Impacto.umd.js",
@@ -19,6 +20,7 @@
     "major": "npm run build && npm version major --force && npm publish",
     "package": "npm run build && npm publish"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
@@ -40,9 +42,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/201flaviosilva/Impacto/issues"
-  },
-  "homepage": "https://201flaviosilva.github.io/Impacto/",
-  "dependencies": {
-    "impacto": "^0.5.1"
   }
 }
