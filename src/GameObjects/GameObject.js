@@ -158,33 +158,7 @@ export default class GameObject {
 	_debug() {
 		if (!this.active) return;
 		// this._debugBody();
-		this._debugBound();
 		this._debugVelocity();
-	}
-
-	_debugBound() {
-		this._globalStateManager.context.strokeStyle = "#000000";
-		this._globalStateManager.context.fillStyle = "#ffffff";
-		const radius = 3;
-
-		drawDebug(this._globalStateManager.context, this.getTopLeft().x, this.getTopLeft().y);
-		drawDebug(this._globalStateManager.context, this.getTopCenter().x, this.getTopCenter().y);
-		drawDebug(this._globalStateManager.context, this.getTopRight().x, this.getTopRight().y);
-
-		drawDebug(this._globalStateManager.context, this.getLeftCenter().x, this.getLeftCenter().y);
-		drawDebug(this._globalStateManager.context, this.getRightCenter().x, this.getRightCenter().y);
-		drawDebug(this._globalStateManager.context, this.getBottomLeft().x, this.getBottomLeft().y);
-
-		drawDebug(this._globalStateManager.context, this.getBottomCenter().x, this.getBottomCenter().y);
-		drawDebug(this._globalStateManager.context, this.getCenter().x, this.getCenter().y);
-		drawDebug(this._globalStateManager.context, this.getBottomRight().x, this.getBottomRight().y);
-
-		function drawDebug(context, x, y) {
-			context.beginPath();
-			context.arc(x, y, radius, 0, 2 * Math.PI);
-			context.fill();
-			context.stroke();
-		}
 	}
 
 	_debugVelocity() {
