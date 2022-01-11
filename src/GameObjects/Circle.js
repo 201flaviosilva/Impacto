@@ -1,7 +1,6 @@
 import GameObject from "./GameObject.js";
 
-import PositionPrevisions from "../Utils/PositionPrevisions.js";
-const positionPrevisions = new PositionPrevisions();
+import { PositionPrevisionsInstance } from "../Utils/PositionPrevisions.js";
 
 export default class Circle extends GameObject {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {

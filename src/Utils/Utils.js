@@ -1,8 +1,8 @@
-import OverlapDetection from './OverlapDetection.js';
+import CollisionDetection from "./CollisionDetection.js";
 
 export default class Utils {
 	constructor() {
-		this.overlapDetection = new OverlapDetection();
+		this.collisionDetection = new CollisionDetection();
 	}
 
 	randomNumber(min, max) {
@@ -15,3 +15,5 @@ export default class Utils {
 
 	randomColor() { return "#" + (Math.random() * 0xFFFFFF << 0).toString(16); }
 }
+
+export const UtilsInstance = new Utils();

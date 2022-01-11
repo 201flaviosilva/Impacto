@@ -1,11 +1,10 @@
-import GlobalStateManager from "../State/GlobalStateManager.js";
+import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
+import { CollisionDetectionInstance } from "../Utils/CollisionDetection.js";
 
 export default class SceneManager {
 	constructor() {
 		if (SceneManager.instance instanceof SceneManager) return SceneManager.instance;
 		SceneManager.instance = this;
-
-		this.globalStateManager = new GlobalStateManager();
 
 		this.currentScene = null;
 		this.scenes = [];
@@ -41,63 +40,7 @@ export default class SceneManager {
 			const layersKeys = Object.keys(this.currentScene.collisions);
 			layersKeys.forEach(layerKey => {
 				const layer = this.currentScene.collisions[layerKey];
-				layer.forEach((gameObject1, index1) => {
-					layer.forEach((gameObject2, index2) => {
-						if (index1 < index2) {
-							// Vertical
-							if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
-								const lastGameObject1YVelocity = gameObject1.velocity.y;
-								const lastGameObject2YVelocity = gameObject2.velocity.y;
-
-								if ((lastGameObject1YVelocity > 0 && lastGameObject2YVelocity > 0) ||
-									(lastGameObject1YVelocity < 0 && lastGameObject2YVelocity < 0)
-								) { // Check if the objects are moving in the same direction
-									gameObject1.setVelocityY(
-										lastGameObject2YVelocity * gameObject1.bounce.y - this.globalStateManager.gravity.y
-									);
-
-									gameObject2.setVelocityY(
-										lastGameObject1YVelocity * gameObject2.bounce.y - this.globalStateManager.gravity.y
-									);
-								} else {
-									gameObject1.setVelocityY(
-										lastGameObject2YVelocity * gameObject1.bounce.y - this.globalStateManager.gravity.y
-									);
-
-									gameObject2.setVelocityY(
-										lastGameObject1YVelocity * gameObject2.bounce.y - this.globalStateManager.gravity.y
-									);
-								}
-							}
-
-							// Horizontal
-							if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
-								const lastGameObject1XVelocity = gameObject1.velocity.x;
-								const lastGameObject2XVelocity = gameObject2.velocity.x;
-
-								if ((lastGameObject1XVelocity > 0 && lastGameObject2XVelocity > 0) ||
-									(lastGameObject1XVelocity < 0 && lastGameObject2XVelocity < 0)
-								) { // Check if the objects are moving in the same direction
-									gameObject1.setVelocityX(
-										lastGameObject2XVelocity * gameObject1.bounce.x - this.globalStateManager.gravity.x
-									);
-
-									gameObject2.setVelocityX(
-										lastGameObject1XVelocity * gameObject2.bounce.x - this.globalStateManager.gravity.x
-									);
-								} else { // Check if the objects are moving in the opposite direction
-									gameObject1.setVelocityX(
-										lastGameObject2XVelocity * gameObject1.bounce.x - this.globalStateManager.gravity.x
-									);
-
-									gameObject2.setVelocityX(
-										lastGameObject1XVelocity * gameObject2.bounce.x - this.globalStateManager.gravity.x
-									);
-								}
-							}
-						}
-					});
-				});
+				CollisionDetectionInstance.collisionLayer(layer);
 			});
 
 			this.currentScene.children.forEach(child => {
@@ -113,19 +56,21 @@ export default class SceneManager {
 	}
 
 	render() {
-		if (!this.globalStateManager.context) return;
+		if (!GlobalStateManagerInstance.context) return;
 
-		this.globalStateManager.context.clearRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
+		GlobalStateManagerInstance.context.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 
-		if (this.globalStateManager.backgroundColor) {
-			this.globalStateManager.context.fillStyle = this.globalStateManager.backgroundColor;
-			this.globalStateManager.context.fillRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
+		if (GlobalStateManagerInstance.backgroundColor) {
+			GlobalStateManagerInstance.context.fillStyle = GlobalStateManagerInstance.backgroundColor;
+			GlobalStateManagerInstance.context.fillRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 		}
 
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
 		zSortedChildren.forEach(child => {
 			child._render();
-			if (this.globalStateManager.debug) child._debug();
+			if (GlobalStateManagerInstance.debug) child._debug();
 		});
 	}
 }
+
+export const SceneManagerInstance = new SceneManager();
