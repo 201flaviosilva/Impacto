@@ -19,12 +19,12 @@ export default class GameObject {
 
 		// Physics
 		this.active = true;
-		this.immutable = false;
+		this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static
 		this.velocity = { x: 0, y: 0, };
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
 		this.collisionWorldBounds = false;
-		this._strokeDebugColor = "#00ff00";
+		this._strokeDebugColor = "#016301";
 	}
 
 	// Render
@@ -33,8 +33,8 @@ export default class GameObject {
 	setY(y) { this.setPosition(this.x, y, this.z); }
 	setZ(z) { this.setPosition(this.x, this.y, z); }
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
-	setPosition(x, y, z = this.z) {
-		if (this.immutable) return;
+	setPosition(x, y, z = this.z, force = false) {
+		if (this.bodyType === "S" && !force) return;
 		this._lastPosition = { x: this.x, y: this.y, z: this.z };
 
 		this.x = x;
@@ -71,14 +71,23 @@ export default class GameObject {
 
 	setVisible(isVisible) { this.visible = isVisible; }
 
-	// Physics
+	// -- Physics
 	setActive(isActive) { this.active = isActive; }
-	setImmutable(isImmutable) { this.immutable = isImmutable; }
+
+	// Body Type
+	setDynamicBody() { this.setBodyType("D"); }
+	setKinematicBody() { this.setBodyType("K"); }
+	setStaticBody() { this.setBodyType("S"); }
+	setBodyType(bodyType) {
+		if (this.bodyType === bodyType) return;
+		this.bodyType = bodyType;
+	}
+	getBodyType() { return this.bodyType; }
 
 	setVelocityX(x) { this.setVelocity(x, this.velocity.y); }
 	setVelocityY(y) { this.setVelocity(this.velocity.x, y); }
 	setVelocity(x, y = x) {
-		if (this.immutable) return;
+		if (this.bodyType === "S") return;
 
 		this.velocity.x = x;
 		this.velocity.y = y;
@@ -122,7 +131,7 @@ export default class GameObject {
 
 	// ----- Private methods -----
 	_step() {
-		if (!this.active) return;
+		if (!this.active || this.bodyType === "S") return;
 
 		if (this.collisionWorldBounds) {
 			if (PositionPrevisionsInstance.checkNextPrevisionTopCollisionWorldBounds(this)
@@ -162,9 +171,10 @@ export default class GameObject {
 	}
 
 	_debugVelocity() {
+		this._globalStateManager.context.strokeStyle = this._strokeDebugColor;
 		this._globalStateManager.context.beginPath();
 		this._globalStateManager.context.moveTo(this.getCenterX(), this.getCenterY());
-		this._globalStateManager.context.lineTo(this.getCenterX() + this.velocity.x, this.getCenterY() + this.velocity.y);
+		this._globalStateManager.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
 		this._globalStateManager.context.stroke();
 	}
 }

@@ -23,11 +23,18 @@ export default class Rectangle extends GameObject {
 	// Size
 	setWidth(width) { this.setSize(width, this.height); }
 	setHeight(height) { this.setSize(this.width, height); }
-	setSize(width, height) {
+	setSize(width, height = width, force = false) {
+		if (this.bodyType === "S" && !force) return;
 		this.width = width;
 		this.height = height;
 	}
 	getBounds() { return { x: this.getLeft(), y: this.getTop(), width: this.width, height: this.height }; }
+
+	// Update position and size of the rectangle (used mostly in static objects)
+	refresh(x, y, width, height) {
+		this.setPosition(x, y, this.z, true);
+		this.setSize(width, height, true);
+	}
 
 	// Check Overlap
 	checkTopOverlap(other) { return other.getBottom() >= this.getTop() && other.getTop() <= this.getTop(); }
@@ -57,37 +64,27 @@ export default class Rectangle extends GameObject {
 	getNextBoxBoundLeft() { return this.getNextBoxBound().x; }
 	getNextBoxBoundRight() { return this.getNextBoxBound().x + this.width; }
 
-	checkWillTopOverlap(other) { return other.getBottom() >= this.getNextBoxBoundTop() && other.getTop() <= this.getNextBoxBoundTop(); }
-	checkWillBottomOverlap(other) { return other.getTop() <= this.getNextBoxBoundBottom() && other.getBottom() >= this.getNextBoxBoundBottom(); }
-	checkWillLeftOverlap(other) { return other.getRight() >= this.getNextBoxBoundLeft() && other.getLeft() <= this.getNextBoxBoundLeft(); }
-	checkWillRightOverlap(other) { return other.getLeft() <= this.getNextBoxBoundRight() && other.getRight() >= this.getNextBoxBoundRight(); }
+	checkWillOverlap(other) {
+		return other.getLeft() <= this.getNextBoxBoundRight() &&
+			other.getRight() >= this.getNextBoxBoundLeft() &&
+			other.getTop() <= this.getNextBoxBoundBottom() &&
+			other.getBottom() >= this.getNextBoxBoundTop();
+	}
 
 	checkWillCollideTopWith(other) {
-		if (this.checkWillLeftOverlap(other) || this.checkWillRightOverlap(other)) {
-			return other.getBottom() >= this.getNextBoxBoundTop() && other.getTop() <= this.getNextBoxBoundBottom();
-		}
-		return false;
+		return this.checkWillOverlap(other) && other.getBottom() >= this.getNextBoxBoundTop() && other.getTop() <= this.getNextBoxBoundBottom();
 	}
 
 	checkWillCollideBottomWith(other) {
-		if (this.checkWillLeftOverlap(other) || this.checkWillRightOverlap(other)) {
-			return other.getTop() <= this.getNextBoxBoundBottom() && other.getBottom() >= this.getNextBoxBoundTop();
-		}
-		return false;
+		return this.checkWillOverlap(other) && other.getTop() <= this.getNextBoxBoundBottom() && other.getBottom() >= this.getNextBoxBoundTop();
 	}
 
 	checkWillCollideLeftWith(other) {
-		if (this.checkWillTopOverlap(other) || this.checkWillBottomOverlap(other)) {
-			return other.getRight() >= this.getNextBoxBoundLeft() && other.getLeft() <= this.getNextBoxBoundRight();
-		}
-		return false;
+		return this.checkWillOverlap(other) && other.getRight() >= this.getNextBoxBoundLeft() && other.getLeft() <= this.getNextBoxBoundRight();
 	}
 
 	checkWillCollideRightWith(other) {
-		if (this.checkWillTopOverlap(other) || this.checkWillBottomOverlap(other)) {
-			return other.getLeft() <= this.getNextBoxBoundRight() && other.getRight() >= this.getNextBoxBoundLeft();
-		}
-		return false;
+		return this.checkWillOverlap(other) && other.getLeft() <= this.getNextBoxBoundRight() && other.getRight() >= this.getNextBoxBoundLeft();
 	}
 
 	checkWillCollideVerticalWith(other) {
