@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Collision Detection 2</h1>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+
+			start() {
+				// Horizontal
+				this.createNewCollisionLayer("layer1");
+				const collisionRect1 = new Impacto.Rectangle(100, 250, 50, 50, "#ff0000");
+				collisionRect1.setCollisionWorldBounds(true);
+				collisionRect1.setBounce(1);
+				collisionRect1.setVelocityX(2.5);
+				this.addChild(collisionRect1);
+				this.collisions.layer1.push(collisionRect1);
+
+				const collisionRect2 = new Impacto.Rectangle(600, 250, 50, 50, "#00ff00");
+				collisionRect2.setCollisionWorldBounds(true);
+				collisionRect2.setBounce(1);
+				collisionRect2.setVelocityX(-5);
+				this.addChild(collisionRect2);
+				this.collisions.layer1.push(collisionRect2);
+
+				const collisionRect3 = new Impacto.Rectangle(700, 250, 50, 50, "#0000ff");
+				collisionRect3.setCollisionWorldBounds(true);
+				collisionRect3.setBounce(1);
+				collisionRect3.setVelocityX(10);
+				this.addChild(collisionRect3);
+				this.collisions.layer1.push(collisionRect3);
+
+				const collisionRect4 = new Impacto.Rectangle(300, 100, 50, 50, "#000000");
+				collisionRect4.setCollisionWorldBounds(true);
+				collisionRect4.setBounce(1);
+				collisionRect4.setVelocityX(10);
+				this.addChild(collisionRect4);
+				this.collisions.layer1.push(collisionRect4);
+
+				// Vertical
+				const collisionRectVertical1 = new Impacto.Rectangle(250, 10, 50, 50, "#ffff00");
+				collisionRectVertical1.setCollisionWorldBounds(true);
+				collisionRectVertical1.setBounce(1);
+				collisionRectVertical1.setVelocityY(2.5);
+				this.addChild(collisionRectVertical1);
+				this.collisions.layer1.push(collisionRectVertical1);
+
+				const collisionRectVertical2 = new Impacto.Rectangle(250, 200, 50, 50, "#00ffff");
+				collisionRectVertical2.setCollisionWorldBounds(true);
+				collisionRectVertical2.setBounce(1);
+				collisionRectVertical2.setVelocityY(-5);
+				this.addChild(collisionRectVertical2);
+				this.collisions.layer1.push(collisionRectVertical2);
+
+				const collisionRectVertical3 = new Impacto.Rectangle(250, 500, 50, 50, "#ff00ff");
+				collisionRectVertical3.setCollisionWorldBounds(true);
+				collisionRectVertical3.setBounce(1);
+				collisionRectVertical3.setVelocityY(10);
+				this.addChild(collisionRectVertical3);
+				this.collisions.layer1.push(collisionRectVertical3);
+
+				const collisionRectVertical4 = new Impacto.Rectangle(500, 100, 50, 50, "#ffffff");
+				collisionRectVertical4.setCollisionWorldBounds(true);
+				collisionRectVertical4.setBounce(1);
+				collisionRectVertical4.setVelocityY(10);
+				this.addChild(collisionRectVertical4);
+				this.collisions.layer1.push(collisionRectVertical4);
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>

@@ -37,34 +37,55 @@ export default class CollisionDetection {
 	collisionLayer(layer) {
 		layer.forEach((gameObject1, index1) => {
 			layer.forEach((gameObject2, index2) => {
-				if (index1 < index2) {
-					// Vertical
-					if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
-						const lastGameObject1YVelocity = gameObject1.velocity.y;
-						const lastGameObject2YVelocity = gameObject2.velocity.y;
-						const gravityY = GlobalStateManagerInstance.gravity.y;
+				if (index1 >= index2) return;
+				// Vertical
+				if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
+					const lastGameObject1YVelocity = gameObject1.velocity.y;
+					const lastGameObject2YVelocity = gameObject2.velocity.y;
+					const gravityY = GlobalStateManagerInstance.gravity.y;
 
+					if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") { // Dynamic X Dynamic
 						gameObject1.setVelocityY(
-							lastGameObject2YVelocity * gameObject1.bounce.y - gravityY
+							lastGameObject2YVelocity * gameObject1.bounce.y + gravityY
+						);
+						gameObject2.setVelocityY(
+							lastGameObject1YVelocity * gameObject2.bounce.y + gravityY
 						);
 
+					} else if (gameObject1.bodyType !== "D" && gameObject2.bodyType === "D") { // (Kinematic || Static) X Dynamic
 						gameObject2.setVelocityY(
-							lastGameObject1YVelocity * gameObject2.bounce.y - gravityY
+							lastGameObject2YVelocity * -1 * gameObject2.bounce.y - gravityY
+						);
+
+					} else if (gameObject1.bodyType === "D" && gameObject2.bodyType !== "D") { // Dynamic X (Kinematic || Static)
+						gameObject1.setVelocityY(
+							lastGameObject1YVelocity * -1 * gameObject1.bounce.y - gravityY
 						);
 					}
+				}
 
-					// Horizontal
-					if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
-						const lastGameObject1XVelocity = gameObject1.velocity.x;
-						const lastGameObject2XVelocity = gameObject2.velocity.x;
-						const gravityX = GlobalStateManagerInstance.gravity.x;
+				// Horizontal
+				if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
+					const lastGameObject1XVelocity = gameObject1.velocity.x;
+					const lastGameObject2XVelocity = gameObject2.velocity.x;
+					const gravityX = GlobalStateManagerInstance.gravity.x;
 
+					if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") { // Dynamic X Dynamic
 						gameObject1.setVelocityX(
-							lastGameObject2XVelocity * gameObject1.bounce.x - gravityX
+							lastGameObject2XVelocity * gameObject1.bounce.x + gravityX
+						);
+						gameObject2.setVelocityX(
+							lastGameObject1XVelocity * gameObject2.bounce.x + gravityX
 						);
 
+					} else if (gameObject1.bodyType !== "D" && gameObject2.bodyType === "D") { // (Kinematic || Static) X Dynamic
 						gameObject2.setVelocityX(
-							lastGameObject1XVelocity * gameObject2.bounce.x - gravityX
+							((lastGameObject2XVelocity * -1) + lastGameObject1XVelocity) * gameObject2.bounce.x + gravityX
+						);
+
+					} else if (gameObject1.bodyType === "D" && gameObject2.bodyType !== "D") { // Dynamic X (Kinematic || Static)
+						gameObject1.setVelocityX(
+							((lastGameObject1XVelocity * -1) + lastGameObject2XVelocity) * gameObject1.bounce.x + gravityX
 						);
 					}
 				}
