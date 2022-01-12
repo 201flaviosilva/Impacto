@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Rectangle Overlapping Area</h1>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+
+			start() {
+				this.collisionRect1 = new Impacto.Rectangle(350, 250, 50, 50, "#ff0000");
+				this.addChild(this.collisionRect1);
+
+				this.collisionRect2 = new Impacto.Rectangle(0, 0, 100, 100, "#0000ff");
+				this.collisionRect2.setRandomPosition();
+				this.addChild(this.collisionRect2);
+
+
+				this.collisionRect = new Impacto.Rectangle(0, 0, 0, 0, "#000000");
+				this.collisionRect.setZ(100);
+				this.addChild(this.collisionRect);
+			}
+
+			update() {
+				this.collisionRect1.setPosition(Impacto.Inputs.Mouse.getPosition().x - this.collisionRect1.width / 2, Impacto.Inputs.Mouse.getPosition().y - this.collisionRect1.height / 2);
+
+				if (Impacto.Utils.CollisionDetection.overlapRectangleAndRectangle(this.collisionRect1, this.collisionRect2)) {
+					this.collisionRect1.setFillColor("#00ff00");
+					this.collisionRect2.setFillColor("#00ff00");
+
+					const collisionBoundsRect = Impacto.Utils.CollisionDetection.getBoundsOfTwoOverlappingRectangles(this.collisionRect1, this.collisionRect2);
+					this.collisionRect.setPosition(collisionBoundsRect.x, collisionBoundsRect.y);
+					this.collisionRect.setSize(collisionBoundsRect.width, collisionBoundsRect.height);
+				} else {
+					this.collisionRect1.setFillColor("#ff0000");
+					this.collisionRect2.setFillColor("#0000ff");
+					this.collisionRect.setPosition(0, 0);
+					this.collisionRect.setSize(0, 0);
+				}
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>

@@ -3,6 +3,7 @@ import CollisionDetection from "./CollisionDetection.js";
 export default class Utils {
 	constructor() {
 		this.collisionDetection = new CollisionDetection();
+		this.Vector2 = Vector2;
 	}
 
 	randomNumber(min, max) {
