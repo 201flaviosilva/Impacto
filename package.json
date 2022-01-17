@@ -6,6 +6,7 @@
   "main": "dist/Impacto.cjs.js",
   "module": "dist/Impacto.esm.js",
   "browser": "dist/Impacto.umd.js",
+  "amd": "dist/Impacto.amd.js",
   "directories": {
     "example": "examples"
   },

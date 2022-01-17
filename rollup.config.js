@@ -24,6 +24,7 @@ export default [
 		output: [
 			{ file: pkg.main, format: "cjs" },
 			{ file: pkg.module, format: "es" },
+			{ file: pkg.amd, format: "amd" },
 		],
 		plugins: [
 			babel({
