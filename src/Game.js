@@ -1,4 +1,5 @@
 import GlobalStateManager from "./State/GlobalStateManager.js";
+import { CanvasInstance } from "./Utils/Canvas.js";
 
 export default class Game {
 	constructor(config) {
@@ -10,6 +11,8 @@ export default class Game {
 
 		if (config.parent) document.getElementById(config.parent)?.appendChild(this.canvas);
 		else document.body.appendChild(this.canvas);
+
+		CanvasInstance.setCanvas(this.canvas);
 
 		this.configuration = config;
 
