@@ -21,4 +21,5 @@ export default class Scene {
 
 	start() { }
 	update(delta) { }
+	posRender() { }
 }

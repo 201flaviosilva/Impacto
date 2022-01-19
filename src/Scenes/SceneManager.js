@@ -1,5 +1,6 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { CollisionDetectionInstance } from "../Utils/CollisionDetection.js";
+import { CanvasInstance } from "../Utils/Canvas.js";
 
 export default class SceneManager {
 	constructor() {
@@ -40,7 +41,7 @@ export default class SceneManager {
 			const layersKeys = Object.keys(this.currentScene.collisions);
 			layersKeys.forEach(layerKey => {
 				const layer = this.currentScene.collisions[layerKey];
-				CollisionDetectionInstance.collisionLayer(layer);
+				CollisionDetectionInstance.collisionLayer(layer, this.currentScene);
 			});
 
 			this.currentScene.children.forEach(child => {
@@ -56,13 +57,14 @@ export default class SceneManager {
 	}
 
 	render() {
-		if (!GlobalStateManagerInstance.context) return;
+		const ctx = CanvasInstance.context;
+		if (!ctx) return;
 
-		GlobalStateManagerInstance.context.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
+		ctx.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 
 		if (GlobalStateManagerInstance.backgroundColor) {
-			GlobalStateManagerInstance.context.fillStyle = GlobalStateManagerInstance.backgroundColor;
-			GlobalStateManagerInstance.context.fillRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
+			ctx.fillStyle = GlobalStateManagerInstance.backgroundColor;
+			ctx.fillRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 		}
 
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
@@ -70,6 +72,8 @@ export default class SceneManager {
 			child._render();
 			if (GlobalStateManagerInstance.debug) child._debug();
 		});
+
+		this.currentScene.posRender();
 	}
 }
 

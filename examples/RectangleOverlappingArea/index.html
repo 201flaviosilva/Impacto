@@ -19,35 +19,58 @@
 		class Game extends Impacto.Scene {
 
 			start() {
-				this.collisionRect1 = new Impacto.Rectangle(350, 250, 50, 50, "#ff0000");
-				this.addChild(this.collisionRect1);
+				this.rectMouse = new Impacto.Rectangle(350, 250, 50, 50, "#ff0000");
+				this.rectMouse.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
+				this.addChild(this.rectMouse);
 
-				this.collisionRect2 = new Impacto.Rectangle(0, 0, 100, 100, "#0000ff");
-				this.collisionRect2.setRandomPosition();
-				this.addChild(this.collisionRect2);
+				this.rectStop = new Impacto.Rectangle(0, 0, 100, 100, "#0000ff");
+				this.rectStop.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
+				this.rectStop.setPosition(400 - this.rectStop.width / 2, 300 - this.rectStop.height / 2);
+				this.addChild(this.rectStop);
 
 
-				this.collisionRect = new Impacto.Rectangle(0, 0, 0, 0, "#000000");
-				this.collisionRect.setZ(100);
-				this.addChild(this.collisionRect);
+				this.areaCollision = new Impacto.Rectangle(0, 0, 0, 0, "#000000");
+				this.areaCollision.setZ(100);
+				this.addChild(this.areaCollision);
 			}
 
 			update() {
-				this.collisionRect1.setPosition(Impacto.Inputs.Mouse.getPosition().x - this.collisionRect1.width / 2, Impacto.Inputs.Mouse.getPosition().y - this.collisionRect1.height / 2);
+				this.rectMouse.setPosition(Impacto.Inputs.Mouse.getPosition().x - this.rectMouse.width / 2, Impacto.Inputs.Mouse.getPosition().y - this.rectMouse.height / 2);
 
-				if (Impacto.Utils.CollisionDetection.overlapRectangleAndRectangle(this.collisionRect1, this.collisionRect2)) {
-					this.collisionRect1.setFillColor("#00ff00");
-					this.collisionRect2.setFillColor("#00ff00");
+				if (Impacto.Utils.CollisionDetection.overlapRectangleAndRectangle(this.rectMouse, this.rectStop)) {
+					this.rectMouse.setFillColor("#00ff00");
+					this.rectStop.setFillColor("#00ff00");
 
-					const collisionBoundsRect = Impacto.Utils.CollisionDetection.getBoundsOfTwoOverlappingRectangles(this.collisionRect1, this.collisionRect2);
-					this.collisionRect.setPosition(collisionBoundsRect.x, collisionBoundsRect.y);
-					this.collisionRect.setSize(collisionBoundsRect.width, collisionBoundsRect.height);
+					const collisionBoundsRect = Impacto.Utils.CollisionDetection.getBoundsOfTwoOverlappingRectangles(this.rectMouse, this.rectStop);
+					this.areaCollision.setPosition(collisionBoundsRect.x, collisionBoundsRect.y);
+					this.areaCollision.setSize(collisionBoundsRect.width, collisionBoundsRect.height);
+
 				} else {
-					this.collisionRect1.setFillColor("#ff0000");
-					this.collisionRect2.setFillColor("#0000ff");
-					this.collisionRect.setPosition(0, 0);
-					this.collisionRect.setSize(0, 0);
+					this.rectMouse.setFillColor("#ff0000");
+					this.rectStop.setFillColor("#0000ff");
+					this.areaCollision.setPosition(0, 0);
+					this.areaCollision.setSize(0, 0);
 				}
+			}
+
+			posRender() {
+				const ctx = Impacto.Utils.Canvas.context;
+
+				const area = Impacto.Utils.CollisionDetection.getAreaOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
+				const perimeter = Impacto.Utils.CollisionDetection.getPerimeterOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
+
+				// Draw Text of The Area and Perimeter
+				ctx.fillStyle = "#000000";
+				ctx.font = "30px Arial";
+				ctx.fillText("Area: " + area, 10, 50);
+				ctx.fillText("Perimeter: " + perimeter, 10, 100);
+
+				// Draw a line of the distance between the two rectangles
+				ctx.fillStyle = "#f8f8f8";
+				ctx.beginPath();
+				ctx.moveTo(this.rectMouse.getCenterX(), this.rectMouse.getCenterY());
+				ctx.lineTo(this.rectStop.getCenterX(), this.rectStop.getCenterY());
+				ctx.stroke();
 			}
 		}
 
