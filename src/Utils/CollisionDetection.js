@@ -4,6 +4,7 @@ import Vector2 from "./Vector2.js";
 export default class CollisionDetection {
 	constructor() { }
 
+	// Overlap Detection
 	overlapRectangleAndRectangle(rect1, rect2) {
 		return (
 			rect1.x < rect2.x + rect2.width &&
@@ -36,6 +37,7 @@ export default class CollisionDetection {
 		return (distance < circle1.radius + circle2.radius);
 	}
 
+	// Rectangles
 	getAreaOfTwoOverlappingRectangles(rect1, rect2) {
 		if (this.overlapRectangleAndRectangle(rect1, rect2)) {
 			const xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
@@ -65,6 +67,7 @@ export default class CollisionDetection {
 		}
 	}
 
+	// Collision Detection
 	detectRectangleAndRectangleCollisionDirections(rect1, rect2) {
 		if (this.overlapRectangleAndRectangle(rect1, rect2)) {
 			const bounds = this.getBoundsOfTwoOverlappingRectangles(rect1, rect2);
@@ -96,6 +99,7 @@ export default class CollisionDetection {
 		});
 	}
 
+	// Collision Perpetration Resolve
 	collisionPerpetrationResolve(rect1, rect2) {
 		// https://www.youtube.com/watch?v=LYrge3ylccQ
 
