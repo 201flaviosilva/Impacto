@@ -22,6 +22,7 @@ export default class GameObject {
 		this.velocity = { x: 0, y: 0, };
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
+		this.mass = 1;
 		this.collisionWorldBounds = false;
 		this._strokeDebugColor = "#016301";
 	}
@@ -77,7 +78,7 @@ export default class GameObject {
 	setDynamicBody() { this.setBodyType("D"); }
 	setKinematicBody() { this.setBodyType("K"); }
 	setStaticBody() { this.setBodyType("S"); }
-	setBodyType(bodyType) {
+	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static
 		if (this.bodyType === bodyType) return;
 		this.bodyType = bodyType;
 	}
@@ -105,6 +106,8 @@ export default class GameObject {
 		this.bounce.x = x;
 		this.bounce.y = y;
 	}
+
+	setMass(mass) { this.mass = mass; }
 
 	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
 

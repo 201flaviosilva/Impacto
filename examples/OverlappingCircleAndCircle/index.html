@@ -26,6 +26,11 @@
 			}
 
 			update() {
+				// Random new sizes
+				if (Impacto.Inputs.KeyBoard.isKeyPressed(Impacto.Inputs.KeyBoard.keys.space)) {
+					this.circle1.setRadius(Impacto.Utils.Math.randomInt(10, 200));
+					this.circle2.setRadius(Impacto.Utils.Math.randomInt(10, 200));
+				}
 				const mouse = Impacto.Inputs.Mouse.getPosition();
 				this.circle2.setPosition(mouse.x, mouse.y);
 
@@ -38,9 +43,7 @@
 				}
 			}
 
-			posRender() {
-				const ctx = Impacto.Utils.Canvas.context;
-
+			posRender(ctx) {
 				// Draw a line of the distance between the two circles
 				ctx.fillStyle = "#f8f8f8";
 				ctx.beginPath();

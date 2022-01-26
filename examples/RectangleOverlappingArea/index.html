@@ -35,6 +35,14 @@
 			}
 
 			update() {
+				// Random new sizes
+				if (Impacto.Inputs.KeyBoard.isKeyPressed(Impacto.Inputs.KeyBoard.keys.space)) {
+					this.rectStop.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
+					this.rectStop.setPosition(400 - this.rectStop.width / 2, 300 - this.rectStop.height / 2);
+
+					this.rectMouse.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
+				}
+
 				this.rectMouse.setPosition(Impacto.Inputs.Mouse.getPosition().x - this.rectMouse.width / 2, Impacto.Inputs.Mouse.getPosition().y - this.rectMouse.height / 2);
 
 				if (Impacto.Utils.CollisionDetection.overlapRectangleAndRectangle(this.rectMouse, this.rectStop)) {
@@ -53,9 +61,7 @@
 				}
 			}
 
-			posRender() {
-				const ctx = Impacto.Utils.Canvas.context;
-
+			posRender(ctx) {
 				const area = Impacto.Utils.CollisionDetection.getAreaOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
 				const perimeter = Impacto.Utils.CollisionDetection.getPerimeterOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
 
