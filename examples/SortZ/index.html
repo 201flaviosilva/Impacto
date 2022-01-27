@@ -17,7 +17,6 @@
 		import Impacto from "../../src/Impacto.js";
 
 		class Game extends Impacto.Scene {
-
 			start() {
 				const collisionRect1 = new Impacto.Rectangle(100, 100, 50, 50, "#ff0000");
 				this.addChild(collisionRect1);
@@ -33,6 +32,15 @@
 				const collisionRect4 = new Impacto.Rectangle(175, 175, 50, 50, "#ff00ff");
 				collisionRect4.setZ(0);
 				this.addChild(collisionRect4);
+			}
+
+			posRender() {
+				this.children.map(r => {
+					const text = r.z;
+					const x = r.getCenterX();
+					const y = r.getCenterY();
+					Impacto.Utils.Canvas.drawText(text, x, y, "#ffffff");
+				});
 			}
 		}
 

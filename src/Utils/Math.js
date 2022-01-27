@@ -13,25 +13,44 @@ export default class UtilsMath {
 
 	randomColor() { return "#" + (Math.random() * 0xFFFFFF << 0).toString(16); }
 
+	degreesToRadians(degrees) { return degrees * Math.PI / 180; }
+	radiansToDegrees(radians) { return radians * 180 / Math.PI; }
+
+	// Points
 	distanceTwoPoints(x1, y1, x2, y2) { return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)); }
 	distanceTwoPointsVector2(point1, point2) { return this.distanceTwoPoints(point1.x, point1.y, point2.x, point2.y); }
-
-	distanceTwoRectangles(x1, y1, width1, height1, x2, y2, width2, height2) {
-		return this.distanceBetweenTwoRectanglesFromRectangle(
-			{ x: x1 + width1 / 2, y: y1 + height1 / 2, width: width1, height: height1 },
-			{ x: x2 + width2 / 2, y: y2 + height2 / 2, width: width2, height: height2 }
-		);
-	}
-	distanceBetweenTwoRectanglesFromRectangle(rect1, rect2) {
-		const xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
-		const yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
-		return xOverlap * yOverlap;
-	}
 
 	angleBetweenTwoPoints(x1, y1, x2, y2) { return Math.atan2(y2 - y1, x2 - x1); }
 	angleBetweenTwoPointsVector2(point1, point2) { return this.angleBetweenTwoPoints(point1.x, point1.y, point2.x, point2.y); }
 	angleBetweenTwoPointsDegrees(x1, y1, x2, y2) { return this.angleBetweenTwoPointsRadians(x1, y1, x2, y2) * 180 / Math.PI; }
 	angleBetweenTwoPointsVector2Degrees(point1, point2) { return this.angleBetweenTwoPointsDegrees(point1.x, point1.y, point2.x, point2.y); }
+
+	// Circles
+	distanceBetweenTwoCirclesFromCircle(circle1, circle2) {
+		return this.distanceTwoPoints(circle1.x, circle1.y, circle2.x, circle2.y) - (circle1.radius + circle2.radius);
+	}
+	distanceBetweenTwoCircles(x1, y1, radius1, x2, y2, radius2) {
+		return this.distanceBetweenTwoCirclesFromCircle(
+			{ x: x1, y: y1, radius: radius1 },
+			{ x: x2, y: y2, radius: radius2 }
+		);
+	}
+
+	circleArea(radius) { return Math.PI * radius * radius; }
+	circlePerimeter(radius) { return 2 * Math.PI * radius; }
+
+	// Rectangles
+	distanceBetweenTwoRectanglesFromRectangle(rect1, rect2) {
+		const xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+		const yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+		return xOverlap * yOverlap;
+	}
+	distanceBetweenTwoRectangles(x1, y1, width1, height1, x2, y2, width2, height2) {
+		return this.distanceBetweenTwoRectanglesFromRectangle(
+			{ x: x1 + width1 / 2, y: y1 + height1 / 2, width: width1, height: height1 },
+			{ x: x2 + width2 / 2, y: y2 + height2 / 2, width: width2, height: height2 }
+		);
+	}
 
 	angleBetweenTwoRectangles(x1, y1, width1, height1, x2, y2, width2, height2) {
 		return this.angleBetweenTwoRectanglesFromRectangle(
@@ -74,9 +93,6 @@ export default class UtilsMath {
 	rectangleTopRightFromRectangleBounds(rectangle) { return this.rectangleTopRight(rectangle.x, rectangle.y, rectangle.width); }
 	rectangleBottomLeftFromRectangleBounds(rectangle) { return this.rectangleBottomLeft(rectangle.x, rectangle.y, rectangle.height); }
 	rectangleBottomRightFromRectangleBounds(rectangle) { return this.rectangleBottomRight(rectangle.x, rectangle.y, rectangle.width, rectangle.height); }
-
-	degreesToRadians(degrees) { return degrees * Math.PI / 180; }
-	radiansToDegrees(radians) { return radians * 180 / Math.PI; }
 }
 
 export const UtilsMathInstance = new UtilsMath();

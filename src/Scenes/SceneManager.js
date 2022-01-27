@@ -11,6 +11,7 @@ export default class SceneManager {
 		this.scenes = [];
 		this.lastDeltaUpdate = Date.now();
 		this.deltaTime = 0;
+		this.isPaused = false;
 
 		window.requestAnimationFrame(() => this.step());
 	}
@@ -34,6 +35,9 @@ export default class SceneManager {
 	}
 
 	step() {
+		window.requestAnimationFrame(() => this.step());
+		if (this.isPaused) return;
+
 		this.updateDeltaTime();
 
 		if (this.currentScene) {
@@ -52,8 +56,6 @@ export default class SceneManager {
 
 			this.render();
 		}
-
-		window.requestAnimationFrame(() => this.step());
 	}
 
 	render() {
@@ -73,7 +75,7 @@ export default class SceneManager {
 			if (GlobalStateManagerInstance.debug) child._debug();
 		});
 
-		this.currentScene.posRender();
+		this.currentScene.posRender(ctx);
 	}
 }
 

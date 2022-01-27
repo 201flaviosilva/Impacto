@@ -3,10 +3,6 @@
   "version": "0.6.1",
   "description": "Um simples motor de fisica em JavaScript",
   "homepage": "https://201flaviosilva.github.io/Impacto/",
-  "main": "dist/Impacto.cjs.js",
-  "module": "dist/Impacto.esm.js",
-  "browser": "dist/Impacto.umd.js",
-  "amd": "dist/Impacto.amd.js",
   "directories": {
     "example": "examples"
   },
