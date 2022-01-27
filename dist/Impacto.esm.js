@@ -107,6 +107,708 @@ function _createSuper(Derived) {
   };
 }
 
+var UtilsMath = /*#__PURE__*/function () {
+  function UtilsMath() {
+    _classCallCheck(this, UtilsMath);
+  }
+
+  _createClass(UtilsMath, [{
+    key: "randomFloat",
+    value: function randomFloat(min, max) {
+      var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+
+      if (!max) {
+        max = min;
+        min = 0;
+      }
+
+      return parseFloat((Math.random() * (max - min) + min).toFixed(precision));
+    }
+  }, {
+    key: "randomInt",
+    value: function randomInt(min, max) {
+      return Math.floor(this.randomFloat(min, max));
+    }
+  }, {
+    key: "randomColor",
+    value: function randomColor() {
+      return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+    }
+  }, {
+    key: "degreesToRadians",
+    value: function degreesToRadians(degrees) {
+      return degrees * Math.PI / 180;
+    }
+  }, {
+    key: "radiansToDegrees",
+    value: function radiansToDegrees(radians) {
+      return radians * 180 / Math.PI;
+    } // Points
+
+  }, {
+    key: "distanceTwoPoints",
+    value: function distanceTwoPoints(x1, y1, x2, y2) {
+      return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
+  }, {
+    key: "distanceTwoPointsVector2",
+    value: function distanceTwoPointsVector2(point1, point2) {
+      return this.distanceTwoPoints(point1.x, point1.y, point2.x, point2.y);
+    }
+  }, {
+    key: "angleBetweenTwoPoints",
+    value: function angleBetweenTwoPoints(x1, y1, x2, y2) {
+      return Math.atan2(y2 - y1, x2 - x1);
+    }
+  }, {
+    key: "angleBetweenTwoPointsVector2",
+    value: function angleBetweenTwoPointsVector2(point1, point2) {
+      return this.angleBetweenTwoPoints(point1.x, point1.y, point2.x, point2.y);
+    }
+  }, {
+    key: "angleBetweenTwoPointsDegrees",
+    value: function angleBetweenTwoPointsDegrees(x1, y1, x2, y2) {
+      return this.angleBetweenTwoPointsRadians(x1, y1, x2, y2) * 180 / Math.PI;
+    }
+  }, {
+    key: "angleBetweenTwoPointsVector2Degrees",
+    value: function angleBetweenTwoPointsVector2Degrees(point1, point2) {
+      return this.angleBetweenTwoPointsDegrees(point1.x, point1.y, point2.x, point2.y);
+    } // Circles
+
+  }, {
+    key: "distanceBetweenTwoCirclesFromCircle",
+    value: function distanceBetweenTwoCirclesFromCircle(circle1, circle2) {
+      return this.distanceTwoPoints(circle1.x, circle1.y, circle2.x, circle2.y) - (circle1.radius + circle2.radius);
+    }
+  }, {
+    key: "distanceBetweenTwoCircles",
+    value: function distanceBetweenTwoCircles(x1, y1, radius1, x2, y2, radius2) {
+      return this.distanceBetweenTwoCirclesFromCircle({
+        x: x1,
+        y: y1,
+        radius: radius1
+      }, {
+        x: x2,
+        y: y2,
+        radius: radius2
+      });
+    }
+  }, {
+    key: "circleArea",
+    value: function circleArea(radius) {
+      return Math.PI * radius * radius;
+    }
+  }, {
+    key: "circlePerimeter",
+    value: function circlePerimeter(radius) {
+      return 2 * Math.PI * radius;
+    } // Rectangles
+
+  }, {
+    key: "distanceBetweenTwoRectanglesFromRectangle",
+    value: function distanceBetweenTwoRectanglesFromRectangle(rect1, rect2) {
+      var xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+      var yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+      return xOverlap * yOverlap;
+    }
+  }, {
+    key: "distanceBetweenTwoRectangles",
+    value: function distanceBetweenTwoRectangles(x1, y1, width1, height1, x2, y2, width2, height2) {
+      return this.distanceBetweenTwoRectanglesFromRectangle({
+        x: x1 + width1 / 2,
+        y: y1 + height1 / 2,
+        width: width1,
+        height: height1
+      }, {
+        x: x2 + width2 / 2,
+        y: y2 + height2 / 2,
+        width: width2,
+        height: height2
+      });
+    }
+  }, {
+    key: "angleBetweenTwoRectangles",
+    value: function angleBetweenTwoRectangles(x1, y1, width1, height1, x2, y2, width2, height2) {
+      return this.angleBetweenTwoRectanglesFromRectangle({
+        x: x1 + width1 / 2,
+        y: y1 + height1 / 2,
+        width: width1,
+        height: height1
+      }, {
+        x: x2 + width2 / 2,
+        y: y2 + height2 / 2,
+        width: width2,
+        height: height2
+      });
+    }
+  }, {
+    key: "angleBetweenTwoRectanglesFromRectangle",
+    value: function angleBetweenTwoRectanglesFromRectangle(rect1, rect2) {
+      var xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+      var yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+      return Math.atan2(yOverlap, xOverlap);
+    }
+  }, {
+    key: "rectangleArea",
+    value: function rectangleArea(width, height) {
+      return width * height;
+    }
+  }, {
+    key: "rectanglePerimeter",
+    value: function rectanglePerimeter(width, height) {
+      return 2 * (width + height);
+    }
+  }, {
+    key: "rectanglePerimeterFromRectangle",
+    value: function rectanglePerimeterFromRectangle(rectangle) {
+      return this.rectanglePerimeter(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
+  }, {
+    key: "rectangleVertices",
+    value: function rectangleVertices(x, y, width, height) {
+      return [{
+        x: x,
+        y: y
+      }, {
+        x: x + width,
+        y: y
+      }, {
+        x: x + width,
+        y: y + height
+      }, {
+        x: x,
+        y: y + height
+      }];
+    }
+  }, {
+    key: "rectangleVerticesFromRectangle",
+    value: function rectangleVerticesFromRectangle(rectangle) {
+      return this.rectangleVertices(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
+  }, {
+    key: "rectangleCenterX",
+    value: function rectangleCenterX(x, width) {
+      return x + width / 2;
+    }
+  }, {
+    key: "rectangleCenterY",
+    value: function rectangleCenterY(y, height) {
+      return y + height / 2;
+    }
+  }, {
+    key: "rectangleCenter",
+    value: function rectangleCenter(x, y, width, height) {
+      return {
+        x: this.rectangleCenterX(x, width),
+        y: this.rectangleCenterY(y, height)
+      };
+    }
+  }, {
+    key: "rectangleCenterXFromRectangleBounds",
+    value: function rectangleCenterXFromRectangleBounds(rectangle) {
+      return this.rectangleCenterX(rectangle.x, rectangle.width);
+    }
+  }, {
+    key: "rectangleCenterYFromRectangleBounds",
+    value: function rectangleCenterYFromRectangleBounds(rectangle) {
+      return this.rectangleCenterY(rectangle.y, rectangle.height);
+    }
+  }, {
+    key: "rectangleCenterFromRectangleBounds",
+    value: function rectangleCenterFromRectangleBounds(rectangle) {
+      return this.rectangleCenter(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
+  }, {
+    key: "rectangleTopLeft",
+    value: function rectangleTopLeft(x, y) {
+      return {
+        x: x,
+        y: y
+      };
+    }
+  }, {
+    key: "rectangleTopRight",
+    value: function rectangleTopRight(x, y, width) {
+      return {
+        x: x + width,
+        y: y
+      };
+    }
+  }, {
+    key: "rectangleBottomLeft",
+    value: function rectangleBottomLeft(x, y, height) {
+      return {
+        x: x,
+        y: y + height
+      };
+    }
+  }, {
+    key: "rectangleBottomRight",
+    value: function rectangleBottomRight(x, y, width, height) {
+      return {
+        x: x + width,
+        y: y + height
+      };
+    }
+  }, {
+    key: "rectangleTopLeftFromRectangleBounds",
+    value: function rectangleTopLeftFromRectangleBounds(rectangle) {
+      return this.rectangleTopLeft(rectangle.x, rectangle.y);
+    }
+  }, {
+    key: "rectangleTopRightFromRectangleBounds",
+    value: function rectangleTopRightFromRectangleBounds(rectangle) {
+      return this.rectangleTopRight(rectangle.x, rectangle.y, rectangle.width);
+    }
+  }, {
+    key: "rectangleBottomLeftFromRectangleBounds",
+    value: function rectangleBottomLeftFromRectangleBounds(rectangle) {
+      return this.rectangleBottomLeft(rectangle.x, rectangle.y, rectangle.height);
+    }
+  }, {
+    key: "rectangleBottomRightFromRectangleBounds",
+    value: function rectangleBottomRightFromRectangleBounds(rectangle) {
+      return this.rectangleBottomRight(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
+  }]);
+
+  return UtilsMath;
+}();
+var UtilsMathInstance = new UtilsMath();
+
+var Vector2 = /*#__PURE__*/function () {
+  function Vector2(x, y) {
+    _classCallCheck(this, Vector2);
+
+    this.x = x;
+    this.y = y;
+  }
+
+  _createClass(Vector2, [{
+    key: "set",
+    value: function set(x, y) {
+      this.x = x || 0;
+      this.y = y || 0;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new Vector2(this.x, this.y);
+    }
+  }, {
+    key: "add",
+    value: function add(vector) {
+      return new Vector2(this.x + vector.x, this.y + vector.y);
+    }
+  }, {
+    key: "subtract",
+    value: function subtract(vector) {
+      return new Vector2(this.x - vector.x, this.y - vector.y);
+    }
+  }, {
+    key: "scale",
+    value: function scale(scalar) {
+      return new Vector2(this.x * scalar, this.y * scalar);
+    }
+  }, {
+    key: "dot",
+    value: function dot(vector) {
+      return this.x * vector.x + this.y + vector.y;
+    }
+  }, {
+    key: "moveTowards",
+    value: function moveTowards(vector, t) {
+      // Linearly interpolates between vectors A and B by t.
+      // t = 0 returns A, t = 1 returns B
+      t = Math.min(t, 1); // still allow negative t
+
+      var diff = vector.subtract(this);
+      return this.add(diff.scale(t));
+    }
+  }, {
+    key: "magnitude",
+    value: function magnitude() {
+      return Math.sqrt(this.magnitudeSqr());
+    }
+  }, {
+    key: "magnitudeSqr",
+    value: function magnitudeSqr() {
+      return this.x * this.x + this.y * this.y;
+    }
+  }, {
+    key: "distance",
+    value: function distance(vector) {
+      return Math.sqrt(this.distanceSqr(vector));
+    }
+  }, {
+    key: "distanceSqr",
+    value: function distanceSqr(vector) {
+      var deltaX = this.x - vector.x;
+      var deltaY = this.y - vector.y;
+      return deltaX * deltaX + deltaY * deltaY;
+    }
+  }, {
+    key: "normalize",
+    value: function normalize() {
+      var mag = this.magnitude();
+      var vector = this.clone();
+
+      if (Math.abs(mag) < 1e-9) {
+        vector.x = 0;
+        vector.y = 0;
+      } else {
+        vector.x /= mag;
+        vector.y /= mag;
+      }
+
+      return vector;
+    }
+  }, {
+    key: "angle",
+    value: function angle() {
+      return Math.atan2(this.y, this.x);
+    }
+  }, {
+    key: "rotate",
+    value: function rotate(alpha) {
+      var cos = Math.cos(alpha);
+      var sin = Math.sin(alpha);
+      var vector = new Vector2();
+      vector.x = this.x * cos - this.y * sin;
+      vector.y = this.x * sin + this.y * cos;
+      return vector;
+    }
+  }, {
+    key: "toPrecision",
+    value: function toPrecision(precision) {
+      var vector = this.clone();
+      vector.x = vector.x.toFixed(precision);
+      vector.y = vector.y.toFixed(precision);
+      return vector;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      var vector = this.toPrecision(1);
+      return "[" + vector.x + "; " + vector.y + "]";
+    }
+  }, {
+    key: "zero",
+    value: function zero() {
+      return new Vector2(0, 0);
+    }
+  }, {
+    key: "one",
+    value: function one() {
+      return new Vector2(1, 1);
+    }
+  }, {
+    key: "up",
+    value: function up() {
+      return new Vector2(0, 1);
+    }
+  }, {
+    key: "down",
+    value: function down() {
+      return new Vector2(0, -1);
+    }
+  }, {
+    key: "left",
+    value: function left() {
+      return new Vector2(-1, 0);
+    }
+  }, {
+    key: "right",
+    value: function right() {
+      return new Vector2(1, 0);
+    }
+  }, {
+    key: "random",
+    value: function random() {
+      return new Vector2(Math.random() - 0.5, Math.random() - 0.5);
+    }
+  }, {
+    key: "randomUnit",
+    value: function randomUnit() {
+      return Vector2.random().normalize();
+    }
+    /**
+     * @param {Number} min - Object with the minimum values for each axis. ex: { x: 0, y: 0 }
+     * @param {Number} max - Object with the maximum values for each axis. ex: { x: 100, y: 100 }
+     * @returns {Vector2}
+     * @memberof Vector2
+     */
+
+  }, {
+    key: "randomInRange",
+    value: function randomInRange(min, max) {
+      return new Vector2(UtilsMathInstance.randomFloat(min.x, max.x), UtilsMathInstance.randomFloat(min.y, max.y));
+    }
+  }]);
+
+  return Vector2;
+}();
+
+var CollisionDetection = /*#__PURE__*/function () {
+  function CollisionDetection() {
+    _classCallCheck(this, CollisionDetection);
+  } // Overlap Detection
+
+
+  _createClass(CollisionDetection, [{
+    key: "checkOverlap",
+    value: function checkOverlap(gameObject1, gameObject2) {
+      if (gameObject1._type === "Rect" && gameObject2._type === "Rect") {
+        // Rectangle vs Rectangle
+        return this.overlapRectangleAndRectangle(gameObject1, gameObject2);
+      } else if (gameObject1._type === "Circle" && gameObject2._type === "Circle") {
+        // Circle vs Circle
+        return this.overlapCircleAndCircle(gameObject1, gameObject2);
+      } else if (gameObject1._type === "Rect" && gameObject2._type === "Circle") {
+        // Rectangle vs Circle
+        return this.overlapRectangleAndCircle(gameObject1, gameObject2);
+      } else if (gameObject1._type === "Circle" && gameObject2._type === "Rect") {
+        // Circle vs Rectangle
+        return this.overlapRectangleAndCircle(gameObject2, gameObject1);
+      }
+    }
+  }, {
+    key: "overlapRectangleAndRectangle",
+    value: function overlapRectangleAndRectangle(rect1, rect2) {
+      return rect1.x < rect2.x + rect2.width && // rect1 is to the right of rect2
+      rect1.x + rect1.width > rect2.x && // rect1 is to the left of rect2
+      rect1.y < rect2.y + rect2.height && // rect1 is below rect2
+      rect1.y + rect1.height > rect2.y // rect1 is above rect2
+      ;
+    }
+  }, {
+    key: "overlapRectangleAndCircle",
+    value: function overlapRectangleAndCircle(rect, circle) {
+      var dx = Math.abs(circle.x - (rect.x + rect.width / 2)); // horizontal difference
+
+      var dy = Math.abs(circle.y - (rect.y + rect.height / 2)); // vertical difference
+
+      if (dx > circle.radius + rect.width / 2) return false; // too far on horizontal
+
+      if (dy > circle.radius + rect.height / 2) return false; // too far on vertical
+
+      if (dx <= rect.width) return true; // horizontal is good
+
+      if (dy <= rect.height) return true; // vertical is good
+
+      dx = dx - rect.width; // horizontal difference
+
+      dy = dy - rect.height; // vertical difference
+
+      return dx * dx + dy * dy <= circle.radius * circle.radius; // check if it's inside the corner
+    }
+  }, {
+    key: "overlapCircleAndCircle",
+    value: function overlapCircleAndCircle(circle1, circle2) {
+      var dx = circle1.x - circle2.x; // horizontal difference
+
+      var dy = circle1.y - circle2.y; // vertical difference
+
+      var distance = Math.sqrt(dx * dx + dy * dy); // distance between two centers
+
+      return distance < circle1.radius + circle2.radius;
+    } // Rectangles
+
+  }, {
+    key: "getAreaOfTwoOverlappingRectangles",
+    value: function getAreaOfTwoOverlappingRectangles(rect1, rect2) {
+      if (this.overlapRectangleAndRectangle(rect1, rect2)) {
+        var xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+        var yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+        return xOverlap * yOverlap;
+      }
+    }
+  }, {
+    key: "getPerimeterOfTwoOverlappingRectangles",
+    value: function getPerimeterOfTwoOverlappingRectangles(rect1, rect2) {
+      if (this.overlapRectangleAndRectangle(rect1, rect2)) {
+        var xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+        var yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+        return xOverlap + yOverlap;
+      }
+    }
+  }, {
+    key: "getBoundsOfTwoOverlappingRectangles",
+    value: function getBoundsOfTwoOverlappingRectangles(rect1, rect2) {
+      if (this.overlapRectangleAndRectangle(rect1, rect2)) {
+        var xOverlap = Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x);
+        var yOverlap = Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y);
+        return {
+          x: Math.max(rect1.x, rect2.x),
+          y: Math.max(rect1.y, rect2.y),
+          width: xOverlap,
+          height: yOverlap
+        };
+      }
+    } // Collision Detection
+
+  }, {
+    key: "detectRectangleAndRectangleCollisionDirections",
+    value: function detectRectangleAndRectangleCollisionDirections(rect1, rect2) {
+      if (this.overlapRectangleAndRectangle(rect1, rect2)) {
+        var bounds = this.getBoundsOfTwoOverlappingRectangles(rect1, rect2);
+        var merged = new Vector2(rect1.getCenterX() - UtilsMathInstance.rectangleCenterXFromRectangleBounds(bounds), rect1.getCenterY() - UtilsMathInstance.rectangleCenterYFromRectangleBounds(bounds));
+        var mergedN = new Vector2(merged.x, merged.y);
+        mergedN.normalize();
+        var collisions = [];
+        if (mergedN.y > 0.5) collisions.push("TOP");
+        if (mergedN.y < -0.5) collisions.push("BOTTOM");
+        if (mergedN.x < -0.5) collisions.push("LEFT");
+        if (mergedN.x > 0.5) collisions.push("RIGHT");
+        return collisions;
+      }
+
+      return false;
+    }
+  }, {
+    key: "getRectangleAndRectangleCollisionAxis",
+    value: function getRectangleAndRectangleCollisionAxis(staticReact, dynamicReact) {
+      // https://www.youtube.com/watch?v=LYrge3ylccQ
+      var differenceCentersX = dynamicReact.getCenterX() - staticReact.getCenterX();
+      var differenceCentersY = dynamicReact.getCenterY() - staticReact.getCenterY();
+
+      if (Math.abs(differenceCentersX / staticReact.width) > Math.abs(differenceCentersY / staticReact.height)) {
+        if (differenceCentersX < 0) return "LEFT";else return "RIGHT";
+      } else {
+        if (differenceCentersY < 0) return "TOP";else return "BOTTOM";
+      }
+    }
+  }, {
+    key: "collisionLayer",
+    value: function collisionLayer(layer, scene) {
+      var _this = this;
+
+      layer.forEach(function (gameObject1, index1) {
+        layer.forEach(function (gameObject2, index2) {
+          if (index1 >= index2 || !_this.checkOverlap(gameObject1, gameObject2)) return;
+
+          _this.collisionResponse(gameObject1, gameObject2);
+        });
+      });
+    } // Collision Resolve
+
+  }, {
+    key: "collisionResponse",
+    value: function collisionResponse(gameObject1, gameObject2) {
+      if (gameObject1._type === "Rect" && gameObject2._type === "Rect") {
+        // Rectangle vs Rectangle
+        if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") {
+          // Dynamic vs Dynamic
+          this.collisionResponseDynamicRectRect(gameObject1, gameObject2);
+        } else if (gameObject1.bodyType === "D" && gameObject2.bodyType === "S") {
+          // Dynamic vs Static
+          this.collisionResponseDynamicRectStaticRect(gameObject1, gameObject2);
+        } else if (gameObject1.bodyType === "S" && gameObject2.bodyType === "D") {
+          // Static vs Dynamic
+          this.collisionResponseDynamicRectStaticRect(gameObject2, gameObject1);
+        }
+      } else if (gameObject1._type === "Circle" && gameObject2._type === "Circle") {
+        // Circle vs Circle
+        if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") {
+          // Dynamic vs Dynamic
+          this.collisionResponseDynamicCircleCircle(gameObject1, gameObject2);
+        }
+      }
+    }
+  }, {
+    key: "collisionResponseDynamicRectRect",
+    value: function collisionResponseDynamicRectRect(dynamicReact1, dynamicReact2) {
+      // https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics
+      var vCollision = {
+        x: dynamicReact2.x - dynamicReact1.x,
+        y: dynamicReact2.y - dynamicReact1.y
+      };
+      var distance = Math.sqrt((dynamicReact2.x - dynamicReact1.x) * (dynamicReact2.x - dynamicReact1.x) + (dynamicReact2.y - dynamicReact1.y) * (dynamicReact2.y - dynamicReact1.y));
+      var vCollisionNorm = {
+        x: vCollision.x / distance,
+        y: vCollision.y / distance
+      };
+      var vRelativeVelocity = {
+        x: dynamicReact1.velocity.x - dynamicReact2.velocity.x,
+        y: dynamicReact1.velocity.y - dynamicReact2.velocity.y
+      };
+      var speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+      if (speed < 0) return;
+      var impulse = 2 * speed / (dynamicReact1.mass + dynamicReact2.mass);
+      dynamicReact1.velocity.x -= impulse * dynamicReact2.mass * vCollisionNorm.x * dynamicReact1.bounce.x;
+      dynamicReact1.velocity.y -= impulse * dynamicReact2.mass * vCollisionNorm.y * dynamicReact1.bounce.y;
+      dynamicReact2.velocity.x += impulse * dynamicReact1.mass * vCollisionNorm.x * dynamicReact2.bounce.x;
+      dynamicReact2.velocity.y += impulse * dynamicReact1.mass * vCollisionNorm.y * dynamicReact2.bounce.y;
+    }
+  }, {
+    key: "collisionResponseDynamicRectStaticRect",
+    value: function collisionResponseDynamicRectStaticRect(dynamicReact, staticReact) {
+      var direction = this.getRectangleAndRectangleCollisionAxis(staticReact, dynamicReact);
+      this.collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction);
+      var gravityX = GlobalStateManagerInstance.gravity.x;
+      var gravityY = GlobalStateManagerInstance.gravity.y;
+
+      if (direction === "TOP" || direction === "BOTTOM") {
+        // Vertical
+        dynamicReact.setVelocityY(dynamicReact.velocity.y * -1 * dynamicReact.bounce.y - gravityY);
+      } else if (direction === "LEFT" || direction === "RIGHT") {
+        // Horizontal
+        dynamicReact.setVelocityX(dynamicReact.velocity.x * -1 * dynamicReact.bounce.x - gravityX);
+      }
+    } // Collision Perpetration Resolve
+
+  }, {
+    key: "collisionPerpetrationResolveDynamicRectStaticRect",
+    value: function collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction) {
+      if (direction === "LEFT") dynamicReact.setX(staticReact.x - dynamicReact.width);else if (direction === "RIGHT") dynamicReact.setX(staticReact.x + staticReact.width);else if (direction === "TOP") dynamicReact.setY(staticReact.y - dynamicReact.height);else if (direction === "BOTTOM") dynamicReact.setY(staticReact.y + staticReact.height);
+    }
+  }, {
+    key: "collisionResponseDynamicCircleCircle",
+    value: function collisionResponseDynamicCircleCircle(dynamicCircle1, dynamicCircle2) {
+      return;
+    }
+  }]);
+
+  return CollisionDetection;
+}();
+var CollisionDetectionInstance = new CollisionDetection();
+
+var Canvas = /*#__PURE__*/function () {
+  function Canvas() {
+    _classCallCheck(this, Canvas);
+
+    if (Canvas.instance instanceof Canvas) return Canvas.instance;
+    Canvas.instance = this;
+    this.canvas = null;
+    this.context = null;
+  }
+
+  _createClass(Canvas, [{
+    key: "setCanvas",
+    value: function setCanvas(canvas) {
+      this.canvas = canvas;
+      this.context = canvas.getContext("2d");
+    }
+  }, {
+    key: "drawText",
+    value: function drawText(text, x, y) {
+      var color = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "#000000";
+      var center = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+      var size = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 20;
+      var font = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : "Arial";
+      this.context.fillStyle = color;
+      this.textBaseline = center ? "middle" : "top";
+      this.context.textAlign = center ? "center" : "left";
+      this.context.font = "".concat(size, "px ").concat(font);
+      this.context.fillText(text, x, y);
+    }
+  }]);
+
+  return Canvas;
+}();
+var CanvasInstance = new Canvas();
+
 var SceneManager = /*#__PURE__*/function () {
   function SceneManager() {
     var _this = this;
@@ -115,11 +817,11 @@ var SceneManager = /*#__PURE__*/function () {
 
     if (SceneManager.instance instanceof SceneManager) return SceneManager.instance;
     SceneManager.instance = this;
-    this.globalStateManager = new GlobalStateManager();
     this.currentScene = null;
     this.scenes = [];
     this.lastDeltaUpdate = Date.now();
     this.deltaTime = 0;
+    this.isPaused = false;
     window.requestAnimationFrame(function () {
       return _this.step();
     });
@@ -151,6 +853,10 @@ var SceneManager = /*#__PURE__*/function () {
     value: function step() {
       var _this2 = this;
 
+      window.requestAnimationFrame(function () {
+        return _this2.step();
+      });
+      if (this.isPaused) return;
       this.updateDeltaTime();
 
       if (this.currentScene) {
@@ -158,27 +864,7 @@ var SceneManager = /*#__PURE__*/function () {
         var layersKeys = Object.keys(this.currentScene.collisions);
         layersKeys.forEach(function (layerKey) {
           var layer = _this2.currentScene.collisions[layerKey];
-          layer.forEach(function (gameObject1, index1) {
-            layer.forEach(function (gameObject2, index2) {
-              if (index1 < index2) {
-                var lastGameObject1XVelocity = gameObject1.velocity.x;
-                var lastGameObject1YVelocity = gameObject1.velocity.y;
-                var lastGameObject2XVelocity = gameObject2.velocity.x;
-                var lastGameObject2YVelocity = gameObject2.velocity.y; // Vertical
-
-                if (gameObject1.checkWillCollideVerticalWith(gameObject2)) {
-                  gameObject1.setVelocityY(lastGameObject2YVelocity * gameObject1.bounce.y - _this2.globalStateManager.gravity.y);
-                  gameObject2.setVelocityY(lastGameObject1YVelocity * gameObject2.bounce.y - _this2.globalStateManager.gravity.y);
-                } // Horizontal
-
-
-                if (gameObject1.checkWillCollideHorizontalWith(gameObject2)) {
-                  gameObject1.setVelocityX(lastGameObject2XVelocity * gameObject1.bounce.x - _this2.globalStateManager.gravity.x);
-                  gameObject2.setVelocityX(lastGameObject1XVelocity * gameObject2.bounce.x - _this2.globalStateManager.gravity.x);
-                }
-              }
-            });
-          });
+          CollisionDetectionInstance.collisionLayer(layer, _this2.currentScene);
         });
         this.currentScene.children.forEach(function (child) {
           child._step();
@@ -186,22 +872,17 @@ var SceneManager = /*#__PURE__*/function () {
         this.currentScene.update(this.deltaTime);
         this.render();
       }
-
-      window.requestAnimationFrame(function () {
-        return _this2.step();
-      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var ctx = CanvasInstance.context;
+      if (!ctx) return;
+      ctx.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 
-      if (!this.globalStateManager.context) return;
-      this.globalStateManager.context.clearRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
-
-      if (this.globalStateManager.backgroundColor) {
-        this.globalStateManager.context.fillStyle = this.globalStateManager.backgroundColor;
-        this.globalStateManager.context.fillRect(0, 0, this.globalStateManager.viewportDimensions.width, this.globalStateManager.viewportDimensions.height);
+      if (GlobalStateManagerInstance.backgroundColor) {
+        ctx.fillStyle = GlobalStateManagerInstance.backgroundColor;
+        ctx.fillRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
       }
 
       var zSortedChildren = this.currentScene.children.sort(function (a, b) {
@@ -210,13 +891,15 @@ var SceneManager = /*#__PURE__*/function () {
       zSortedChildren.forEach(function (child) {
         child._render();
 
-        if (_this3.globalStateManager.debug) child._debug();
+        if (GlobalStateManagerInstance.debug) child._debug();
       });
+      this.currentScene.posRender(ctx);
     }
   }]);
 
   return SceneManager;
 }();
+var SceneManagerInstance = new SceneManager();
 
 var GlobalStateManager = /*#__PURE__*/function () {
   function GlobalStateManager() {
@@ -247,6 +930,7 @@ var GlobalStateManager = /*#__PURE__*/function () {
 
   return GlobalStateManager;
 }();
+var GlobalStateManagerInstance = new GlobalStateManager();
 
 var Game = /*#__PURE__*/_createClass(function Game(config) {
   var _document$getElementB;
@@ -258,6 +942,7 @@ var Game = /*#__PURE__*/_createClass(function Game(config) {
   this.canvas.height = config.height;
   this.context = this.canvas.getContext("2d");
   if (config.parent) (_document$getElementB = document.getElementById(config.parent)) === null || _document$getElementB === void 0 ? void 0 : _document$getElementB.appendChild(this.canvas);else document.body.appendChild(this.canvas);
+  CanvasInstance.setCanvas(this.canvas);
   this.configuration = config;
   if (!config.gravity) config.gravity = {
     x: 0,
@@ -303,6 +988,19 @@ var Scene = /*#__PURE__*/function () {
       if (index > -1) this.children.splice(index, 1);
     }
   }, {
+    key: "addObjectLayer",
+    value: function addObjectLayer(object, layerName) {
+      this.collisions[layerName].push(object);
+    } // TODO: check if layer exists and object is not already in it
+
+  }, {
+    key: "removeObjectLayer",
+    value: function removeObjectLayer(object, layerName) {
+      // TODO: check if layer exists and object exists in it
+      var index = this.collisions[layerName].indexOf(object);
+      if (index > -1) this.collisions[layerName].splice(index, 1);
+    }
+  }, {
     key: "createNewCollisionLayer",
     value: function createNewCollisionLayer(name) {
       this.collisions[name] = [];
@@ -313,72 +1011,12 @@ var Scene = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update(delta) {}
+  }, {
+    key: "posRender",
+    value: function posRender(ctx) {}
   }]);
 
   return Scene;
-}();
-
-var OverlapDetection = /*#__PURE__*/function () {
-  function OverlapDetection() {
-    _classCallCheck(this, OverlapDetection);
-  }
-
-  _createClass(OverlapDetection, [{
-    key: "rectangleAndRectangle",
-    value: function rectangleAndRectangle(rect1, rect2) {
-      return rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.y + rect1.height > rect2.y;
-    }
-  }, {
-    key: "rectangleAndCircle",
-    value: function rectangleAndCircle(rect, circle) {
-      var dx = Math.abs(circle.x - (rect.x + rect.width / 2));
-      var dy = Math.abs(circle.y - (rect.y + rect.height / 2));
-      if (dx > circle.radius + rect.width / 2) return false;
-      if (dy > circle.radius + rect.height / 2) return false;
-      if (dx <= rect.width) return true;
-      if (dy <= rect.height) return true;
-      dx = dx - rect.width;
-      dy = dy - rect.height;
-      return dx * dx + dy * dy <= circle.radius * circle.radius;
-    }
-  }, {
-    key: "circleAndCircle",
-    value: function circleAndCircle(circle1, circle2) {
-      var dx = circle1.x - circle2.x;
-      var dy = circle1.y - circle2.y;
-      var distance = Math.sqrt(dx * dx + dy * dy);
-      return distance < circle1.radius + circle2.radius;
-    }
-  }]);
-
-  return OverlapDetection;
-}();
-
-var Utils = /*#__PURE__*/function () {
-  function Utils() {
-    _classCallCheck(this, Utils);
-
-    this.overlapDetection = new OverlapDetection();
-  }
-
-  _createClass(Utils, [{
-    key: "randomNumber",
-    value: function randomNumber(min, max) {
-      if (!max) {
-        max = min;
-        min = 0;
-      }
-
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-  }, {
-    key: "randomColor",
-    value: function randomColor() {
-      return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
-    }
-  }]);
-
-  return Utils;
 }();
 
 var PositionPrevisions = /*#__PURE__*/function () {
@@ -389,22 +1027,22 @@ var PositionPrevisions = /*#__PURE__*/function () {
   _createClass(PositionPrevisions, [{
     key: "getNextPrevisionTop",
     value: function getNextPrevisionTop(object) {
-      if (object._type == "Rect") return object.y + object.velocity.y * object._sceneManager.deltaTime;else if (object._type == "Circle") return object.y - object.radius + object.velocity.y * object._sceneManager.deltaTime;
+      if (object._type == "Rect") return object.y + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y - object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
     }
   }, {
     key: "getNextPrevisionBottom",
     value: function getNextPrevisionBottom(object) {
-      if (object._type == "Rect") return object.y + object.height + object.velocity.y * object._sceneManager.deltaTime;else if (object._type == "Circle") return object.y + object.radius + object.velocity.y * object._sceneManager.deltaTime;
+      if (object._type == "Rect") return object.y + object.height + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y + object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
     }
   }, {
     key: "getNextPrevisionLeft",
     value: function getNextPrevisionLeft(object) {
-      if (object._type == "Rect") return object.x + object.velocity.x * object._sceneManager.deltaTime;else if (object._type == "Circle") return object.x - object.radius + object.velocity.x * object._sceneManager.deltaTime;
+      if (object._type == "Rect") return object.x + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x - object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
     }
   }, {
     key: "getNextPrevisionRight",
     value: function getNextPrevisionRight(object) {
-      if (object._type == "Rect") return object.x + object.width + object.velocity.x * object._sceneManager.deltaTime;else if (object._type == "Circle") return object.x + object.radius + object.velocity.x * object._sceneManager.deltaTime;
+      if (object._type == "Rect") return object.x + object.width + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x + object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
     }
   }, {
     key: "checkNextPrevisionTopCollisionWorldBounds",
@@ -414,7 +1052,7 @@ var PositionPrevisions = /*#__PURE__*/function () {
   }, {
     key: "checkNextPrevisionBottomCollisionWorldBounds",
     value: function checkNextPrevisionBottomCollisionWorldBounds(object) {
-      return this.getNextPrevisionBottom(object) >= object._globalStateManager.viewportDimensions.height;
+      return this.getNextPrevisionBottom(object) >= GlobalStateManagerInstance.viewportDimensions.height;
     }
   }, {
     key: "checkNextPrevisionLeftCollisionWorldBounds",
@@ -424,7 +1062,7 @@ var PositionPrevisions = /*#__PURE__*/function () {
   }, {
     key: "checkNextPrevisionRightCollisionWorldBounds",
     value: function checkNextPrevisionRightCollisionWorldBounds(object) {
-      return this.getNextPrevisionRight(object) >= object._globalStateManager.viewportDimensions.width;
+      return this.getNextPrevisionRight(object) >= GlobalStateManagerInstance.viewportDimensions.width;
     }
   }, {
     key: "checkNextPrevisionCollisionWorldBounds",
@@ -435,29 +1073,26 @@ var PositionPrevisions = /*#__PURE__*/function () {
     key: "getNextPrevPosition",
     value: function getNextPrevPosition(object) {
       return {
-        x: object.x + object.velocity.x * object._sceneManager.deltaTime,
-        y: object.y + object.velocity.y * object._sceneManager.deltaTime
+        x: object.x + object.velocity.x * SceneManagerInstance.deltaTime,
+        y: object.y + object.velocity.y * SceneManagerInstance.deltaTime
       };
     }
   }]);
 
   return PositionPrevisions;
 }();
-
-var utils = new Utils();
-var positionPrevisions$1 = new PositionPrevisions();
+var PositionPrevisionsInstance = new PositionPrevisions();
 
 var GameObject = /*#__PURE__*/function () {
   function GameObject(x, y, fillColor, strokeColor) {
     _classCallCheck(this, GameObject);
 
-    this._globalStateManager = new GlobalStateManager();
-    this._sceneManager = new SceneManager(); // Render
+    this.id = Math.random(); // Render
 
     this.x = x;
     this.y = y;
     this.z = 0;
-    this._lastPosition = {
+    this.lastPosition = {
       x: this.x,
       y: this.y,
       z: this.z
@@ -467,7 +1102,8 @@ var GameObject = /*#__PURE__*/function () {
     this.visible = true; // Physics
 
     this.active = true;
-    this.immutable = false;
+    this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static
+
     this.velocity = {
       x: 0,
       y: 0
@@ -480,9 +1116,9 @@ var GameObject = /*#__PURE__*/function () {
       x: 1,
       y: 1
     };
+    this.mass = 1;
     this.collisionWorldBounds = false;
-    this._overlapDetection = utils.overlapDetection;
-    this._strokeDebugColor = "#00ff00";
+    this._strokeDebugColor = "#016301";
   } // Render
   // Position
 
@@ -515,8 +1151,9 @@ var GameObject = /*#__PURE__*/function () {
     key: "setPosition",
     value: function setPosition(x, y) {
       var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.z;
-      if (this.immutable) return;
-      this._lastPosition = {
+      var force = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      if (this.bodyType === "S" && !force) return;
+      this.lastPosition = {
         x: this.x,
         y: this.y,
         z: this.z
@@ -530,12 +1167,17 @@ var GameObject = /*#__PURE__*/function () {
     value: function setRandomPosition() {
       var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this._globalStateManager.viewportDimensions.width;
-      var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this._globalStateManager.viewportDimensions.height;
+      var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : GlobalStateManagerInstance.viewportDimensions.width;
+      var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : GlobalStateManagerInstance.viewportDimensions.height;
 
       do {
         this.setPosition(x + Math.random() * width, y + Math.random() * height);
       } while (!this.checkIsInsideWorldBounds());
+    }
+  }, {
+    key: "getType",
+    value: function getType() {
+      return this._type;
     }
   }, {
     key: "getCenter",
@@ -624,17 +1266,49 @@ var GameObject = /*#__PURE__*/function () {
     key: "setVisible",
     value: function setVisible(isVisible) {
       this.visible = isVisible;
-    } // Physics
+    } // -- Physics
 
   }, {
     key: "setActive",
     value: function setActive(isActive) {
       this.active = isActive;
+    } // Body Type
+
+  }, {
+    key: "setDynamicBody",
+    value: function setDynamicBody() {
+      this.setBodyType("D");
     }
   }, {
-    key: "setImmutable",
-    value: function setImmutable(isImmutable) {
-      this.immutable = isImmutable;
+    key: "setKinematicBody",
+    value: function setKinematicBody() {
+      this.setBodyType("K");
+    }
+  }, {
+    key: "setStaticBody",
+    value: function setStaticBody() {
+      this.setBodyType("S");
+    }
+  }, {
+    key: "setBodyType",
+    value: function setBodyType(bodyType) {
+      // D = Dynamic, K = Kinematic, S = Static
+      if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
+      bodyType = bodyType.toUpperCase();
+
+      if (bodyType === "S") {
+        // Reset Static Body
+        this.setVelocity(0);
+        this.setFriction(0);
+        this.setBounce(0);
+      }
+
+      this.bodyType = bodyType;
+    }
+  }, {
+    key: "getBodyType",
+    value: function getBodyType() {
+      return this.bodyType;
     }
   }, {
     key: "setVelocityX",
@@ -650,7 +1324,7 @@ var GameObject = /*#__PURE__*/function () {
     key: "setVelocity",
     value: function setVelocity(x) {
       var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : x;
-      if (this.immutable) return;
+      if (this.bodyType === "S") return;
       this.velocity.x = x;
       this.velocity.y = y;
     }
@@ -689,6 +1363,11 @@ var GameObject = /*#__PURE__*/function () {
       this.bounce.y = y;
     }
   }, {
+    key: "setMass",
+    value: function setMass(mass) {
+      this.mass = mass;
+    }
+  }, {
     key: "setCollisionWorldBounds",
     value: function setCollisionWorldBounds(collisionWorldBounds) {
       this.collisionWorldBounds = collisionWorldBounds;
@@ -702,7 +1381,7 @@ var GameObject = /*#__PURE__*/function () {
   }, {
     key: "checkBottomCollisionWorldBounds",
     value: function checkBottomCollisionWorldBounds() {
-      return this.getBottom() >= this._globalStateManager.viewportDimensions.height;
+      return this.getBottom() >= GlobalStateManagerInstance.viewportDimensions.height;
     }
   }, {
     key: "checkLeftCollisionWorldBounds",
@@ -712,7 +1391,7 @@ var GameObject = /*#__PURE__*/function () {
   }, {
     key: "checkRightCollisionWorldBounds",
     value: function checkRightCollisionWorldBounds() {
-      return this.getRight() >= this._globalStateManager.viewportDimensions.width;
+      return this.getRight() >= GlobalStateManagerInstance.viewportDimensions.width;
     }
   }, {
     key: "checkCollisionWorldBounds",
@@ -722,33 +1401,33 @@ var GameObject = /*#__PURE__*/function () {
   }, {
     key: "checkIsInsideWorldBounds",
     value: function checkIsInsideWorldBounds() {
-      return this.getLeft() >= 0 && this.getRight() <= this._globalStateManager.viewportDimensions.width && this.getTop() >= 0 && this.getBottom() <= this._globalStateManager.viewportDimensions.height;
+      return this.getLeft() >= 0 && this.getRight() <= GlobalStateManagerInstance.viewportDimensions.width && this.getTop() >= 0 && this.getBottom() <= GlobalStateManagerInstance.viewportDimensions.height;
     } // ----- Private methods -----
 
   }, {
     key: "_step",
     value: function _step() {
-      if (!this.active) return;
+      if (!this.active || this.bodyType === "S") return;
 
       if (this.collisionWorldBounds) {
-        if (positionPrevisions$1.checkNextPrevisionTopCollisionWorldBounds(this) || positionPrevisions$1.checkNextPrevisionBottomCollisionWorldBounds(this)) {
-          this.setVelocityY(-(this.velocity.y * this.bounce.y + this._globalStateManager.gravity.y));
+        if (PositionPrevisionsInstance.checkNextPrevisionTopCollisionWorldBounds(this) || PositionPrevisionsInstance.checkNextPrevisionBottomCollisionWorldBounds(this)) {
+          this.setVelocityY(-(this.velocity.y * this.bounce.y + GlobalStateManagerInstance.gravity.y));
         }
 
-        if (positionPrevisions$1.checkNextPrevisionLeftCollisionWorldBounds(this) || positionPrevisions$1.checkNextPrevisionRightCollisionWorldBounds(this)) {
-          this.setVelocityX(-(this.velocity.x * this.bounce.x + this._globalStateManager.gravity.x));
+        if (PositionPrevisionsInstance.checkNextPrevisionLeftCollisionWorldBounds(this) || PositionPrevisionsInstance.checkNextPrevisionRightCollisionWorldBounds(this)) {
+          this.setVelocityX(-(this.velocity.x * this.bounce.x + GlobalStateManagerInstance.gravity.x));
         }
       }
 
-      this.setVelocity(this.velocity.x * this.friction.x + this._globalStateManager.gravity.x, this.velocity.y * this.friction.y + this._globalStateManager.gravity.y);
-      this.setPosition(this.x + this.velocity.x * this._sceneManager.deltaTime, this.y + this.velocity.y * this._sceneManager.deltaTime);
+      this.setVelocity(this.velocity.x * this.friction.x + GlobalStateManagerInstance.gravity.x, this.velocity.y * this.friction.y + GlobalStateManagerInstance.gravity.y);
+      this.setPosition(this.x + this.velocity.x * SceneManagerInstance.deltaTime, this.y + this.velocity.y * SceneManagerInstance.deltaTime);
     }
   }, {
     key: "_render",
     value: function _render() {
       if (!this.visible) return;
-      this._globalStateManager.context.fillStyle = this.fillColor;
-      this._globalStateManager.context.strokeStyle = this.strokeColor;
+      CanvasInstance.context.fillStyle = this.fillColor;
+      CanvasInstance.context.strokeStyle = this.strokeColor;
 
       this._renderType();
     }
@@ -757,50 +1436,21 @@ var GameObject = /*#__PURE__*/function () {
     value: function _debug() {
       if (!this.active) return; // this._debugBody();
 
-      this._debugBound();
-
       this._debugVelocity();
-    }
-  }, {
-    key: "_debugBound",
-    value: function _debugBound() {
-      this._globalStateManager.context.strokeStyle = "#000000";
-      this._globalStateManager.context.fillStyle = "#ffffff";
-      var radius = 3;
-      drawDebug(this._globalStateManager.context, this.getTopLeft().x, this.getTopLeft().y);
-      drawDebug(this._globalStateManager.context, this.getTopCenter().x, this.getTopCenter().y);
-      drawDebug(this._globalStateManager.context, this.getTopRight().x, this.getTopRight().y);
-      drawDebug(this._globalStateManager.context, this.getLeftCenter().x, this.getLeftCenter().y);
-      drawDebug(this._globalStateManager.context, this.getRightCenter().x, this.getRightCenter().y);
-      drawDebug(this._globalStateManager.context, this.getBottomLeft().x, this.getBottomLeft().y);
-      drawDebug(this._globalStateManager.context, this.getBottomCenter().x, this.getBottomCenter().y);
-      drawDebug(this._globalStateManager.context, this.getCenter().x, this.getCenter().y);
-      drawDebug(this._globalStateManager.context, this.getBottomRight().x, this.getBottomRight().y);
-
-      function drawDebug(context, x, y) {
-        context.beginPath();
-        context.arc(x, y, radius, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-      }
     }
   }, {
     key: "_debugVelocity",
     value: function _debugVelocity() {
-      this._globalStateManager.context.beginPath();
-
-      this._globalStateManager.context.moveTo(this.getCenterX(), this.getCenterY());
-
-      this._globalStateManager.context.lineTo(this.getCenterX() + this.velocity.x, this.getCenterY() + this.velocity.y);
-
-      this._globalStateManager.context.stroke();
+      CanvasInstance.context.strokeStyle = this._strokeDebugColor;
+      CanvasInstance.context.beginPath();
+      CanvasInstance.context.moveTo(this.getCenterX(), this.getCenterY());
+      CanvasInstance.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
+      CanvasInstance.context.stroke();
     }
   }]);
 
   return GameObject;
 }();
-
-var positionPrevisions = new PositionPrevisions();
 
 var Rectangle = /*#__PURE__*/function (_GameObject) {
   _inherits(Rectangle, _GameObject);
@@ -868,7 +1518,10 @@ var Rectangle = /*#__PURE__*/function (_GameObject) {
     }
   }, {
     key: "setSize",
-    value: function setSize(width, height) {
+    value: function setSize(width) {
+      var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : width;
+      var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      if (this.bodyType === "S" && !force) return;
       this.width = width;
       this.height = height;
     }
@@ -881,98 +1534,48 @@ var Rectangle = /*#__PURE__*/function (_GameObject) {
         width: this.width,
         height: this.height
       };
-    } // Check Overlap
+    }
+  }, {
+    key: "getArea",
+    value: function getArea() {
+      return this.width * this.height;
+    }
+  }, {
+    key: "getVertices",
+    value: function getVertices() {
+      return [{
+        x: this.x,
+        y: this.y
+      }, {
+        x: this.x + this.width,
+        y: this.y
+      }, {
+        x: this.x + this.width,
+        y: this.y + this.height
+      }, {
+        x: this.x,
+        y: this.y + this.height
+      }];
+    } // Update position and size of the rectangle (used mostly in static objects)
 
   }, {
-    key: "checkTopOverlap",
-    value: function checkTopOverlap(obj) {
-      return obj.getBottom() >= this.getTop() && obj.getTop() <= this.getTop();
-    }
-  }, {
-    key: "checkBottomOverlap",
-    value: function checkBottomOverlap(obj) {
-      return obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getBottom();
-    }
-  }, {
-    key: "checkLeftOverlap",
-    value: function checkLeftOverlap(obj) {
-      return obj.getRight() >= this.getLeft() && obj.getLeft() <= this.getLeft();
-    }
-  }, {
-    key: "checkRightOverlap",
-    value: function checkRightOverlap(obj) {
-      return obj.getLeft() <= this.getRight() && obj.getRight() >= this.getRight();
-    }
-  }, {
-    key: "checkOverlap",
-    value: function checkOverlap(obj) {
-      return obj.getLeft() <= this.getRight() && obj.getRight() >= this.getLeft() && obj.getTop() <= this.getBottom() && obj.getBottom() >= this.getTop();
-    } // Zone: Detect Collision
-
-  }, {
-    key: "getNextBoxBound",
-    value: function getNextBoxBound() {
-      var nextPosition = positionPrevisions.getNextPrevPosition(this);
-      return {
-        x: nextPosition.x,
-        y: nextPosition.y,
-        width: this.width,
-        height: this.height
-      };
-    }
-  }, {
-    key: "checkWillCollideTopWith",
-    value: function checkWillCollideTopWith(other) {
-      var nextBoxBounds = this.getNextBoxBound();
-      return other.getBottom() >= nextBoxBounds.y && other.getTop() <= nextBoxBounds.y + nextBoxBounds.height;
-    }
-  }, {
-    key: "checkWillCollideBottomWith",
-    value: function checkWillCollideBottomWith(other) {
-      var nextBoxBounds = this.getNextBoxBound();
-      return other.getTop() <= nextBoxBounds.y + nextBoxBounds.height && other.getBottom() >= nextBoxBounds.y;
-    }
-  }, {
-    key: "checkWillCollideLeftWith",
-    value: function checkWillCollideLeftWith(other) {
-      var nextBoxBounds = this.getNextBoxBound();
-      return other.getRight() >= nextBoxBounds.x && other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width;
-    }
-  }, {
-    key: "checkWillCollideRightWith",
-    value: function checkWillCollideRightWith(other) {
-      var nextBoxBounds = this.getNextBoxBound();
-      return other.getLeft() <= nextBoxBounds.x + nextBoxBounds.width && other.getRight() >= nextBoxBounds.x;
-    }
-  }, {
-    key: "checkWillCollideVerticalWith",
-    value: function checkWillCollideVerticalWith(other) {
-      return this.checkWillCollideTopWith(other) || this.checkWillCollideBottomWith(other);
-    }
-  }, {
-    key: "checkWillCollideHorizontalWith",
-    value: function checkWillCollideHorizontalWith(other) {
-      return this.checkWillCollideLeftWith(other) || this.checkWillCollideRightWith(other);
-    }
-  }, {
-    key: "checkWillCollideWith",
-    value: function checkWillCollideWith(other) {
-      return this.checkWillCollideTopWith(other) || this.checkWillCollideBottomWith(other) || this.checkWillCollideLeftWith(other) || this.checkWillCollideRightWith(other);
-    } // End Zone: Detect Collision
-    // ----- Private methods -----
+    key: "refresh",
+    value: function refresh(x, y, width, height) {
+      this.setPosition(x, y, this.z, true);
+      this.setSize(width, height, true);
+    } // ----- Private methods -----
 
   }, {
     key: "_renderType",
     value: function _renderType() {
-      this._globalStateManager.context.fillRect(this.x, this.y, this.width, this.height);
-
-      this._globalStateManager.context.strokeRect(this.x, this.y, this.width, this.height);
+      CanvasInstance.context.fillRect(this.x, this.y, this.width, this.height);
+      CanvasInstance.context.strokeRect(this.x, this.y, this.width, this.height);
     }
   }, {
     key: "_debugBody",
     value: function _debugBody() {
-      this._globalStateManager.context.fillStyle = "rgba(0, 0, 0, 0)";
-      this._globalStateManager.context.strokeStyle = this._strokeDebugColor;
+      CanvasInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
+      CanvasInstance.context.strokeStyle = this._strokeDebugColor;
 
       this._renderType();
     }
@@ -980,8 +1583,6 @@ var Rectangle = /*#__PURE__*/function (_GameObject) {
 
   return Rectangle;
 }(GameObject);
-
-new PositionPrevisions();
 
 var Circle = /*#__PURE__*/function (_GameObject) {
   _inherits(Circle, _GameObject);
@@ -1057,20 +1658,17 @@ var Circle = /*#__PURE__*/function (_GameObject) {
   }, {
     key: "_renderType",
     value: function _renderType() {
-      this._globalStateManager.context.beginPath();
-
-      this._globalStateManager.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-
-      this._globalStateManager.context.fill();
-
-      this._globalStateManager.context.stroke();
+      CanvasInstance.context.beginPath();
+      CanvasInstance.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      CanvasInstance.context.fill();
+      CanvasInstance.context.stroke();
     }
   }, {
     key: "_debugBody",
     value: function _debugBody() {
       if (!this.active) return;
-      this._globalStateManager.context.fillStyle = "rgba(0, 0, 0, 0)";
-      this._globalStateManager.context.strokeStyle = this._strokeDebugColor;
+      CanvasInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
+      CanvasInstance.context.strokeStyle = this._strokeDebugColor;
 
       this._renderType();
     }
@@ -1184,6 +1782,7 @@ var KeyboardManager = /*#__PURE__*/function () {
 
   return KeyboardManager;
 }();
+new KeyboardManager();
 
 var Mouse = /*#__PURE__*/function () {
   function Mouse() {
@@ -1305,6 +1904,7 @@ var Mouse = /*#__PURE__*/function () {
 
   return Mouse;
 }();
+new Mouse();
 
 var Inputs = /*#__PURE__*/_createClass(function Inputs() {
   _classCallCheck(this, Inputs);
@@ -1312,6 +1912,17 @@ var Inputs = /*#__PURE__*/_createClass(function Inputs() {
   this.KeyBoard = new KeyboardManager();
   this.Mouse = new Mouse();
 });
+new Inputs();
+
+var Utils = /*#__PURE__*/_createClass(function Utils() {
+  _classCallCheck(this, Utils);
+
+  this.Canvas = new Canvas();
+  this.CollisionDetection = new CollisionDetection();
+  this.Math = new UtilsMath();
+  this.Vector2 = Vector2;
+});
+new Utils();
 
 var Impacto = (function () {
   return {
