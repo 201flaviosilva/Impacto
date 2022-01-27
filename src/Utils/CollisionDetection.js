@@ -1,3 +1,4 @@
+import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { UtilsMathInstance } from "./Math.js";
 import Vector2 from "./Vector2.js";
 
@@ -101,50 +102,30 @@ export default class CollisionDetection {
 		return false;
 	}
 
+	getRectangleAndRectangleCollisionAxis(staticReact, dynamicReact) {
+		// https://www.youtube.com/watch?v=LYrge3ylccQ
+
+		const differenceCentersX = dynamicReact.getCenterX() - staticReact.getCenterX();
+		const differenceCentersY = dynamicReact.getCenterY() - staticReact.getCenterY();
+
+		if (Math.abs(differenceCentersX / staticReact.width) > Math.abs(differenceCentersY / staticReact.height)) {
+			if (differenceCentersX < 0) return "LEFT";
+			else return "RIGHT";
+
+		} else {
+			if (differenceCentersY < 0) return "TOP";
+			else return "BOTTOM";
+		}
+	}
+
 
 	collisionLayer(layer, scene) {
 		layer.forEach((gameObject1, index1) => {
 			layer.forEach((gameObject2, index2) => {
 				if (index1 >= index2 || !this.checkOverlap(gameObject1, gameObject2)) return;
 				this.collisionResponse(gameObject1, gameObject2);
-				// this.collisionPerpetrationResolve(gameObject1, gameObject2);
 			});
 		});
-	}
-
-	// Collision Perpetration Resolve
-	collisionPerpetrationResolve(rect1, rect2) {
-		// https://www.youtube.com/watch?v=LYrge3ylccQ
-
-		// Difference centers between two rectangles
-		const differenceCentersX = rect2.getCenterX() - rect1.getCenterX();
-		const differenceCentersY = rect2.getCenterY() - rect1.getCenterY();
-		// Average
-		const averageWidth = (rect2.width + rect1.width) * 0.5;
-		const averageHeight = (rect2.height + rect1.height) * 0.5;
-
-		// // If either distance is greater than the average dimension there is no collision.
-		if (Math.abs(differenceCentersX) > averageWidth || Math.abs(differenceCentersY) > averageHeight) return false;
-		// if (!this.overlapRectangleAndRectangle(rect1, rect2)) return false;
-
-		if (Math.abs(differenceCentersX / rect1.width) > Math.abs(differenceCentersY / rect1.height)) {
-			if (differenceCentersX < 0) { // Left
-				rect2.setX(rect1.x - rect2.width);
-				return "Left";
-			} else { // right
-				rect2.setX(rect1.x + rect1.width);
-				return "Right";
-			}
-
-		} else {
-			if (differenceCentersY < 0) { // Top
-				rect2.setY(rect1.y - rect2.height);
-				return "Top";
-			} else { // Bottom
-				rect2.setY(rect1.y + rect1.height);
-				return "Bottom";
-			}
-		}
 	}
 
 	// Collision Resolve
@@ -152,6 +133,10 @@ export default class CollisionDetection {
 		if (gameObject1._type === "Rect" && gameObject2._type === "Rect") { // Rectangle vs Rectangle
 			if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") { // Dynamic vs Dynamic
 				this.collisionResponseDynamicRectRect(gameObject1, gameObject2);
+			} else if (gameObject1.bodyType === "D" && gameObject2.bodyType === "S") { // Dynamic vs Static
+				this.collisionResponseDynamicRectStaticRect(gameObject1, gameObject2);
+			} else if (gameObject1.bodyType === "S" && gameObject2.bodyType === "D") { // Static vs Dynamic
+				this.collisionResponseDynamicRectStaticRect(gameObject2, gameObject1);
 			}
 
 		} else if (gameObject1._type === "Circle" && gameObject2._type === "Circle") { // Circle vs Circle
@@ -179,9 +164,34 @@ export default class CollisionDetection {
 		dynamicReact2.velocity.y += (impulse * dynamicReact1.mass * vCollisionNorm.y) * dynamicReact2.bounce.y;
 	}
 
-	collisionResponseDynamicCircleCircle(dynamicCircle1, dynamicCircle2) {
-		return;
+	collisionResponseDynamicRectStaticRect(dynamicReact, staticReact) {
+		const direction = this.getRectangleAndRectangleCollisionAxis(staticReact, dynamicReact);
+		this.collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction);
+
+		const gravityX = GlobalStateManagerInstance.gravity.x;
+		const gravityY = GlobalStateManagerInstance.gravity.y;
+
+		if (direction === "TOP" || direction === "BOTTOM") { // Vertical
+			dynamicReact.setVelocityY(
+				(dynamicReact.velocity.y * -1) * dynamicReact.bounce.y - gravityY
+			);
+
+		} else if (direction === "LEFT" || direction === "RIGHT") { // Horizontal
+			dynamicReact.setVelocityX(
+				(dynamicReact.velocity.x * -1) * dynamicReact.bounce.x - gravityX
+			);
+		}
 	}
+
+	// Collision Perpetration Resolve
+	collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction) {
+		if (direction === "LEFT") dynamicReact.setX(staticReact.x - dynamicReact.width);
+		else if (direction === "RIGHT") dynamicReact.setX(staticReact.x + staticReact.width);
+		else if (direction === "TOP") dynamicReact.setY(staticReact.y - dynamicReact.height);
+		else if (direction === "BOTTOM") dynamicReact.setY(staticReact.y + staticReact.height);
+	}
+
+	collisionResponseDynamicCircleCircle(dynamicCircle1, dynamicCircle2) { return; }
 }
 
 export const CollisionDetectionInstance = new CollisionDetection();

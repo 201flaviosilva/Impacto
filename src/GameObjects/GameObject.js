@@ -79,7 +79,13 @@ export default class GameObject {
 	setKinematicBody() { this.setBodyType("K"); }
 	setStaticBody() { this.setBodyType("S"); }
 	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static
-		if (this.bodyType === bodyType) return;
+		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
+		bodyType = bodyType.toUpperCase();
+		if (bodyType === "S") { // Reset Static Body
+			this.setVelocity(0);
+			this.setFriction(0);
+			this.setBounce(0);
+		}
 		this.bodyType = bodyType;
 	}
 	getBodyType() { return this.bodyType; }
