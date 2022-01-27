@@ -1,11 +1,9 @@
 {
   "name": "impacto",
-  "version": "0.7.0",
+  "version": "0.7.2",
   "description": "Um simples motor de fisica em JavaScript",
   "homepage": "https://201flaviosilva.github.io/Impacto/",
-  "directories": {
-    "example": "examples"
-  },
+  "main": "dist/Impacto.cjs.js",
   "scripts": {
     "clear": "rm -rf dist",
     "build": "npm run clear && rollup -c",
