@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Overlapping Circle And Circle</h1>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+			start() {
+				this.circle1 = new Impacto.Circle(400, 300, 25, "#0000ff");
+				this.addChild(this.circle1);
+
+				this.circle2 = new Impacto.Circle(0, 0, 33, "#00ff00");
+				this.addChild(this.circle2);
+			}
+
+			update() {
+				// Random new sizes
+				if (Impacto.Inputs.KeyBoard.isKeyPressed(Impacto.Inputs.KeyBoard.keys.space)) {
+					this.circle1.setRadius(Impacto.Utils.Math.randomInt(10, 200));
+					this.circle2.setRadius(Impacto.Utils.Math.randomInt(10, 200));
+				}
+				const mouse = Impacto.Inputs.Mouse.getPosition();
+				this.circle2.setPosition(mouse.x, mouse.y);
+
+				if (Impacto.Utils.CollisionDetection.overlapCircleAndCircle(this.circle1, this.circle2)) {
+					this.circle1.setFillColor("#ff0000");
+					this.circle2.setFillColor("#ff0000");
+				} else {
+					this.circle1.setFillColor("#0000ff");
+					this.circle2.setFillColor("#00ff00");
+				}
+			}
+
+			posRender(ctx) {
+				// Draw a line of the distance between the two circles
+				ctx.fillStyle = "#f8f8f8";
+				ctx.beginPath();
+				ctx.moveTo(this.circle2.getCenterX(), this.circle2.getCenterY());
+				ctx.lineTo(this.circle1.getCenterX(), this.circle1.getCenterY());
+				ctx.stroke();
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>

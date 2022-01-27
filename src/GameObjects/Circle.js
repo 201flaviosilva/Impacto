@@ -1,7 +1,6 @@
 import GameObject from "./GameObject.js";
 
-import PositionPrevisions from "../Utils/PositionPrevisions.js";
-const positionPrevisions = new PositionPrevisions();
+import { CanvasInstance } from "../Utils/Canvas.js";
 
 export default class Circle extends GameObject {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
@@ -26,16 +25,16 @@ export default class Circle extends GameObject {
 
 	// ----- Private methods -----
 	_renderType() {
-		this._globalStateManager.context.beginPath();
-		this._globalStateManager.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-		this._globalStateManager.context.fill();
-		this._globalStateManager.context.stroke();
+		CanvasInstance.context.beginPath();
+		CanvasInstance.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+		CanvasInstance.context.fill();
+		CanvasInstance.context.stroke();
 	}
 
 	_debugBody() {
 		if (!this.active) return;
-		this._globalStateManager.context.fillStyle = "rgba(0, 0, 0, 0)";
-		this._globalStateManager.context.strokeStyle = this._strokeDebugColor;
+		CanvasInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
+		CanvasInstance.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
 	}
 }

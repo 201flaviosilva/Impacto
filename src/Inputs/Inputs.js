@@ -7,3 +7,5 @@ export default class Inputs {
 		this.Mouse = new Mouse();
 	}
 }
+
+export const InputsInstance = new Inputs();

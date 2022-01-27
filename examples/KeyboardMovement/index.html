@@ -20,7 +20,7 @@
 		class Game extends Impacto.Scene {
 			start() {
 				this.speed = 10;
-				this.rect = new Impacto.Rectangle(400, 300, 50, 50);
+				this.rect = new Impacto.Rectangle(400, 300, 50, 50, "#ff0000");
 				this.rect.setCollisionWorldBounds(true);
 				this.addChild(this.rect);
 			}
@@ -35,6 +35,15 @@
 				if (Impacto.Inputs.KeyBoard.isKeyPressed(up) || Impacto.Inputs.KeyBoard.isKeyPressed("w")) this.rect.setVelocityY(-this.speed);
 				else if (Impacto.Inputs.KeyBoard.isKeyPressed(down) || Impacto.Inputs.KeyBoard.isKeyPressed("s")) this.rect.setVelocityY(this.speed);
 				else this.rect.setVelocityY(0);
+			}
+
+			posRender(ctx) {
+				const text = "Use WASD or arrow keys to move the rectangle.";
+				const x = 10;
+				const y = 20;
+				const color = "#000";
+				const center = false;
+				Impacto.Utils.Canvas.drawText(text, x, y, color, center);
 			}
 		}
 

@@ -1,35 +1,30 @@
-import GlobalStateManager from "../State/GlobalStateManager.js";
-import SceneManager from "../Scenes/SceneManager.js";
-
-import Utils from "../Utils/Utils.js";
-const utils = new Utils();
-
-import PositionPrevisions from "../Utils/PositionPrevisions.js";
-const positionPrevisions = new PositionPrevisions();
+import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
+import { SceneManagerInstance } from "../Scenes/SceneManager.js";
+import { PositionPrevisionsInstance } from "../Utils/PositionPrevisions.js";
+import { CanvasInstance } from "../Utils/Canvas.js";
 
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
-		this._globalStateManager = new GlobalStateManager();
-		this._sceneManager = new SceneManager();
+		this.id = Math.random();
 
 		// Render
 		this.x = x;
 		this.y = y;
 		this.z = 0;
-		this._lastPosition = { x: this.x, y: this.y, z: this.z };
+		this.lastPosition = { x: this.x, y: this.y, z: this.z };
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
 		this.visible = true;
 
 		// Physics
 		this.active = true;
-		this.immutable = false;
+		this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static
 		this.velocity = { x: 0, y: 0, };
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
+		this.mass = 1;
 		this.collisionWorldBounds = false;
-		this._overlapDetection = utils.overlapDetection;
-		this._strokeDebugColor = "#00ff00";
+		this._strokeDebugColor = "#016301";
 	}
 
 	// Render
@@ -38,15 +33,15 @@ export default class GameObject {
 	setY(y) { this.setPosition(this.x, y, this.z); }
 	setZ(z) { this.setPosition(this.x, this.y, z); }
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
-	setPosition(x, y, z = this.z) {
-		if (this.immutable) return;
-		this._lastPosition = { x: this.x, y: this.y, z: this.z };
+	setPosition(x, y, z = this.z, force = false) {
+		if (this.bodyType === "S" && !force) return;
+		this.lastPosition = { x: this.x, y: this.y, z: this.z };
 
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	setRandomPosition(x = 0, y = 0, width = this._globalStateManager.viewportDimensions.width, height = this._globalStateManager.viewportDimensions.height) {
+	setRandomPosition(x = 0, y = 0, width = GlobalStateManagerInstance.viewportDimensions.width, height = GlobalStateManagerInstance.viewportDimensions.height) {
 		do {
 			this.setPosition(
 				x + Math.random() * width,
@@ -54,6 +49,8 @@ export default class GameObject {
 			);
 		} while (!this.checkIsInsideWorldBounds());
 	}
+
+	getType() { return this._type; }
 
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
@@ -74,14 +71,29 @@ export default class GameObject {
 
 	setVisible(isVisible) { this.visible = isVisible; }
 
-	// Physics
+	// -- Physics
 	setActive(isActive) { this.active = isActive; }
-	setImmutable(isImmutable) { this.immutable = isImmutable; }
+
+	// Body Type
+	setDynamicBody() { this.setBodyType("D"); }
+	setKinematicBody() { this.setBodyType("K"); }
+	setStaticBody() { this.setBodyType("S"); }
+	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static
+		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
+		bodyType = bodyType.toUpperCase();
+		if (bodyType === "S") { // Reset Static Body
+			this.setVelocity(0);
+			this.setFriction(0);
+			this.setBounce(0);
+		}
+		this.bodyType = bodyType;
+	}
+	getBodyType() { return this.bodyType; }
 
 	setVelocityX(x) { this.setVelocity(x, this.velocity.y); }
 	setVelocityY(y) { this.setVelocity(this.velocity.x, y); }
 	setVelocity(x, y = x) {
-		if (this.immutable) return;
+		if (this.bodyType === "S") return;
 
 		this.velocity.x = x;
 		this.velocity.y = y;
@@ -101,13 +113,15 @@ export default class GameObject {
 		this.bounce.y = y;
 	}
 
+	setMass(mass) { this.mass = mass; }
+
 	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
 
 	// Check Current Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
-	checkBottomCollisionWorldBounds() { return this.getBottom() >= this._globalStateManager.viewportDimensions.height; }
+	checkBottomCollisionWorldBounds() { return this.getBottom() >= GlobalStateManagerInstance.viewportDimensions.height; }
 	checkLeftCollisionWorldBounds() { return this.getLeft() <= 0; }
-	checkRightCollisionWorldBounds() { return this.getRight() >= this._globalStateManager.viewportDimensions.width; }
+	checkRightCollisionWorldBounds() { return this.getRight() >= GlobalStateManagerInstance.viewportDimensions.width; }
 	checkCollisionWorldBounds() {
 		return this.checkTopCollisionWorldBounds() ||
 			this.checkBottomCollisionWorldBounds() ||
@@ -117,83 +131,58 @@ export default class GameObject {
 
 	checkIsInsideWorldBounds() {
 		return this.getLeft() >= 0 &&
-			this.getRight() <= this._globalStateManager.viewportDimensions.width &&
+			this.getRight() <= GlobalStateManagerInstance.viewportDimensions.width &&
 			this.getTop() >= 0 &&
-			this.getBottom() <= this._globalStateManager.viewportDimensions.height;
+			this.getBottom() <= GlobalStateManagerInstance.viewportDimensions.height;
 	}
 
 
 	// ----- Private methods -----
 	_step() {
-		if (!this.active) return;
+		if (!this.active || this.bodyType === "S") return;
 
 		if (this.collisionWorldBounds) {
-			if (positionPrevisions.checkNextPrevisionTopCollisionWorldBounds(this)
-				|| positionPrevisions.checkNextPrevisionBottomCollisionWorldBounds(this)) {
-				this.setVelocityY(-(this.velocity.y * this.bounce.y + this._globalStateManager.gravity.y));
+			if (PositionPrevisionsInstance.checkNextPrevisionTopCollisionWorldBounds(this)
+				|| PositionPrevisionsInstance.checkNextPrevisionBottomCollisionWorldBounds(this)) {
+				this.setVelocityY(-(this.velocity.y * this.bounce.y + GlobalStateManagerInstance.gravity.y));
 			}
 
-			if (positionPrevisions.checkNextPrevisionLeftCollisionWorldBounds(this)
-				|| positionPrevisions.checkNextPrevisionRightCollisionWorldBounds(this)) {
-				this.setVelocityX(-(this.velocity.x * this.bounce.x + this._globalStateManager.gravity.x));
+			if (PositionPrevisionsInstance.checkNextPrevisionLeftCollisionWorldBounds(this)
+				|| PositionPrevisionsInstance.checkNextPrevisionRightCollisionWorldBounds(this)) {
+				this.setVelocityX(-(this.velocity.x * this.bounce.x + GlobalStateManagerInstance.gravity.x));
 			}
 		}
 
 		this.setVelocity(
-			this.velocity.x * this.friction.x + this._globalStateManager.gravity.x,
-			this.velocity.y * this.friction.y + this._globalStateManager.gravity.y
+			this.velocity.x * this.friction.x + GlobalStateManagerInstance.gravity.x,
+			this.velocity.y * this.friction.y + GlobalStateManagerInstance.gravity.y
 		);
 
 		this.setPosition(
-			this.x + this.velocity.x * this._sceneManager.deltaTime,
-			this.y + this.velocity.y * this._sceneManager.deltaTime
+			this.x + this.velocity.x * SceneManagerInstance.deltaTime,
+			this.y + this.velocity.y * SceneManagerInstance.deltaTime
 		);
 	}
 
 	_render() {
 		if (!this.visible) return;
 
-		this._globalStateManager.context.fillStyle = this.fillColor;
-		this._globalStateManager.context.strokeStyle = this.strokeColor;
+		CanvasInstance.context.fillStyle = this.fillColor;
+		CanvasInstance.context.strokeStyle = this.strokeColor;
 		this._renderType();
 	}
 
 	_debug() {
 		if (!this.active) return;
 		// this._debugBody();
-		this._debugBound();
 		this._debugVelocity();
 	}
 
-	_debugBound() {
-		this._globalStateManager.context.strokeStyle = "#000000";
-		this._globalStateManager.context.fillStyle = "#ffffff";
-		const radius = 3;
-
-		drawDebug(this._globalStateManager.context, this.getTopLeft().x, this.getTopLeft().y);
-		drawDebug(this._globalStateManager.context, this.getTopCenter().x, this.getTopCenter().y);
-		drawDebug(this._globalStateManager.context, this.getTopRight().x, this.getTopRight().y);
-
-		drawDebug(this._globalStateManager.context, this.getLeftCenter().x, this.getLeftCenter().y);
-		drawDebug(this._globalStateManager.context, this.getRightCenter().x, this.getRightCenter().y);
-		drawDebug(this._globalStateManager.context, this.getBottomLeft().x, this.getBottomLeft().y);
-
-		drawDebug(this._globalStateManager.context, this.getBottomCenter().x, this.getBottomCenter().y);
-		drawDebug(this._globalStateManager.context, this.getCenter().x, this.getCenter().y);
-		drawDebug(this._globalStateManager.context, this.getBottomRight().x, this.getBottomRight().y);
-
-		function drawDebug(context, x, y) {
-			context.beginPath();
-			context.arc(x, y, radius, 0, 2 * Math.PI);
-			context.fill();
-			context.stroke();
-		}
-	}
-
 	_debugVelocity() {
-		this._globalStateManager.context.beginPath();
-		this._globalStateManager.context.moveTo(this.getCenterX(), this.getCenterY());
-		this._globalStateManager.context.lineTo(this.getCenterX() + this.velocity.x, this.getCenterY() + this.velocity.y);
-		this._globalStateManager.context.stroke();
+		CanvasInstance.context.strokeStyle = this._strokeDebugColor;
+		CanvasInstance.context.beginPath();
+		CanvasInstance.context.moveTo(this.getCenterX(), this.getCenterY());
+		CanvasInstance.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
+		CanvasInstance.context.stroke();
 	}
 }
