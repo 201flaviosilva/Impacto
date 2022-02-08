@@ -45,7 +45,6 @@ export default class SceneManager {
 		if (this.isPaused) return;
 
 		const delta = this.updateDeltaTime();
-		console.log(delta, gameTime);
 
 		if (this.currentScene) {
 			this.currentScene.time = { delta, gameTime, };
