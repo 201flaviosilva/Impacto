@@ -13,7 +13,12 @@ export default class SceneManager {
 		this.deltaTime = 0;
 		this.isPaused = false;
 
-		window.requestAnimationFrame(() => this.step());
+		window.requestAnimationFrame(this.step.bind(this));
+
+		document.addEventListener("visibilitychange", (event) => {
+			this.tabActive = document.hidden;
+			this.lastDeltaUpdate = Date.now();
+		});
 	}
 
 	addScene(scene) {
@@ -27,6 +32,7 @@ export default class SceneManager {
 	}
 
 	updateDeltaTime() {
+		if (this.tabActive) return;
 		const now = Date.now();
 		const deltaTime = (now - this.lastDeltaUpdate) * 0.01;
 		this.lastDeltaUpdate = now;
@@ -34,13 +40,15 @@ export default class SceneManager {
 		return deltaTime;
 	}
 
-	step() {
-		window.requestAnimationFrame(() => this.step());
+	step(gameTime) {
+		window.requestAnimationFrame(this.step.bind(this));
 		if (this.isPaused) return;
 
-		this.updateDeltaTime();
+		const delta = this.updateDeltaTime();
+		console.log(delta, gameTime);
 
 		if (this.currentScene) {
+			this.currentScene.time = { delta, gameTime, };
 			// Collision
 			const layersKeys = Object.keys(this.currentScene.collisions);
 			layersKeys.forEach(layerKey => {
