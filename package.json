@@ -9,10 +9,7 @@
     "build": "npm run clear && rollup -c",
     "test": "node test/spec",
     "pretest": "npm run build",
-    "beta": "npm run build && npm publish --tag beta",
-    "patch": "npm run build && npm version patch --force && npm publish",
-    "minor": "npm run build && npm version minor --force && npm publish",
-    "major": "npm run build && npm version major --force && npm publish",
+    "bump": "np",
     "package": "npm run build && npm publish"
   },
   "dependencies": {},

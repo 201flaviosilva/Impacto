@@ -4,6 +4,11 @@ export default class Scene {
 		this.collisions = {
 			layer1: [],
 		};
+
+		this.time = {
+			delta: 0,
+			gameTime: 0,
+		}
 	}
 
 	addChild(child) {
