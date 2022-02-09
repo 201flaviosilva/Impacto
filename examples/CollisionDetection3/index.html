@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Impacto</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+	<h1>Impacto - Collision Detection 3</h1>
+
+	<script type="module">
+		console.clear();
+		import Impacto from "../../src/Impacto.js";
+
+		class Game extends Impacto.Scene {
+			start() {
+				this.rects = [];
+
+				for (let i = 0; i < 10; i++) {
+					const width = Impacto.Utils.Math.randomInt(20, 200);
+					const height = Impacto.Utils.Math.randomInt(20, 200);
+					const color = Impacto.Utils.Math.randomColor();
+
+					const rect = new Impacto.Rectangle(400, 300, width, height, color);
+					rect.setCollisionWorldBounds(true);
+					rect.setBounce(1);
+					rect.setVelocity(Impacto.Utils.Math.randomInt(-5, 5), Impacto.Utils.Math.randomInt(-5, 5));
+					rect.setRandomPosition();
+					rect.setBodyType(Math.random() > 0.5 ? "D" : "S");
+					this.addChild(rect);
+					this.collisions.layer1.push(rect);
+
+					this.rects.push(rect);
+				}
+			}
+
+			posRender(ctx) {
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				ctx.fillStyle = "#000000";
+				ctx.font = "30px Arial";
+				this.rects.forEach(rect => {
+					ctx.fillText(rect.bodyType, rect.getCenterX(), rect.getCenterY());
+				});
+			}
+		}
+
+		const game = new Impacto.Game({
+			width: 800,
+			height: 600,
+			backgroundColor: "#f0f0f0",
+			debug: true,
+			scene: Game,
+		});
+
+	</script>
+</body>
+
+</html>
