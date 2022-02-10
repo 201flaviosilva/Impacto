@@ -6,6 +6,7 @@ import { CanvasInstance } from "../Utils/Canvas.js";
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
 		this.id = Math.random();
+		this.name = `Obj - ${this.id}`;
 
 		// Render
 		this.x = x;
@@ -26,6 +27,8 @@ export default class GameObject {
 		this.collisionWorldBounds = false;
 		this._strokeDebugColor = "#016301";
 	}
+
+	setName(name) { this.name = name; }
 
 	// Render
 	// Position
