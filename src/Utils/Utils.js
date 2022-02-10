@@ -10,6 +10,9 @@ export default class Utils {
 		this.Math = new ImpactoMath();
 		this.Vector2 = Vector2;
 	}
+
+	getVersion() { return "0.7.2"; }
+
 }
 
 export const UtilsInstance = new Utils();
