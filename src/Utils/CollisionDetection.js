@@ -130,6 +130,8 @@ export default class CollisionDetection {
 
 	// Collision Resolve
 	collisionResponse(gameObject1, gameObject2) {
+		if (gameObject1.bodyType === "T" || gameObject2.bodyType === "T") return; // if one of the game objects is a trigger, don't resolve collision
+
 		if (gameObject1._type === "Rect" && gameObject2._type === "Rect") { // Rectangle vs Rectangle
 			if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") { // Dynamic vs Dynamic
 				this.collisionResponseDynamicRectRect(gameObject1, gameObject2);
@@ -137,7 +139,7 @@ export default class CollisionDetection {
 				this.collisionResponseDynamicRectStaticRect(gameObject1, gameObject2);
 			} else if (gameObject1.bodyType === "S" && gameObject2.bodyType === "D") { // Static vs Dynamic
 				this.collisionResponseDynamicRectStaticRect(gameObject2, gameObject1);
-			}
+			} else { }
 
 		} else if (gameObject1._type === "Circle" && gameObject2._type === "Circle") { // Circle vs Circle
 			if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") { // Dynamic vs Dynamic

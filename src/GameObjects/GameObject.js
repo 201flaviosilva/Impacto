@@ -19,7 +19,7 @@ export default class GameObject {
 
 		// Physics
 		this.active = true;
-		this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static
+		this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static, T = Trigger
 		this.velocity = { x: 0, y: 0, };
 		this.bounce = { x: 0, y: 0, };
 		this.friction = { x: 1, y: 1, };
@@ -81,7 +81,8 @@ export default class GameObject {
 	setDynamicBody() { this.setBodyType("D"); }
 	setKinematicBody() { this.setBodyType("K"); }
 	setStaticBody() { this.setBodyType("S"); }
-	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static
+	setTriggerBody() { this.setBodyType("T"); }
+	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static, T = Trigger
 		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
 		bodyType = bodyType.toUpperCase();
 		if (bodyType === "S") { // Reset Static Body
