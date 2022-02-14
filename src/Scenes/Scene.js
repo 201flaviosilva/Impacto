@@ -7,6 +7,8 @@ export default class Scene {
 
 		this.time = {
 			delta: 0,
+			deltaTime: 0,
+			fps: 0,
 			gameTime: 0,
 		}
 	}
