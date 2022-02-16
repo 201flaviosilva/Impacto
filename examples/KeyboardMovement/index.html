@@ -20,7 +20,7 @@
 		class Game extends Impacto.Scene {
 			start() {
 				this.speed = 10;
-				this.rect = new Impacto.Rectangle(400, 300, 50, 50, "#ff0000");
+				this.rect = new Impacto.GameObjects.PhysicsRectangle(400, 300, 50, 50, "#ff0000");
 				this.rect.setCollisionWorldBounds(true);
 				this.addChild(this.rect);
 			}

@@ -85,7 +85,7 @@ export default class SceneManager {
 			});
 
 			this.currentScene.children.forEach(child => {
-				child._step();
+				if (child._step) child._step();
 			});
 
 			this.currentScene.update(this.deltaTime, this.fps);
@@ -107,8 +107,8 @@ export default class SceneManager {
 
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
 		zSortedChildren.forEach(child => {
-			child._render();
-			if (GlobalStateManagerInstance.debug) child._debug();
+			if (child._render) child._render();
+			if (GlobalStateManagerInstance.debug && child._debug) child._debug();
 		});
 
 		this.currentScene.posRender(ctx);

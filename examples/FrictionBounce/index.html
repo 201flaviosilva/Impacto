@@ -22,7 +22,7 @@
 				const objects = [];
 				const randomBalls = Impacto.Utils.Math.randomInt(10, 100);
 
-				this.rectangle = new Impacto.Rectangle(800 / 2, 600 / 2);
+				this.rectangle = new Impacto.GameObjects.PhysicsRectangle(800 / 2, 600 / 2);
 				this.rectangle.setVelocity(50, 50);
 				this.rectangle.setBounce(1);
 				this.rectangle.setFriction(0.99);

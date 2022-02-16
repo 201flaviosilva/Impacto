@@ -18,10 +18,10 @@
 
 		class Game extends Impacto.Scene {
 			start() {
-				this.circle1 = new Impacto.Circle(400, 300, 25, "#0000ff");
+				this.circle1 = new Impacto.GameObjects.PhysicsCircle(400, 300, 25, "#0000ff");
 				this.addChild(this.circle1);
 
-				this.circle2 = new Impacto.Circle(0, 0, 33, "#00ff00");
+				this.circle2 = new Impacto.GameObjects.PhysicsCircle(0, 0, 33, "#00ff00");
 				this.addChild(this.circle2);
 			}
 
