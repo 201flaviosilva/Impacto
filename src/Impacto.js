@@ -1,8 +1,7 @@
 import Game from "./Game.js";
 import Scene from "./Scenes/Scene.js";
 
-import Rectangle from "./GameObjects/Rectangle.js";
-import Circle from "./GameObjects/Circle.js";
+import GameObjects from "./GameObjects/GameObjects.js";
 
 import Inputs from "./Inputs/Inputs.js"
 
@@ -16,8 +15,7 @@ export default (function () {
 		Scene: Scene,
 
 		// GameObjects
-		Rectangle: Rectangle,
-		Circle: Circle,
+		GameObjects: new GameObjects(),
 
 		// Inputs
 		Inputs: new Inputs(),
