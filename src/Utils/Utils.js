@@ -12,7 +12,6 @@ export default class Utils {
 	}
 
 	getVersion() { return "0.7.2"; }
-
 }
 
 export const UtilsInstance = new Utils();
