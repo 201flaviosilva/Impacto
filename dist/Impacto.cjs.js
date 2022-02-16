@@ -698,6 +698,8 @@ var CollisionDetection = /*#__PURE__*/function () {
   }, {
     key: "collisionResponse",
     value: function collisionResponse(gameObject1, gameObject2) {
+      if (gameObject1.bodyType === "T" || gameObject2.bodyType === "T") return; // if one of the game objects is a trigger, don't resolve collision
+
       if (gameObject1._type === "Rect" && gameObject2._type === "Rect") {
         // Rectangle vs Rectangle
         if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") {
@@ -709,7 +711,7 @@ var CollisionDetection = /*#__PURE__*/function () {
         } else if (gameObject1.bodyType === "S" && gameObject2.bodyType === "D") {
           // Static vs Dynamic
           this.collisionResponseDynamicRectStaticRect(gameObject2, gameObject1);
-        }
+        } else ;
       } else if (gameObject1._type === "Circle" && gameObject2._type === "Circle") {
         // Circle vs Circle
         if (gameObject1.bodyType === "D" && gameObject2.bodyType === "D") {
@@ -809,7 +811,7 @@ var Canvas = /*#__PURE__*/function () {
 
   return Canvas;
 }();
-var CanvasInstance = new Canvas();
+var CanvasInstance$1 = new Canvas();
 
 var SceneManager = /*#__PURE__*/function () {
   function SceneManager() {
@@ -821,12 +823,21 @@ var SceneManager = /*#__PURE__*/function () {
     SceneManager.instance = this;
     this.currentScene = null;
     this.scenes = [];
-    this.lastDeltaUpdate = Date.now();
+    this.isPaused = false; // Time
+
+    this._lastTimeUpdate = Date.now();
+    this.delta = 0;
     this.deltaTime = 0;
-    this.isPaused = false;
-    window.requestAnimationFrame(function () {
-      return _this.step();
+    this.gameTime = 0;
+    this._fps = 0; // Temp variable just for calculating FPS
+
+    this.fps = 0;
+    window.requestAnimationFrame(this.step.bind(this));
+    document.addEventListener("visibilitychange", function (event) {
+      _this.tabActive = document.hidden;
+      _this._lastTimeUpdate = Date.now();
     });
+    setInterval(this.updateFPS.bind(this), 1000);
   }
 
   _createClass(SceneManager, [{
@@ -842,43 +853,61 @@ var SceneManager = /*#__PURE__*/function () {
       this.currentScene.start();
     }
   }, {
-    key: "updateDeltaTime",
-    value: function updateDeltaTime() {
+    key: "updateFPS",
+    value: function updateFPS() {
+      this.fps = this._fps;
+      this._fps = 0;
+    }
+  }, {
+    key: "calcTime",
+    value: function calcTime() {
+      if (this.tabActive) return;
       var now = Date.now();
-      var deltaTime = (now - this.lastDeltaUpdate) * 0.01;
-      this.lastDeltaUpdate = now;
+      var delta = now - this._lastTimeUpdate;
+      var deltaTime = delta * 0.01;
+      this._lastTimeUpdate = now;
+      this.delta = delta;
       this.deltaTime = deltaTime;
-      return deltaTime;
+      return {
+        delta: delta,
+        deltaTime: deltaTime
+      };
     }
   }, {
     key: "step",
-    value: function step() {
+    value: function step(gameTime) {
       var _this2 = this;
 
-      window.requestAnimationFrame(function () {
-        return _this2.step();
-      });
+      window.requestAnimationFrame(this.step.bind(this));
       if (this.isPaused) return;
-      this.updateDeltaTime();
+      this.gameTime = gameTime;
+      this.calcTime();
+      this._fps++;
 
       if (this.currentScene) {
-        // Collision
+        this.currentScene.time = {
+          delta: this.delta,
+          deltaTime: this.deltaTime,
+          fps: this.fps,
+          gameTime: gameTime
+        }; // Collision
+
         var layersKeys = Object.keys(this.currentScene.collisions);
         layersKeys.forEach(function (layerKey) {
           var layer = _this2.currentScene.collisions[layerKey];
           CollisionDetectionInstance.collisionLayer(layer, _this2.currentScene);
         });
         this.currentScene.children.forEach(function (child) {
-          child._step();
+          if (child._step) child._step();
         });
-        this.currentScene.update(this.deltaTime);
+        this.currentScene.update(this.deltaTime, this.fps);
         this.render();
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var ctx = CanvasInstance.context;
+      var ctx = CanvasInstance$1.context;
       if (!ctx) return;
       ctx.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
 
@@ -891,9 +920,8 @@ var SceneManager = /*#__PURE__*/function () {
         return a.z - b.z;
       });
       zSortedChildren.forEach(function (child) {
-        child._render();
-
-        if (GlobalStateManagerInstance.debug) child._debug();
+        if (child._render) child._render();
+        if (GlobalStateManagerInstance.debug && child._debug) child._debug();
       });
       this.currentScene.posRender(ctx);
     }
@@ -944,7 +972,7 @@ var Game = /*#__PURE__*/_createClass(function Game(config) {
   this.canvas.height = config.height;
   this.context = this.canvas.getContext("2d");
   if (config.parent) (_document$getElementB = document.getElementById(config.parent)) === null || _document$getElementB === void 0 ? void 0 : _document$getElementB.appendChild(this.canvas);else document.body.appendChild(this.canvas);
-  CanvasInstance.setCanvas(this.canvas);
+  CanvasInstance$1.setCanvas(this.canvas);
   this.configuration = config;
   if (!config.gravity) config.gravity = {
     x: 0,
@@ -975,6 +1003,12 @@ var Scene = /*#__PURE__*/function () {
     this.children = [];
     this.collisions = {
       layer1: []
+    };
+    this.time = {
+      delta: 0,
+      deltaTime: 0,
+      fps: 0,
+      gameTime: 0
     };
   }
 
@@ -1021,75 +1055,12 @@ var Scene = /*#__PURE__*/function () {
   return Scene;
 }();
 
-var PositionPrevisions = /*#__PURE__*/function () {
-  function PositionPrevisions() {
-    _classCallCheck(this, PositionPrevisions);
-  }
-
-  _createClass(PositionPrevisions, [{
-    key: "getNextPrevisionTop",
-    value: function getNextPrevisionTop(object) {
-      if (object._type == "Rect") return object.y + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y - object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
-    }
-  }, {
-    key: "getNextPrevisionBottom",
-    value: function getNextPrevisionBottom(object) {
-      if (object._type == "Rect") return object.y + object.height + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y + object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
-    }
-  }, {
-    key: "getNextPrevisionLeft",
-    value: function getNextPrevisionLeft(object) {
-      if (object._type == "Rect") return object.x + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x - object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
-    }
-  }, {
-    key: "getNextPrevisionRight",
-    value: function getNextPrevisionRight(object) {
-      if (object._type == "Rect") return object.x + object.width + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x + object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
-    }
-  }, {
-    key: "checkNextPrevisionTopCollisionWorldBounds",
-    value: function checkNextPrevisionTopCollisionWorldBounds(object) {
-      return this.getNextPrevisionTop(object) <= 0;
-    }
-  }, {
-    key: "checkNextPrevisionBottomCollisionWorldBounds",
-    value: function checkNextPrevisionBottomCollisionWorldBounds(object) {
-      return this.getNextPrevisionBottom(object) >= GlobalStateManagerInstance.viewportDimensions.height;
-    }
-  }, {
-    key: "checkNextPrevisionLeftCollisionWorldBounds",
-    value: function checkNextPrevisionLeftCollisionWorldBounds(object) {
-      return this.getNextPrevisionLeft(object) <= 0;
-    }
-  }, {
-    key: "checkNextPrevisionRightCollisionWorldBounds",
-    value: function checkNextPrevisionRightCollisionWorldBounds(object) {
-      return this.getNextPrevisionRight(object) >= GlobalStateManagerInstance.viewportDimensions.width;
-    }
-  }, {
-    key: "checkNextPrevisionCollisionWorldBounds",
-    value: function checkNextPrevisionCollisionWorldBounds(object) {
-      return this.checkNextPrevisionTopCollisionWorldBounds(object) || this.checkNextPrevisionBottomCollisionWorldBounds(object) || this.checkNextPrevisionLeftCollisionWorldBounds(object) || this.checkNextPrevisionRightCollisionWorldBounds(object);
-    }
-  }, {
-    key: "getNextPrevPosition",
-    value: function getNextPrevPosition(object) {
-      return {
-        x: object.x + object.velocity.x * SceneManagerInstance.deltaTime,
-        y: object.y + object.velocity.y * SceneManagerInstance.deltaTime
-      };
-    }
-  }]);
-
-  return PositionPrevisions;
-}();
-var PositionPrevisionsInstance = new PositionPrevisions();
-
 var GameObject = /*#__PURE__*/function () {
   function GameObject(x, y, fillColor, strokeColor) {
     _classCallCheck(this, GameObject);
 
-    this.id = Math.random(); // Render
+    this.id = Math.random();
+    this.name = "Obj - ".concat(this.id); // Render
 
     this.x = x;
     this.y = y;
@@ -1101,31 +1072,17 @@ var GameObject = /*#__PURE__*/function () {
     };
     this.fillColor = fillColor;
     this.strokeColor = strokeColor;
-    this.visible = true; // Physics
-
-    this.active = true;
-    this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static
-
-    this.velocity = {
-      x: 0,
-      y: 0
-    };
-    this.bounce = {
-      x: 0,
-      y: 0
-    };
-    this.friction = {
-      x: 1,
-      y: 1
-    };
-    this.mass = 1;
-    this.collisionWorldBounds = false;
-    this._strokeDebugColor = "#016301";
-  } // Render
-  // Position
-
+    this.visible = true;
+  }
 
   _createClass(GameObject, [{
+    key: "setName",
+    value: function setName(name) {
+      this.name = name;
+    } // Render
+    // Position
+
+  }, {
     key: "setX",
     value: function setX(x) {
       this.setPosition(x, this.y, this.z);
@@ -1175,11 +1132,6 @@ var GameObject = /*#__PURE__*/function () {
       do {
         this.setPosition(x + Math.random() * width, y + Math.random() * height);
       } while (!this.checkIsInsideWorldBounds());
-    }
-  }, {
-    key: "getType",
-    value: function getType() {
-      return this._type;
     }
   }, {
     key: "getCenter",
@@ -1268,8 +1220,286 @@ var GameObject = /*#__PURE__*/function () {
     key: "setVisible",
     value: function setVisible(isVisible) {
       this.visible = isVisible;
-    } // -- Physics
+    }
+  }, {
+    key: "_render",
+    value: function _render() {
+      if (!this.visible) return;
+      CanvasInstance$1.context.fillStyle = this.fillColor;
+      CanvasInstance$1.context.strokeStyle = this.strokeColor;
 
+      this._renderType();
+    }
+  }]);
+
+  return GameObject;
+}();
+
+var CommonMethods$1 = {
+  getRadius: function getRadius() {
+    return this.radius;
+  },
+  setRadius: function setRadius(radius) {
+    this.radius = radius;
+  },
+  getTop: function getTop() {
+    return this.y - this.radius;
+  },
+  getBottom: function getBottom() {
+    return this.y + this.radius;
+  },
+  getLeft: function getLeft() {
+    return this.x - this.radius;
+  },
+  getRight: function getRight() {
+    return this.x + this.radius;
+  },
+  getCenterX: function getCenterX() {
+    return this.x;
+  },
+  getCenterY: function getCenterY() {
+    return this.y;
+  },
+  getBounds: function getBounds() {
+    return {
+      x: this.getLeft(),
+      y: this.getTop(),
+      width: this.radius * 2,
+      height: this.radius * 2
+    };
+  },
+  // ----- Private methods -----
+  _renderType: function _renderType() {
+    CanvasInstance$1.context.beginPath();
+    CanvasInstance$1.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    CanvasInstance$1.context.fill();
+    CanvasInstance$1.context.stroke();
+  }
+};
+
+var Circle$1 = /*#__PURE__*/function (_GameObject) {
+  _inherits(Circle, _GameObject);
+
+  var _super = _createSuper(Circle);
+
+  function Circle(x, y) {
+    var _this;
+
+    var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
+    var fillColor = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "#ffffff";
+    var strokeColor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "#000000";
+
+    _classCallCheck(this, Circle);
+
+    _this = _super.call(this, x, y, fillColor, strokeColor);
+    _this.radius = radius;
+    return _this;
+  }
+
+  return _createClass(Circle);
+}(GameObject);
+Object.assign(Circle$1.prototype, CommonMethods$1);
+
+var CommonMethods = {
+  // Get Positions
+  getTop: function getTop() {
+    return this.y;
+  },
+  getBottom: function getBottom() {
+    return this.y + this.height;
+  },
+  getLeft: function getLeft() {
+    return this.x;
+  },
+  getRight: function getRight() {
+    return this.x + this.width;
+  },
+  getCenterX: function getCenterX() {
+    return this.x + this.width / 2;
+  },
+  getCenterY: function getCenterY() {
+    return this.y + this.height / 2;
+  },
+  // Size
+  setWidth: function setWidth(width) {
+    this.setSize(width, this.height);
+  },
+  setHeight: function setHeight(height) {
+    this.setSize(this.width, height);
+  },
+  setSize: function setSize(width) {
+    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : width;
+    var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    if (this.bodyType === "S" && !force) return;
+    this.width = width;
+    this.height = height;
+  },
+  getBounds: function getBounds() {
+    return {
+      x: this.getLeft(),
+      y: this.getTop(),
+      width: this.width,
+      height: this.height
+    };
+  },
+  getArea: function getArea() {
+    return this.width * this.height;
+  },
+  getVertices: function getVertices() {
+    return [{
+      x: this.x,
+      y: this.y
+    }, {
+      x: this.x + this.width,
+      y: this.y
+    }, {
+      x: this.x + this.width,
+      y: this.y + this.height
+    }, {
+      x: this.x,
+      y: this.y + this.height
+    }];
+  },
+  // Update position and size of the rectangle (used mostly in static objects)
+  refresh: function refresh(x, y, width, height) {
+    this.setPosition(x, y, this.z, true);
+    this.setSize(width, height, true);
+  },
+  // ----- Private methods -----
+  _renderType: function _renderType() {
+    CanvasInstance$1.context.fillRect(this.x, this.y, this.width, this.height);
+    CanvasInstance$1.context.strokeRect(this.x, this.y, this.width, this.height);
+  }
+};
+
+var Rectangle$1 = /*#__PURE__*/function (_GameObject) {
+  _inherits(Rectangle, _GameObject);
+
+  var _super = _createSuper(Rectangle);
+
+  function Rectangle(x, y) {
+    var _this;
+
+    var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
+    var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 100;
+    var fillColor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "#ffffff";
+    var strokeColor = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "#000000";
+
+    _classCallCheck(this, Rectangle);
+
+    _this = _super.call(this, x, y, fillColor, strokeColor);
+    _this.width = width;
+    _this.height = height;
+    return _this;
+  }
+
+  return _createClass(Rectangle);
+}(GameObject);
+Object.assign(Rectangle$1.prototype, CommonMethods);
+
+var PositionPrevisions = /*#__PURE__*/function () {
+  function PositionPrevisions() {
+    _classCallCheck(this, PositionPrevisions);
+  }
+
+  _createClass(PositionPrevisions, [{
+    key: "getNextPrevisionTop",
+    value: function getNextPrevisionTop(object) {
+      if (object._type == "Rect") return object.y + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y - object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
+    }
+  }, {
+    key: "getNextPrevisionBottom",
+    value: function getNextPrevisionBottom(object) {
+      if (object._type == "Rect") return object.y + object.height + object.velocity.y * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.y + object.radius + object.velocity.y * SceneManagerInstance.deltaTime;
+    }
+  }, {
+    key: "getNextPrevisionLeft",
+    value: function getNextPrevisionLeft(object) {
+      if (object._type == "Rect") return object.x + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x - object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
+    }
+  }, {
+    key: "getNextPrevisionRight",
+    value: function getNextPrevisionRight(object) {
+      if (object._type == "Rect") return object.x + object.width + object.velocity.x * SceneManagerInstance.deltaTime;else if (object._type == "Circle") return object.x + object.radius + object.velocity.x * SceneManagerInstance.deltaTime;
+    }
+  }, {
+    key: "checkNextPrevisionTopCollisionWorldBounds",
+    value: function checkNextPrevisionTopCollisionWorldBounds(object) {
+      return this.getNextPrevisionTop(object) <= 0;
+    }
+  }, {
+    key: "checkNextPrevisionBottomCollisionWorldBounds",
+    value: function checkNextPrevisionBottomCollisionWorldBounds(object) {
+      return this.getNextPrevisionBottom(object) >= GlobalStateManagerInstance.viewportDimensions.height;
+    }
+  }, {
+    key: "checkNextPrevisionLeftCollisionWorldBounds",
+    value: function checkNextPrevisionLeftCollisionWorldBounds(object) {
+      return this.getNextPrevisionLeft(object) <= 0;
+    }
+  }, {
+    key: "checkNextPrevisionRightCollisionWorldBounds",
+    value: function checkNextPrevisionRightCollisionWorldBounds(object) {
+      return this.getNextPrevisionRight(object) >= GlobalStateManagerInstance.viewportDimensions.width;
+    }
+  }, {
+    key: "checkNextPrevisionCollisionWorldBounds",
+    value: function checkNextPrevisionCollisionWorldBounds(object) {
+      return this.checkNextPrevisionTopCollisionWorldBounds(object) || this.checkNextPrevisionBottomCollisionWorldBounds(object) || this.checkNextPrevisionLeftCollisionWorldBounds(object) || this.checkNextPrevisionRightCollisionWorldBounds(object);
+    }
+  }, {
+    key: "getNextPrevPosition",
+    value: function getNextPrevPosition(object) {
+      return {
+        x: object.x + object.velocity.x * SceneManagerInstance.deltaTime,
+        y: object.y + object.velocity.y * SceneManagerInstance.deltaTime
+      };
+    }
+  }]);
+
+  return PositionPrevisions;
+}();
+var PositionPrevisionsInstance = new PositionPrevisions();
+
+var PhysicsGameObject = /*#__PURE__*/function (_GameObject) {
+  _inherits(PhysicsGameObject, _GameObject);
+
+  var _super = _createSuper(PhysicsGameObject);
+
+  function PhysicsGameObject(x, y, fillColor, strokeColor) {
+    var _this;
+
+    _classCallCheck(this, PhysicsGameObject);
+
+    _this = _super.call(this, x, y, fillColor, strokeColor); // Physics
+
+    _this.active = true;
+    _this.bodyType = "D"; // D = Dynamic, K = Kinematic, S = Static, T = Trigger
+
+    _this.velocity = {
+      x: 0,
+      y: 0
+    };
+    _this.bounce = {
+      x: 0,
+      y: 0
+    };
+    _this.friction = {
+      x: 1,
+      y: 1
+    };
+    _this.mass = 1;
+    _this.collisionWorldBounds = false;
+    _this._strokeDebugColor = "#016301";
+    return _this;
+  } // -- Physics
+
+
+  _createClass(PhysicsGameObject, [{
+    key: "getType",
+    value: function getType() {
+      return this._type;
+    }
   }, {
     key: "setActive",
     value: function setActive(isActive) {
@@ -1292,9 +1522,14 @@ var GameObject = /*#__PURE__*/function () {
       this.setBodyType("S");
     }
   }, {
+    key: "setTriggerBody",
+    value: function setTriggerBody() {
+      this.setBodyType("T");
+    }
+  }, {
     key: "setBodyType",
     value: function setBodyType(bodyType) {
-      // D = Dynamic, K = Kinematic, S = Static
+      // D = Dynamic, K = Kinematic, S = Static, T = Trigger
       if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
       bodyType = bodyType.toUpperCase();
 
@@ -1425,15 +1660,6 @@ var GameObject = /*#__PURE__*/function () {
       this.setPosition(this.x + this.velocity.x * SceneManagerInstance.deltaTime, this.y + this.velocity.y * SceneManagerInstance.deltaTime);
     }
   }, {
-    key: "_render",
-    value: function _render() {
-      if (!this.visible) return;
-      CanvasInstance.context.fillStyle = this.fillColor;
-      CanvasInstance.context.strokeStyle = this.strokeColor;
-
-      this._renderType();
-    }
-  }, {
     key: "_debug",
     value: function _debug() {
       if (!this.active) return; // this._debugBody();
@@ -1443,147 +1669,15 @@ var GameObject = /*#__PURE__*/function () {
   }, {
     key: "_debugVelocity",
     value: function _debugVelocity() {
-      CanvasInstance.context.strokeStyle = this._strokeDebugColor;
-      CanvasInstance.context.beginPath();
-      CanvasInstance.context.moveTo(this.getCenterX(), this.getCenterY());
-      CanvasInstance.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
-      CanvasInstance.context.stroke();
+      CanvasInstance$1.context.strokeStyle = this._strokeDebugColor;
+      CanvasInstance$1.context.beginPath();
+      CanvasInstance$1.context.moveTo(this.getCenterX(), this.getCenterY());
+      CanvasInstance$1.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
+      CanvasInstance$1.context.stroke();
     }
   }]);
 
-  return GameObject;
-}();
-
-var Rectangle = /*#__PURE__*/function (_GameObject) {
-  _inherits(Rectangle, _GameObject);
-
-  var _super = _createSuper(Rectangle);
-
-  function Rectangle(x, y) {
-    var _this;
-
-    var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
-    var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 100;
-    var fillColor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "#ffffff";
-    var strokeColor = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "#000000";
-
-    _classCallCheck(this, Rectangle);
-
-    _this = _super.call(this, x, y, fillColor, strokeColor);
-    _this.width = width;
-    _this.height = height;
-    _this._type = "Rect";
-    return _this;
-  } // Get Positions
-
-
-  _createClass(Rectangle, [{
-    key: "getTop",
-    value: function getTop() {
-      return this.y;
-    }
-  }, {
-    key: "getBottom",
-    value: function getBottom() {
-      return this.y + this.height;
-    }
-  }, {
-    key: "getLeft",
-    value: function getLeft() {
-      return this.x;
-    }
-  }, {
-    key: "getRight",
-    value: function getRight() {
-      return this.x + this.width;
-    }
-  }, {
-    key: "getCenterX",
-    value: function getCenterX() {
-      return this.x + this.width / 2;
-    }
-  }, {
-    key: "getCenterY",
-    value: function getCenterY() {
-      return this.y + this.height / 2;
-    } // Size
-
-  }, {
-    key: "setWidth",
-    value: function setWidth(width) {
-      this.setSize(width, this.height);
-    }
-  }, {
-    key: "setHeight",
-    value: function setHeight(height) {
-      this.setSize(this.width, height);
-    }
-  }, {
-    key: "setSize",
-    value: function setSize(width) {
-      var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : width;
-      var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-      if (this.bodyType === "S" && !force) return;
-      this.width = width;
-      this.height = height;
-    }
-  }, {
-    key: "getBounds",
-    value: function getBounds() {
-      return {
-        x: this.getLeft(),
-        y: this.getTop(),
-        width: this.width,
-        height: this.height
-      };
-    }
-  }, {
-    key: "getArea",
-    value: function getArea() {
-      return this.width * this.height;
-    }
-  }, {
-    key: "getVertices",
-    value: function getVertices() {
-      return [{
-        x: this.x,
-        y: this.y
-      }, {
-        x: this.x + this.width,
-        y: this.y
-      }, {
-        x: this.x + this.width,
-        y: this.y + this.height
-      }, {
-        x: this.x,
-        y: this.y + this.height
-      }];
-    } // Update position and size of the rectangle (used mostly in static objects)
-
-  }, {
-    key: "refresh",
-    value: function refresh(x, y, width, height) {
-      this.setPosition(x, y, this.z, true);
-      this.setSize(width, height, true);
-    } // ----- Private methods -----
-
-  }, {
-    key: "_renderType",
-    value: function _renderType() {
-      CanvasInstance.context.fillRect(this.x, this.y, this.width, this.height);
-      CanvasInstance.context.strokeRect(this.x, this.y, this.width, this.height);
-    }
-  }, {
-    key: "_debugBody",
-    value: function _debugBody() {
-      CanvasInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
-      CanvasInstance.context.strokeStyle = this._strokeDebugColor;
-
-      this._renderType();
-    }
-  }]);
-
-  return Rectangle;
+  return PhysicsGameObject;
 }(GameObject);
 
 var Circle = /*#__PURE__*/function (_GameObject) {
@@ -1607,65 +1701,6 @@ var Circle = /*#__PURE__*/function (_GameObject) {
   }
 
   _createClass(Circle, [{
-    key: "getRadius",
-    value: function getRadius() {
-      return this.radius;
-    }
-  }, {
-    key: "setRadius",
-    value: function setRadius(radius) {
-      this.radius = radius;
-    }
-  }, {
-    key: "getTop",
-    value: function getTop() {
-      return this.y - this.radius;
-    }
-  }, {
-    key: "getBottom",
-    value: function getBottom() {
-      return this.y + this.radius;
-    }
-  }, {
-    key: "getLeft",
-    value: function getLeft() {
-      return this.x - this.radius;
-    }
-  }, {
-    key: "getRight",
-    value: function getRight() {
-      return this.x + this.radius;
-    }
-  }, {
-    key: "getCenterX",
-    value: function getCenterX() {
-      return this.x;
-    }
-  }, {
-    key: "getCenterY",
-    value: function getCenterY() {
-      return this.y;
-    }
-  }, {
-    key: "getBounds",
-    value: function getBounds() {
-      return {
-        x: this.getLeft(),
-        y: this.getTop(),
-        width: this.radius * 2,
-        height: this.radius * 2
-      };
-    } // ----- Private methods -----
-
-  }, {
-    key: "_renderType",
-    value: function _renderType() {
-      CanvasInstance.context.beginPath();
-      CanvasInstance.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-      CanvasInstance.context.fill();
-      CanvasInstance.context.stroke();
-    }
-  }, {
     key: "_debugBody",
     value: function _debugBody() {
       if (!this.active) return;
@@ -1677,7 +1712,59 @@ var Circle = /*#__PURE__*/function (_GameObject) {
   }]);
 
   return Circle;
-}(GameObject);
+}(PhysicsGameObject);
+Object.assign(Circle.prototype, CommonMethods$1);
+
+var Rectangle = /*#__PURE__*/function (_PhysicsGameObject) {
+  _inherits(Rectangle, _PhysicsGameObject);
+
+  var _super = _createSuper(Rectangle);
+
+  function Rectangle(x, y) {
+    var _this;
+
+    var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
+    var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 100;
+    var fillColor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "#ffffff";
+    var strokeColor = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "#000000";
+
+    _classCallCheck(this, Rectangle);
+
+    _this = _super.call(this, x, y, fillColor, strokeColor);
+    _this.width = width;
+    _this.height = height;
+    _this._type = "Rect";
+    return _this;
+  } // ----- Private methods -----
+
+
+  _createClass(Rectangle, [{
+    key: "_debugBody",
+    value: function _debugBody() {
+      CanvasInstance$1.context.fillStyle = "rgba(0, 0, 0, 0)";
+      CanvasInstance$1.context.strokeStyle = this._strokeDebugColor;
+
+      this._renderType();
+    }
+  }]);
+
+  return Rectangle;
+}(PhysicsGameObject);
+Object.assign(Rectangle.prototype, CommonMethods);
+
+var GameObjects = /*#__PURE__*/_createClass(function GameObjects() {
+  _classCallCheck(this, GameObjects);
+
+  // Basic GameObject
+  this.GameObjectBase = GameObject;
+  this.Circle = Circle$1;
+  this.Rectangle = Rectangle$1; // Physics GameObject
+
+  this.PhysicsGameObject = PhysicsGameObject;
+  this.PhysicsCircle = Circle;
+  this.PhysicsRectangle = Rectangle;
+});
+new GameObjects();
 
 var Keys = {
   enter: 13,
@@ -1916,14 +2003,25 @@ var Inputs = /*#__PURE__*/_createClass(function Inputs() {
 });
 new Inputs();
 
-var Utils = /*#__PURE__*/_createClass(function Utils() {
-  _classCallCheck(this, Utils);
+var Utils = /*#__PURE__*/function () {
+  function Utils() {
+    _classCallCheck(this, Utils);
 
-  this.Canvas = new Canvas();
-  this.CollisionDetection = new CollisionDetection();
-  this.Math = new UtilsMath();
-  this.Vector2 = Vector2;
-});
+    this.Canvas = new Canvas();
+    this.CollisionDetection = new CollisionDetection();
+    this.Math = new UtilsMath();
+    this.Vector2 = Vector2;
+  }
+
+  _createClass(Utils, [{
+    key: "getVersion",
+    value: function getVersion() {
+      return "0.8.1";
+    }
+  }]);
+
+  return Utils;
+}();
 new Utils();
 
 var Impacto = (function () {
@@ -1932,8 +2030,7 @@ var Impacto = (function () {
     // Scenes
     Scene: Scene,
     // GameObjects
-    Rectangle: Rectangle,
-    Circle: Circle,
+    GameObjects: new GameObjects(),
     // Inputs
     Inputs: new Inputs(),
     // Utils
