@@ -25,7 +25,7 @@
 					const height = Impacto.Utils.Math.randomInt(20, 200);
 					const color = Impacto.Utils.Math.randomColor();
 
-					const rect = new Impacto.Rectangle(400, 300, width, height, color);
+					const rect = new Impacto.GameObjects.PhysicsRectangle(400, 300, width, height, color);
 					rect.setCollisionWorldBounds(true);
 					rect.setBounce(1);
 					rect.setVelocity(Impacto.Utils.Math.randomInt(-5, 5), Impacto.Utils.Math.randomInt(-5, 5));
