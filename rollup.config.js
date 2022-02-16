@@ -19,7 +19,7 @@ const umd = {
 };
 
 export default [
-	umd,
+	// umd,
 	{
 		input: "src/Impacto.js",
 		output: [ // https://betterprogramming.pub/what-are-cjs-amd-umd-esm-system-and-iife-3633a112db62

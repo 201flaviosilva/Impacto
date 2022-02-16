@@ -9,13 +9,13 @@
     "build": "npm run clear && rollup -c",
     "test": "node test/spec",
     "pretest": "npm run build",
-    "bump": "np",
+    "bump": "np --no-tests",
     "package": "npm run build && npm publish"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
+    "np": "^7.6.0",
     "rollup": "^2.61.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
