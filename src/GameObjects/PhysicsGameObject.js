@@ -20,16 +20,30 @@ export default class PhysicsGameObject extends GameObject {
 		this._strokeDebugColor = "#016301";
 	}
 
-	// -- Physics
 	getType() { return this._type; }
 
-	setActive(isActive) { this.active = isActive; }
+	setActive(isActive) {
+		this.active = isActive;
+		return this;
+	}
 
 	// Body Type
-	setDynamicBody() { this.setBodyType("D"); }
-	setKinematicBody() { this.setBodyType("K"); }
-	setStaticBody() { this.setBodyType("S"); }
-	setTriggerBody() { this.setBodyType("T"); }
+	setDynamicBody() {
+		this.setBodyType("D");
+		return this;
+	}
+	setKinematicBody() {
+		this.setBodyType("K");
+		return this;
+	}
+	setStaticBody() {
+		this.setBodyType("S");
+		return this;
+	}
+	setTriggerBody() {
+		this.setBodyType("T");
+		return this;
+	}
 	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static, T = Trigger
 		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
 		bodyType = bodyType.toUpperCase();
@@ -39,35 +53,68 @@ export default class PhysicsGameObject extends GameObject {
 			this.setBounce(0);
 		}
 		this.bodyType = bodyType;
+		return this;
 	}
 	getBodyType() { return this.bodyType; }
 
-	setVelocityX(x) { this.setVelocity(x, this.velocity.y); }
-	setVelocityY(y) { this.setVelocity(this.velocity.x, y); }
+	// Velocity
+	setVelocityX(x) {
+		this.setVelocity(x, this.velocity.y);
+		return this;
+	}
+	setVelocityY(y) {
+		this.setVelocity(this.velocity.x, y);
+		return this;
+	}
 	setVelocity(x, y = x) {
 		if (this.bodyType === "S") return;
 
 		this.velocity.x = x;
 		this.velocity.y = y;
+		return this;
 	}
 
-	setFrictionX(x) { this.setFriction(x, this.friction.y); }
-	setFrictionY(y) { this.setFriction(this.friction.x, y); }
+	// Friction
+	setFrictionX(x) {
+		this.setFriction(x, this.friction.y);
+		return this;
+	}
+	setFrictionY(y) {
+		this.setFriction(this.friction.x, y);
+		return this;
+	}
 	setFriction(x, y = x) {
 		this.friction.x = x;
 		this.friction.y = y;
+		return this;
 	}
 
-	setBounceX(x) { this.setBounce(x, this.bounce.y); }
-	setBounceY(y) { this.setBounce(this.bounce.x, y); }
+	// Bounce
+	setBounceX(x) {
+		this.setBounce(x, this.bounce.y);
+		return this;
+	}
+	setBounceY(y) {
+		this.setBounce(this.bounce.x, y);
+		return this;
+	}
 	setBounce(x, y = x) {
 		this.bounce.x = x;
 		this.bounce.y = y;
+		return this;
 	}
 
-	setMass(mass) { this.mass = mass; }
+	// Mass
+	setMass(mass) {
+		this.mass = mass;
+		return this;
+	}
 
-	setCollisionWorldBounds(collisionWorldBounds) { this.collisionWorldBounds = collisionWorldBounds; }
+	// Collisions
+	setCollisionWorldBounds(collisionWorldBounds) {
+		this.collisionWorldBounds = collisionWorldBounds;
+		return this;
+	}
 
 	// Check Current Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }

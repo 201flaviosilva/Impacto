@@ -11,12 +11,19 @@ const CommonMethods = {
 	getCenterY: function () { return this.y + this.height / 2; },
 
 	// Size
-	setWidth: function (width) { this.setSize(width, this.height); },
-	setHeight: function (height) { this.setSize(this.width, height); },
+	setWidth: function (width) {
+		this.setSize(width, this.height);
+		return this;
+	},
+	setHeight: function (height) {
+		this.setSize(this.width, height);
+		return this;
+	},
 	setSize: function (width, height = width, force = false) {
 		if (this.bodyType === "S" && !force) return;
 		this.width = width;
 		this.height = height;
+		return this;
 	},
 	getBounds: function () { return { x: this.getLeft(), y: this.getTop(), width: this.width, height: this.height }; },
 	getArea: function () { return this.width * this.height; },
@@ -33,6 +40,7 @@ const CommonMethods = {
 	refresh: function (x, y, width, height) {
 		this.setPosition(x, y, this.z, true);
 		this.setSize(width, height, true);
+		return this;
 	},
 
 	// ----- Private methods -----

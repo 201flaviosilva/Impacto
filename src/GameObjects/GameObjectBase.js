@@ -16,13 +16,25 @@ export default class GameObject {
 		this.visible = true;
 	}
 
-	setName(name) { this.name = name; }
+	setName(name) {
+		this.name = name;
+		return this;
+	}
 
 	// Render
 	// Position
-	setX(x) { this.setPosition(x, this.y, this.z); }
-	setY(y) { this.setPosition(this.x, y, this.z); }
-	setZ(z) { this.setPosition(this.x, this.y, z); }
+	setX(x) {
+		this.setPosition(x, this.y, this.z);
+		return this;
+	}
+	setY(y) {
+		this.setPosition(this.x, y, this.z);
+		return this;
+	}
+	setZ(z) {
+		this.setPosition(this.x, this.y, z);
+		return this;
+	}
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
 	setPosition(x, y, z = this.z, force = false) {
 		if (this.bodyType === "S" && !force) return;
@@ -31,6 +43,7 @@ export default class GameObject {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		return this;
 	}
 	setRandomPosition(x = 0, y = 0, width = GlobalStateManagerInstance.viewportDimensions.width, height = GlobalStateManagerInstance.viewportDimensions.height) {
 		do {
@@ -39,6 +52,7 @@ export default class GameObject {
 				y + Math.random() * height
 			);
 		} while (!this.checkIsInsideWorldBounds());
+		return this;
 	}
 
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
@@ -55,10 +69,19 @@ export default class GameObject {
 	getRightCenter() { return { x: this.getRight(), y: this.getCenterY() }; }
 
 	// Color
-	setFillColor(fillColor) { this.fillColor = fillColor; }
-	setStrokeColor(strokeColor) { this.strokeColor = strokeColor; }
+	setFillColor(fillColor) {
+		this.fillColor = fillColor;
+		return this;
+	}
+	setStrokeColor(strokeColor) {
+		this.strokeColor = strokeColor;
+		return this;
+	}
 
-	setVisible(isVisible) { this.visible = isVisible; }
+	setVisible(isVisible) {
+		this.visible = isVisible;
+		return this;
+	}
 
 	_render() {
 		if (!this.visible) return;

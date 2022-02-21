@@ -11,7 +11,7 @@ export default class Utils {
 		this.Vector2 = Vector2;
 	}
 
-	getVersion() { return "0.8.1"; }
+	getVersion() { return "Impacto: 0.8.1"; }
 }
 
 export const UtilsInstance = new Utils();
