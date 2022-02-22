@@ -19,10 +19,16 @@
 
 		class Game extends Impacto.Scene {
 			start() {
-				const circle = new Impacto.GameObjects.PhysicsRectangle(400, 300, 50, 50, "#0000ff")
-					.setBounce(0.5)
-					.setCollisionWorldBounds(true);
-				this.addChild(circle);
+				for (let i = 0; i < 10; i++) {
+					const bounce = Math.random();
+					const color = Impacto.Utils.Math.randomColor();
+
+					const rect = new Impacto.GameObjects.PhysicsRectangle(0, 0, 50, 50, color)
+						.setBounce(bounce)
+						.setCollisionWorldBounds(true)
+						.setRandomPosition();
+					this.addChild(rect);
+				}
 			}
 		}
 
