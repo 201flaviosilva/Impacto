@@ -45,7 +45,7 @@ export default class PhysicsGameObject extends GameObject {
 		return this;
 	}
 	setBodyType(bodyType) { // D = Dynamic, K = Kinematic, S = Static, T = Trigger
-		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return;
+		if (typeof bodyType !== "string" || this.bodyType === bodyType || bodyType.length > 1) return this;
 		bodyType = bodyType.toUpperCase();
 		if (bodyType === "S") { // Reset Static Body
 			this.setVelocity(0);

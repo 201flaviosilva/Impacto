@@ -168,7 +168,7 @@ export default class CollisionDetection {
 
 	collisionResponseDynamicRectStaticRect(dynamicReact, staticReact) {
 		const direction = this.getRectangleAndRectangleCollisionAxis(staticReact, dynamicReact);
-		this.collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction);
+		// this.collisionPerpetrationResolveDynamicRectStaticRect(dynamicReact, staticReact, direction);
 
 		const gravityX = GlobalStateManagerInstance.gravity.x;
 		const gravityY = GlobalStateManagerInstance.gravity.y;

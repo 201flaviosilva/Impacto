@@ -19,8 +19,8 @@
 		class Game extends Impacto.Scene {
 
 			start() {
-				this.rectMouse = new Impacto.GameObjects.PhysicsRectangle(350, 250, 50, 50, "#ff0000");
-				this.rectMouse.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
+				this.rectMouse = new Impacto.GameObjects.PhysicsRectangle(350, 250, 50, 50, "#ff0000")
+					.setSize(Impacto.Utils.Math.randomInt(25, 200), Impacto.Utils.Math.randomInt(25, 200));
 				this.addChild(this.rectMouse);
 
 				this.rectStop = new Impacto.GameObjects.PhysicsRectangle(0, 0, 100, 100, "#0000ff");
@@ -29,8 +29,7 @@
 				this.addChild(this.rectStop);
 
 
-				this.areaCollision = new Impacto.GameObjects.PhysicsRectangle(0, 0, 0, 0, "#000000");
-				this.areaCollision.setZ(100);
+				this.areaCollision = new Impacto.GameObjects.PhysicsRectangle(0, 0, 0, 0, "#000000").setZ(100);
 				this.addChild(this.areaCollision);
 			}
 

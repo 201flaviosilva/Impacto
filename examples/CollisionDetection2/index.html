@@ -20,60 +20,60 @@
 			start() {
 				// Horizontal
 				this.createNewCollisionLayer("layer1");
-				const collisionRect1 = new Impacto.GameObjects.PhysicsRectangle(100, 250, 50, 50, "#ff0000");
-				collisionRect1.setCollisionWorldBounds(true);
-				collisionRect1.setBounce(1);
-				collisionRect1.setVelocityX(2.5);
+				const collisionRect1 = new Impacto.GameObjects.PhysicsRectangle(100, 250, 50, 50, "#ff0000")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityX(2.5);
 				this.addChild(collisionRect1);
 				this.collisions.layer1.push(collisionRect1);
 
-				const collisionRect2 = new Impacto.GameObjects.PhysicsRectangle(600, 250, 50, 50, "#00ff00");
-				collisionRect2.setCollisionWorldBounds(true);
-				collisionRect2.setBounce(1);
-				collisionRect2.setVelocityX(-5);
+				const collisionRect2 = new Impacto.GameObjects.PhysicsRectangle(600, 250, 50, 50, "#00ff00")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityX(-5);
 				this.addChild(collisionRect2);
 				this.collisions.layer1.push(collisionRect2);
 
-				const collisionRect3 = new Impacto.GameObjects.PhysicsRectangle(700, 250, 50, 50, "#0000ff");
-				collisionRect3.setCollisionWorldBounds(true);
-				collisionRect3.setBounce(1);
-				collisionRect3.setVelocityX(10);
+				const collisionRect3 = new Impacto.GameObjects.PhysicsRectangle(700, 250, 50, 50, "#0000ff")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityX(10);
 				this.addChild(collisionRect3);
 				this.collisions.layer1.push(collisionRect3);
 
-				const collisionRect4 = new Impacto.GameObjects.PhysicsRectangle(300, 100, 50, 50, "#000000");
-				collisionRect4.setCollisionWorldBounds(true);
-				collisionRect4.setBounce(1);
-				collisionRect4.setVelocityX(10);
+				const collisionRect4 = new Impacto.GameObjects.PhysicsRectangle(300, 100, 50, 50, "#000000")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityX(10);
 				this.addChild(collisionRect4);
 				this.collisions.layer1.push(collisionRect4);
 
 				// Vertical
-				const collisionRectVertical1 = new Impacto.GameObjects.PhysicsRectangle(250, 10, 50, 50, "#ffff00");
-				collisionRectVertical1.setCollisionWorldBounds(true);
-				collisionRectVertical1.setBounce(1);
-				collisionRectVertical1.setVelocityY(2.5);
+				const collisionRectVertical1 = new Impacto.GameObjects.PhysicsRectangle(250, 10, 50, 50, "#ffff00")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityY(2.5);
 				this.addChild(collisionRectVertical1);
 				this.collisions.layer1.push(collisionRectVertical1);
 
-				const collisionRectVertical2 = new Impacto.GameObjects.PhysicsRectangle(250, 200, 50, 50, "#00ffff");
-				collisionRectVertical2.setCollisionWorldBounds(true);
-				collisionRectVertical2.setBounce(1);
-				collisionRectVertical2.setVelocityY(-5);
+				const collisionRectVertical2 = new Impacto.GameObjects.PhysicsRectangle(250, 200, 50, 50, "#00ffff")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityY(-5);
 				this.addChild(collisionRectVertical2);
 				this.collisions.layer1.push(collisionRectVertical2);
 
-				const collisionRectVertical3 = new Impacto.GameObjects.PhysicsRectangle(250, 500, 50, 50, "#ff00ff");
-				collisionRectVertical3.setCollisionWorldBounds(true);
-				collisionRectVertical3.setBounce(1);
-				collisionRectVertical3.setVelocityY(10);
+				const collisionRectVertical3 = new Impacto.GameObjects.PhysicsRectangle(250, 500, 50, 50, "#ff00ff")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityY(10);
 				this.addChild(collisionRectVertical3);
 				this.collisions.layer1.push(collisionRectVertical3);
 
-				const collisionRectVertical4 = new Impacto.GameObjects.PhysicsRectangle(500, 100, 50, 50, "#ffffff");
-				collisionRectVertical4.setCollisionWorldBounds(true);
-				collisionRectVertical4.setBounce(1);
-				collisionRectVertical4.setVelocityY(10);
+				const collisionRectVertical4 = new Impacto.GameObjects.PhysicsRectangle(500, 100, 50, 50, "#ffffff")
+					.setCollisionWorldBounds(true)
+					.setBounce(1)
+					.setVelocityY(10);
 				this.addChild(collisionRectVertical4);
 				this.collisions.layer1.push(collisionRectVertical4);
 			}

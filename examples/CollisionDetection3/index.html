@@ -25,12 +25,12 @@
 					const height = Impacto.Utils.Math.randomInt(20, 200);
 					const color = Impacto.Utils.Math.randomColor();
 
-					const rect = new Impacto.GameObjects.PhysicsRectangle(400, 300, width, height, color);
-					rect.setCollisionWorldBounds(true);
-					rect.setBounce(1);
-					rect.setVelocity(Impacto.Utils.Math.randomInt(-5, 5), Impacto.Utils.Math.randomInt(-5, 5));
-					rect.setRandomPosition();
-					rect.setBodyType(Math.random() > 0.5 ? "D" : "S");
+					const rect = new Impacto.GameObjects.PhysicsRectangle(400, 300, width, height, color)
+						.setCollisionWorldBounds(true)
+						.setBounce(1)
+						.setVelocity(Impacto.Utils.Math.randomInt(-5, 5), Impacto.Utils.Math.randomInt(-5, 5))
+						.setRandomPosition()
+						.setBodyType(Math.random() > 0.5 ? "D" : "S");
 					this.addChild(rect);
 					this.collisions.layer1.push(rect);
 
