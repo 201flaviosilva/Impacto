@@ -6,6 +6,8 @@ export default class Rectangle extends GameObject {
 		super(x, y, fillColor, strokeColor);
 		this.width = width;
 		this.height = height;
+
+		this.setOrigin(0);
 	}
 }
 

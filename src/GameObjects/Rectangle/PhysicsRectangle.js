@@ -9,6 +9,8 @@ export default class Rectangle extends PhysicsGameObject {
 		this.height = height;
 
 		this._type = "Rect";
+
+		this.setOrigin(0);
 	}
 
 	// ----- Private methods -----

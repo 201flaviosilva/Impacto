@@ -11,6 +11,7 @@ export default class GameObject {
 		this.y = y;
 		this.z = 0;
 		this.lastPosition = { x: this.x, y: this.y, z: this.z };
+		this.origin = { x: 0, y: 0 };
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
 		this.visible = true;
@@ -55,6 +56,20 @@ export default class GameObject {
 		return this;
 	}
 
+	// Origin
+	setOriginX(x) {
+		this.setOrigin(x, this.origin.y);
+		return this;
+	}
+	setOriginY(y) {
+		this.setOrigin(this.origin.x, y);
+		return this;
+	}
+	setOrigin(x = 0, y = x) {
+		this.origin = { x, y };
+		return this;
+	}
+
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
 	getTopLeft() { return { x: this.getLeft(), y: this.getTop() }; }
@@ -65,8 +80,8 @@ export default class GameObject {
 	getBottomCenter() { return { x: this.getCenterX(), y: this.getBottom() }; }
 	getBottomRight() { return { x: this.getRight(), y: this.getBottom() }; }
 
-	getLeftCenter() { return { x: this.getLeft(), y: this.getCenterY() }; }
-	getRightCenter() { return { x: this.getRight(), y: this.getCenterY() }; }
+	getCenterLeft() { return { x: this.getLeft(), y: this.getCenterY() }; }
+	getCenterRight() { return { x: this.getRight(), y: this.getCenterY() }; }
 
 	// Color
 	setFillColor(fillColor) {
