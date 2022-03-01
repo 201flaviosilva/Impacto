@@ -40,7 +40,7 @@ export default class GameObject {
 	getRealPosition() { return { x: this._x, y: this._y, z: this.z }; }
 	setPosition(x, y, z = this.z, force = false) {
 		if (this.bodyType === "S" && !force) return;
-		this.lastPosition = { x: this._x, y: this._y, z: this.z };
+		this.lastPosition = { x: this.x, y: this.y, z: this.z };
 
 		this._x = x;
 		this._y = y;
