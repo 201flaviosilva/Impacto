@@ -2,12 +2,6 @@ import { CanvasInstance } from "../../Utils/Canvas.js";
 
 const CommonMethods = {
 	// Positions Based in the origin
-	getOriginTop() { return this.y - this.height * this.origin.y; },
-	getOriginBottom() { return this.y + this.height * (1 - this.origin.y); },
-	getOriginLeft() { return this.x - this.width * this.origin.x; },
-	getOriginRight() { return this.x + this.width * (1 - this.origin.x); },
-
-	// Get Real Positions
 	getTop: function () { return this.y; },
 	getBottom: function () { return this.y + this.height; },
 	getLeft: function () { return this.x; },
@@ -15,6 +9,15 @@ const CommonMethods = {
 
 	getCenterX: function () { return this.getLeft() + this.width / 2; },
 	getCenterY: function () { return this.getTop() + this.height / 2; },
+
+	// Get Real Positions
+	getRealTop: function () { return this._y; },
+	getRealBottom: function () { return this._y + this.height; },
+	getRealLeft: function () { return this._x; },
+	getRealRight: function () { return this._x + this.width; },
+
+	getRealCenterX: function () { return this.getRealLeft() + this.width / 2; },
+	getRealCenterY: function () { return this.getRealTop() + this.height / 2; },
 
 	// Size
 	setWidth: function (width) {

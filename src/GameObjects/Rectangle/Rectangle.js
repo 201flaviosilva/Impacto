@@ -9,6 +9,9 @@ export default class Rectangle extends GameObject {
 
 		this.setOrigin(0);
 	}
+
+	get x() { return this._x - this.width * this.origin.x; } // Get the position X relative to the origin
+	get y() { return this._y - this.height * this.origin.y; } // Get the position Y relative to the origin
 }
 
 Object.assign(Rectangle.prototype, CommonMethods);

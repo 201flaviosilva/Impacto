@@ -158,8 +158,8 @@ export default class PhysicsGameObject extends GameObject {
 		);
 
 		this.setPosition(
-			this.x + this.velocity.x * SceneManagerInstance.deltaTime,
-			this.y + this.velocity.y * SceneManagerInstance.deltaTime
+			this._x + this.velocity.x * SceneManagerInstance.deltaTime,
+			this._y + this.velocity.y * SceneManagerInstance.deltaTime
 		);
 	}
 
