@@ -2,14 +2,16 @@ import { CanvasInstance } from "../../Utils/Canvas.js";
 
 const CommonMethods = {
 	// Positions Based in the origin
-	getX() { return this.x - this.width * this.origin.x; },
-	getY() { return this.y - this.height * this.origin.y; },
+	getOriginTop() { return this.y - this.height * this.origin.y; },
+	getOriginBottom() { return this.y + this.height * (1 - this.origin.y); },
+	getOriginLeft() { return this.x - this.width * this.origin.x; },
+	getOriginRight() { return this.x + this.width * (1 - this.origin.x); },
 
 	// Get Real Positions
-	getTop: function () { return this.y - this.height * this.origin.y; },
-	getBottom: function () { return this.y + this.height * (1 - this.origin.y); },
-	getLeft: function () { return this.x - this.width * this.origin.x; },
-	getRight: function () { return this.x + this.width * (1 - this.origin.x); },
+	getTop: function () { return this.y; },
+	getBottom: function () { return this.y + this.height; },
+	getLeft: function () { return this.x; },
+	getRight: function () { return this.x + this.width; },
 
 	getCenterX: function () { return this.getLeft() + this.width / 2; },
 	getCenterY: function () { return this.getTop() + this.height / 2; },
@@ -52,8 +54,8 @@ const CommonMethods = {
 
 	// ----- Private methods -----
 	_renderType: function () {
-		CanvasInstance.context.fillRect(this.getLeft(), this.getTop(), this.width, this.height);
-		CanvasInstance.context.strokeRect(this.getLeft(), this.getTop(), this.width, this.height);
+		CanvasInstance.context.fillRect(this.x, this.y, this.width, this.height);
+		CanvasInstance.context.strokeRect(this.x, this.y, this.width, this.height);
 	},
 };
 
