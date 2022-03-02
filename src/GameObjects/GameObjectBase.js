@@ -7,10 +7,11 @@ export default class GameObject {
 		this.name = `Obj - ${this.id}`;
 
 		// Render
-		this.x = x;
-		this.y = y;
+		this._x = x; // Get the real position X
+		this._y = y; // Get the real position Y
 		this.z = 0;
-		this.lastPosition = { x: this.x, y: this.y, z: this.z };
+		this.lastPosition = { x: this._x, y: this._y, z: this.z };
+		this.origin = { x: 0, y: 0 };
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
 		this.visible = true;
@@ -24,24 +25,25 @@ export default class GameObject {
 	// Render
 	// Position
 	setX(x) {
-		this.setPosition(x, this.y, this.z);
+		this.setPosition(x, this._y, this.z);
 		return this;
 	}
 	setY(y) {
-		this.setPosition(this.x, y, this.z);
+		this.setPosition(this._x, y, this.z);
 		return this;
 	}
 	setZ(z) {
-		this.setPosition(this.x, this.y, z);
+		this.setPosition(this._x, this._y, z);
 		return this;
 	}
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
+	getRealPosition() { return { x: this._x, y: this._y, z: this.z }; }
 	setPosition(x, y, z = this.z, force = false) {
 		if (this.bodyType === "S" && !force) return;
 		this.lastPosition = { x: this.x, y: this.y, z: this.z };
 
-		this.x = x;
-		this.y = y;
+		this._x = x;
+		this._y = y;
 		this.z = z;
 		return this;
 	}
@@ -55,6 +57,20 @@ export default class GameObject {
 		return this;
 	}
 
+	// Origin
+	setOriginX(x) {
+		this.setOrigin(x, this.origin.y);
+		return this;
+	}
+	setOriginY(y) {
+		this.setOrigin(this.origin.x, y);
+		return this;
+	}
+	setOrigin(x = 0, y = x) {
+		this.origin = { x, y };
+		return this;
+	}
+
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
 	getTopLeft() { return { x: this.getLeft(), y: this.getTop() }; }
@@ -65,8 +81,8 @@ export default class GameObject {
 	getBottomCenter() { return { x: this.getCenterX(), y: this.getBottom() }; }
 	getBottomRight() { return { x: this.getRight(), y: this.getBottom() }; }
 
-	getLeftCenter() { return { x: this.getLeft(), y: this.getCenterY() }; }
-	getRightCenter() { return { x: this.getRight(), y: this.getCenterY() }; }
+	getCenterLeft() { return { x: this.getLeft(), y: this.getCenterY() }; }
+	getCenterRight() { return { x: this.getRight(), y: this.getCenterY() }; }
 
 	// Color
 	setFillColor(fillColor) {
