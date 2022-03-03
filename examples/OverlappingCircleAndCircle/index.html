@@ -34,7 +34,7 @@
 				const mouse = Impacto.Inputs.Mouse.getPosition();
 				this.circle2.setPosition(mouse.x, mouse.y);
 
-				if (Impacto.Utils.CollisionDetection.overlapCircleAndCircle(this.circle1, this.circle2)) {
+				if (Impacto.Physics.CollisionDetection.overlapCircleAndCircle(this.circle1, this.circle2)) {
 					this.circle1.setFillColor("#ff0000");
 					this.circle2.setFillColor("#ff0000");
 				} else {
