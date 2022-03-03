@@ -1,5 +1,5 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
-import { CollisionDetectionInstance } from "../Utils/CollisionDetection.js";
+import { CollisionResolveInstance } from "../Physics/CollisionResolve.js";
 import { CanvasInstance } from "../Utils/Canvas.js";
 
 export default class SceneManager {
@@ -81,7 +81,7 @@ export default class SceneManager {
 			const layersKeys = Object.keys(this.currentScene.collisions);
 			layersKeys.forEach(layerKey => {
 				const layer = this.currentScene.collisions[layerKey];
-				CollisionDetectionInstance.collisionLayer(layer, this.currentScene);
+				CollisionResolveInstance.collisionLayer(layer, this.currentScene);
 			});
 
 			this.currentScene.children.forEach(child => {
