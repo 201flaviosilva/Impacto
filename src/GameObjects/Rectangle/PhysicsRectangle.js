@@ -1,16 +1,15 @@
 import PhysicsGameObject from "../PhysicsGameObject.js";
 import CommonMethods from "./CommonMethods.js";
 import { CanvasInstance } from "../../Utils/Canvas.js";
+import Types from "../Types.js";
 
-export default class Rectangle extends PhysicsGameObject {
+export default class PhysicsRectangle extends PhysicsGameObject {
 	constructor(x, y, width = 100, height = 100, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.width = width;
 		this.height = height;
 
-		this._type = "Rect";
-
-		this.setOrigin(0);
+		this._type = Types.rectangle;
 	}
 
 	get x() { return this._x - this.width * this.origin.x; } // Get the position X relative to the origin
@@ -24,4 +23,4 @@ export default class Rectangle extends PhysicsGameObject {
 	}
 }
 
-Object.assign(Rectangle.prototype, CommonMethods);
+Object.assign(PhysicsRectangle.prototype, CommonMethods);

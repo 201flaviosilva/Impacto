@@ -1,5 +1,6 @@
 import GameObject from "../GameObjectBase.js";
 import CommonMethods from "./CommonMethods.js";
+import Types from "../Types.js";
 
 export default class Rectangle extends GameObject {
 	constructor(x, y, width = 100, height = 100, fillColor = "#ffffff", strokeColor = "#000000") {
@@ -7,7 +8,7 @@ export default class Rectangle extends GameObject {
 		this.width = width;
 		this.height = height;
 
-		this.setOrigin(0);
+		this._type = Types.rectangle;
 	}
 
 	get x() { return this._x - this.width * this.origin.x; } // Get the position X relative to the origin

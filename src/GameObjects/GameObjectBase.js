@@ -14,6 +14,7 @@ export default class GameObject {
 		this.origin = { x: 0, y: 0 };
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
+		this.strokeWidth = 1;
 		this.visible = true;
 	}
 
@@ -22,7 +23,6 @@ export default class GameObject {
 		return this;
 	}
 
-	// Render
 	// Position
 	setX(x) {
 		this.setPosition(x, this._y, this.z);
@@ -94,6 +94,11 @@ export default class GameObject {
 		return this;
 	}
 
+	setStrokeWidth(strokeWidth) {
+		this.strokeWidth = strokeWidth;
+		return this;
+	}
+
 	setVisible(isVisible) {
 		this.visible = isVisible;
 		return this;
@@ -104,6 +109,7 @@ export default class GameObject {
 
 		CanvasInstance.context.fillStyle = this.fillColor;
 		CanvasInstance.context.strokeStyle = this.strokeColor;
+		CanvasInstance.context.lineWidth = this.strokeWidth;
 		this._renderType();
 	}
 }
