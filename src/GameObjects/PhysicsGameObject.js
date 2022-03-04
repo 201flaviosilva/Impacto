@@ -1,6 +1,6 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { SceneManagerInstance } from "../Scenes/SceneManager.js";
-import { PositionPrevisionsInstance } from "../Utils/PositionPrevisions.js";
+import { PositionPrevisionsInstance } from "../Physics/PositionPrevisions.js";
 import { CanvasInstance } from "../Utils/Canvas.js";
 
 import GameObject from "./GameObjectBase.js";

@@ -50,12 +50,12 @@
 				// Update Area Collision
 				const rectMouseBounds = this.rectMouse.getBounds();
 				const rectStopBounds = this.rectStop.getBounds();
-				if (Impacto.Utils.CollisionDetection.overlapRectangleAndRectangle(rectMouseBounds, rectStopBounds)) {
+				if (Impacto.Physics.CollisionDetection.overlapRectangleAndRectangle(rectMouseBounds, rectStopBounds)) {
 					this.rectMouse.setFillColor("#00ff00");
 					this.rectStop.setFillColor("#00ff00");
 
 					// Draw Collision Area
-					const collisionBoundsRect = Impacto.Utils.CollisionDetection.getBoundsOfTwoOverlappingRectangles(rectMouseBounds, rectStopBounds);
+					const collisionBoundsRect = Impacto.Physics.CollisionDetection.getBoundsOfTwoOverlappingRectangles(rectMouseBounds, rectStopBounds);
 					this.areaCollision.setPosition(collisionBoundsRect.x, collisionBoundsRect.y);
 					this.areaCollision.setSize(collisionBoundsRect.width, collisionBoundsRect.height);
 
@@ -68,8 +68,8 @@
 			}
 
 			posRender(ctx) {
-				const area = Impacto.Utils.CollisionDetection.getAreaOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
-				const perimeter = Impacto.Utils.CollisionDetection.getPerimeterOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
+				const area = Impacto.Physics.CollisionDetection.getAreaOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
+				const perimeter = Impacto.Physics.CollisionDetection.getPerimeterOfTwoOverlappingRectangles(this.rectMouse, this.rectStop) || "No Overlap";
 
 				// Draw Text of The Area and Perimeter
 				ctx.fillStyle = "#000000";

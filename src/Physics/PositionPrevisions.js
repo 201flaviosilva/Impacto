@@ -1,7 +1,7 @@
 import { SceneManagerInstance } from "../Scenes/SceneManager.js";
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
-export default class PositionPrevisions {
 
+export default class PositionPrevisions {
 	getNextPrevisionTop(object) {
 		if (object._type == "Rect") return object.y + object.velocity.y * SceneManagerInstance.deltaTime;
 		else if (object._type == "Circle") return (object.y - object.radius) + object.velocity.y * SceneManagerInstance.deltaTime;
