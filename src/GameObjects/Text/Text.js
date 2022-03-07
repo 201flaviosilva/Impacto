@@ -34,6 +34,22 @@ export default class Text extends GameObject {
 	get x() { return this._x - this.width * this.origin.x; } // Get the position X relative to the origin
 	get y() { return this._y - this.height * this.origin.y; } // Get the position Y relative to the origin
 
+	// Get positions based on the origin
+	getTop() { return this.y; }
+	getBottom() { return this.y + this.height; }
+	getLeft() { return this.x; }
+	getRight() { return this.x + this.width; }
+	getCenterX() { return this.x + this.width / 2; }
+	getCenterY() { return this.y + this.height / 2; }
+
+	// Get Real Positions
+	getRealTop() { return this._y; }
+	getRealBottom() { return this._y + this.height; }
+	getRealLeft() { return this._x; }
+	getRealRight() { return this._x + this.width; }
+	getRealCenterX() { return this._x + this.width / 2; }
+	getRealCenterY() { return this._y + this.height / 2; }
+
 	getOptions() {
 		const opt = {
 			font: {
