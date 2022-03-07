@@ -3,6 +3,7 @@ import GameObjectBase from "./GameObjectBase.js";
 import Circle from "./Circle/Circle.js";
 import Rectangle from "./Rectangle/Rectangle.js";
 import Text from "./Text/Text.js";
+import Triangle from "./Triangle/Triangle.js";
 
 // Physics
 import PhysicsGameObject from "./PhysicsGameObject.js";
@@ -19,6 +20,7 @@ export default class GameObjects {
 		this.Circle = Circle;
 		this.Rectangle = Rectangle;
 		this.Text = Text;
+		this.Triangle = Triangle;
 
 		// Physics GameObject
 		this.PhysicsGameObject = PhysicsGameObject;
