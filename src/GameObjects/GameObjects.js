@@ -1,5 +1,6 @@
 // Draw
 import GameObjectBase from "./GameObjectBase.js";
+import Line from "./Line/Line.js";
 import Circle from "./Circle/Circle.js";
 import Rectangle from "./Rectangle/Rectangle.js";
 import Text from "./Text/Text.js";
@@ -18,6 +19,7 @@ export default class GameObjects {
 		// Basic GameObject
 		this.GameObjectBase = GameObjectBase;
 		this.Circle = Circle;
+		this.Line = Line;
 		this.Rectangle = Rectangle;
 		this.Text = Text;
 		this.Triangle = Triangle;
