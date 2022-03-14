@@ -19,10 +19,10 @@
 		class Game extends Impacto.Scene {
 			posRender(ctx) {
 				console.log(this.time);
-				Impacto.Utils.Canvas.drawText("Delta: " + this.time.delta, 400, 200);
-				Impacto.Utils.Canvas.drawText("DeltaTime: " + this.time.deltaTime, 400, 250);
-				Impacto.Utils.Canvas.drawText("FPS:" + this.time.fps, 400, 300);
-				Impacto.Utils.Canvas.drawText("Game Time: " + this.time.gameTime, 400, 350);
+				Impacto.Utils.Draw.text("Delta: " + this.time.delta, 400, 200);
+				Impacto.Utils.Draw.text("DeltaTime: " + this.time.deltaTime, 400, 250);
+				Impacto.Utils.Draw.text("FPS:" + this.time.fps, 400, 300);
+				Impacto.Utils.Draw.text("Game Time: " + this.time.gameTime, 400, 350);
 			}
 		}
 
