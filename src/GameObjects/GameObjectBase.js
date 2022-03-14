@@ -1,5 +1,4 @@
-import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
-import { CanvasInstance } from "../Utils/Canvas.js";
+import { CanvasStateInstance } from "../State/CanvasState.js";
 
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
@@ -47,7 +46,7 @@ export default class GameObject {
 		this.z = z;
 		return this;
 	}
-	setRandomPosition(x = 0, y = 0, width = GlobalStateManagerInstance.viewportDimensions.width, height = GlobalStateManagerInstance.viewportDimensions.height) {
+	setRandomPosition(x = 0, y = 0, width = CanvasStateInstance.width, height = CanvasStateInstance.height) {
 		do {
 			this.setPosition(
 				x + Math.random() * width,
@@ -102,8 +101,8 @@ export default class GameObject {
 	_render() {
 		if (!this.visible) return;
 
-		CanvasInstance.context.fillStyle = this.fillColor;
-		CanvasInstance.context.strokeStyle = this.strokeColor;
+		CanvasStateInstance.context.fillStyle = this.fillColor;
+		CanvasStateInstance.context.strokeStyle = this.strokeColor;
 		this._renderType();
 	}
 }

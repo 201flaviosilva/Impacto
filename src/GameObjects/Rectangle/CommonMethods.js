@@ -1,4 +1,4 @@
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 
 const CommonMethods = {
 	// Positions Based in the origin
@@ -57,8 +57,8 @@ const CommonMethods = {
 
 	// ----- Private methods -----
 	_renderType: function () {
-		CanvasInstance.context.fillRect(this.x, this.y, this.width, this.height);
-		CanvasInstance.context.strokeRect(this.x, this.y, this.width, this.height);
+		CanvasStateInstance.context.fillRect(this.x, this.y, this.width, this.height);
+		CanvasStateInstance.context.strokeRect(this.x, this.y, this.width, this.height);
 	},
 };
 

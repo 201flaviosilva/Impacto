@@ -1,4 +1,4 @@
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 
 const CommonMethods = {
 	getRadius: function () { return this.radius; },
@@ -26,10 +26,10 @@ const CommonMethods = {
 
 	// ----- Private methods -----
 	_renderType: function () {
-		CanvasInstance.context.beginPath();
-		CanvasInstance.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-		CanvasInstance.context.fill();
-		CanvasInstance.context.stroke();
+		CanvasStateInstance.context.beginPath();
+		CanvasStateInstance.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+		CanvasStateInstance.context.fill();
+		CanvasStateInstance.context.stroke();
 	}
 };
 
