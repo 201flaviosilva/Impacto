@@ -1,6 +1,6 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
+import { CanvasStateInstance } from "../State/CanvasState.js";
 import { CollisionResolveInstance } from "../Physics/CollisionResolve.js";
-import { CanvasInstance } from "../Utils/Canvas.js";
 
 export default class SceneManager {
 	constructor() {
@@ -95,14 +95,14 @@ export default class SceneManager {
 	}
 
 	render() {
-		const ctx = CanvasInstance.context;
+		const ctx = CanvasStateInstance.context;
 		if (!ctx) return;
 
-		ctx.clearRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
-
-		if (GlobalStateManagerInstance.backgroundColor) {
-			ctx.fillStyle = GlobalStateManagerInstance.backgroundColor;
-			ctx.fillRect(0, 0, GlobalStateManagerInstance.viewportDimensions.width, GlobalStateManagerInstance.viewportDimensions.height);
+		if (CanvasStateInstance.backgroundColor) {
+			ctx.fillStyle = CanvasStateInstance.backgroundColor;
+			ctx.fillRect(0, 0, CanvasStateInstance.width, CanvasStateInstance.height);
+		} else {
+			ctx.clearRect(0, 0, CanvasStateInstance.width, CanvasStateInstance.height);
 		}
 
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);

@@ -1,9 +1,6 @@
-import GlobalStateManager from "../State/GlobalStateManager.js";
-
+import { CanvasStateInstance } from "../State/CanvasState.js";
 export default class Mouse {
 	constructor() {
-		this._globalStateManager = new GlobalStateManager();
-
 		this.x = 0;
 		this.y = 0;
 
@@ -62,8 +59,8 @@ export default class Mouse {
 		this.windowX = e.clientX;
 		this.windowY = e.clientY;
 
-		this.x = this.windowX - this._globalStateManager.canvas.offsetLeft;
-		this.y = this.windowY - this._globalStateManager.canvas.offsetTop;
+		this.x = this.windowX - CanvasStateInstance.canvas.offsetLeft;
+		this.y = this.windowY - CanvasStateInstance.canvas.offsetTop;
 	}
 
 	_mousemove(e) {

@@ -1,27 +1,25 @@
-import SceneManager from "../Scenes/SceneManager.js";
-
 export default class GlobalStateManager {
 	constructor() {
 		if (GlobalStateManager.instance instanceof GlobalStateManager) return GlobalStateManager.instance;
 		GlobalStateManager.instance = this;
 
-		this.sceneManager = new SceneManager();
+		this.debug = false;
+		this.gravity = { x: 0, y: 0, };
 	}
 
-	setConfig(config) {
-		this.parentDom = config.parentDom;
-		this.canvas = config.canvas;
-		this.context = config.context;
-		this.viewportDimensions = {
-			width: config.viewportDimensions.width,
-			height: config.viewportDimensions.height,
-		};
-		this.backgroundColor = config.backgroundColor;
-		this.debug = config.debug;
-		this.gravity = config.gravity;
+	setConfig(configs) {
+		this.originalConfigs = configs;
+		this.setDebug(configs.debug);
+		this.setGravity(configs.gravity);
+	}
 
-		this.sceneManager.addScene(config.scene);
-		this.sceneManager.startScene(0);
+	setDebug(debug) { this.debug = debug; }
+
+	setGravity(gravity) {
+		if (!gravity) gravity = { x: 0, y: 0, };
+		if (gravity.x === undefined) gravity.x = 0;
+		if (gravity.y === undefined) gravity.y = 0;
+		this.gravity = gravity;
 	}
 }
 

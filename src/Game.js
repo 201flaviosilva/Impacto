@@ -1,38 +1,21 @@
-import GlobalStateManager from "./State/GlobalStateManager.js";
-import { CanvasInstance } from "./Utils/Canvas.js";
+import { GlobalStateManagerInstance } from "./State/GlobalStateManager.js";
+import { CanvasStateInstance } from "./State/CanvasState.js";
+import SceneManager from "./Scenes/SceneManager.js";
 
 export default class Game {
 	constructor(config) {
-		this.canvas = document.createElement("canvas");
-		this.canvas.width = config.width;
-		this.canvas.height = config.height;
+		// Save configurations
+		GlobalStateManagerInstance.setConfig(config);
 
-		this.context = this.canvas.getContext("2d");
+		// Start Canvas
+		CanvasStateInstance.setParent(config.parent);
+		CanvasStateInstance.setSize(config.width, config.height);
+		CanvasStateInstance.setCanvas(config.canvas);
+		CanvasStateInstance.setBackgroundColor(config.backgroundColor);
 
-		if (config.parent) document.getElementById(config.parent)?.appendChild(this.canvas);
-		else document.body.appendChild(this.canvas);
-
-		CanvasInstance.setCanvas(this.canvas);
-
-		this.configuration = config;
-
-		if (!config.gravity) config.gravity = { x: 0, y: 0, };
-		if (config.gravity.x === undefined) config.gravity.x = 0;
-		if (config.gravity.y === undefined) config.gravity.y = 0;
-
-		const globalStateManager = new GlobalStateManager();
-		globalStateManager.setConfig({
-			parentDom: document.getElementById(config.parent),
-			canvas: this.canvas,
-			context: this.context,
-			viewportDimensions: {
-				width: config.width,
-				height: config.height,
-			},
-			backgroundColor: config.backgroundColor,
-			debug: config.debug,
-			gravity: config.gravity,
-			scene: config.scene,
-		});
+		// Start Scene Manager
+		const sceneManager = new SceneManager();
+		sceneManager.addScene(config.scene);
+		sceneManager.startScene(0);
 	}
 }

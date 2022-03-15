@@ -1,7 +1,7 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { SceneManagerInstance } from "../Scenes/SceneManager.js";
 import { PositionPrevisionsInstance } from "../Physics/PositionPrevisions.js";
-import { CanvasInstance } from "../Utils/Canvas.js";
+import { CanvasStateInstance } from "../State/CanvasState.js";
 
 import GameObject from "./GameObjectBase.js";
 
@@ -118,9 +118,9 @@ export default class PhysicsGameObject extends GameObject {
 
 	// Check Current Collision With World Bounds
 	checkTopCollisionWorldBounds() { return this.getTop() <= 0; }
-	checkBottomCollisionWorldBounds() { return this.getBottom() >= GlobalStateManagerInstance.viewportDimensions.height; }
+	checkBottomCollisionWorldBounds() { return this.getBottom() >= CanvasStateInstance.height; }
 	checkLeftCollisionWorldBounds() { return this.getLeft() <= 0; }
-	checkRightCollisionWorldBounds() { return this.getRight() >= GlobalStateManagerInstance.viewportDimensions.width; }
+	checkRightCollisionWorldBounds() { return this.getRight() >= CanvasStateInstance.width; }
 	checkCollisionWorldBounds() {
 		return this.checkTopCollisionWorldBounds() ||
 			this.checkBottomCollisionWorldBounds() ||
@@ -130,9 +130,9 @@ export default class PhysicsGameObject extends GameObject {
 
 	checkIsInsideWorldBounds() {
 		return this.getLeft() >= 0 &&
-			this.getRight() <= GlobalStateManagerInstance.viewportDimensions.width &&
+			this.getRight() <= CanvasStateInstance.width &&
 			this.getTop() >= 0 &&
-			this.getBottom() <= GlobalStateManagerInstance.viewportDimensions.height;
+			this.getBottom() <= CanvasStateInstance.height;
 	}
 
 
@@ -170,10 +170,10 @@ export default class PhysicsGameObject extends GameObject {
 	}
 
 	_debugVelocity() {
-		CanvasInstance.context.strokeStyle = this._strokeDebugColor;
-		CanvasInstance.context.beginPath();
-		CanvasInstance.context.moveTo(this.getCenterX(), this.getCenterY());
-		CanvasInstance.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
-		CanvasInstance.context.stroke();
+		CanvasStateInstance.context.strokeStyle = this._strokeDebugColor;
+		CanvasStateInstance.context.beginPath();
+		CanvasStateInstance.context.moveTo(this.getCenterX(), this.getCenterY());
+		CanvasStateInstance.context.lineTo(this.getCenterX() + this.velocity.x * 5, this.getCenterY() + this.velocity.y * 5);
+		CanvasStateInstance.context.stroke();
 	}
 }

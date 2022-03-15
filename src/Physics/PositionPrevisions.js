@@ -1,5 +1,5 @@
 import { SceneManagerInstance } from "../Scenes/SceneManager.js";
-import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
+import { CanvasStateInstance } from "../State/CanvasState.js";
 
 export default class PositionPrevisions {
 	getNextPrevisionTop(object) {
@@ -23,9 +23,9 @@ export default class PositionPrevisions {
 	}
 
 	checkNextPrevisionTopCollisionWorldBounds(object) { return this.getNextPrevisionTop(object) <= 0; }
-	checkNextPrevisionBottomCollisionWorldBounds(object) { return this.getNextPrevisionBottom(object) >= GlobalStateManagerInstance.viewportDimensions.height; }
+	checkNextPrevisionBottomCollisionWorldBounds(object) { return this.getNextPrevisionBottom(object) >= CanvasStateInstance.height; }
 	checkNextPrevisionLeftCollisionWorldBounds(object) { return this.getNextPrevisionLeft(object) <= 0; }
-	checkNextPrevisionRightCollisionWorldBounds(object) { return this.getNextPrevisionRight(object) >= GlobalStateManagerInstance.viewportDimensions.width; }
+	checkNextPrevisionRightCollisionWorldBounds(object) { return this.getNextPrevisionRight(object) >= CanvasStateInstance.width; }
 
 	checkNextPrevisionCollisionWorldBounds(object) {
 		return this.checkNextPrevisionTopCollisionWorldBounds(object)
