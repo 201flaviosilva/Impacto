@@ -50,55 +50,6 @@ export default class Text extends GameObject {
 	getRealCenterX() { return this._x + this.width / 2; }
 	getRealCenterY() { return this._y + this.height / 2; }
 
-	getOptions() {
-		const opt = {
-			font: {
-				style: {
-					normal: "normal",
-					italic: "italic",
-					oblique: "oblique",
-				},
-				variant: {
-					normal: "normal",
-					smallCaps: "small-caps",
-				},
-				weight: {
-					normal: "normal",
-					bold: "bold",
-					bolder: "bolder",
-					lighter: "lighter",
-				},
-				family: {
-					Arial: "Arial",
-					Verdana: "Verdana",
-					TimesNewRoman: "Times New Roman",
-					CourierNew: "Courier New",
-					serif: "serif",
-					sansSerif: "sans-serif",
-				}
-			},
-			align: {
-				vertical: {
-					top: "top",
-					middle: "middle",
-					bottom: "bottom",
-				},
-				horizontal: {
-					left: "left",
-					center: "center",
-					right: "right",
-				},
-			},
-			direction: {
-				ltr: "ltr",
-				rtl: "rtl",
-				inherit: "inherit",
-			},
-		};
-
-		return opt;
-	}
-
 	getWords() { return this.text.split(" "); }
 	getWordsNumber() { return this.getWords().length; }
 	getCharacters() { return this.text.split(""); }
@@ -165,8 +116,6 @@ export default class Text extends GameObject {
 
 	// Private
 	_renderType() {
-		CanvasStateInstance.context.save();
-
 		CanvasStateInstance.context.textBaseline = this.alignVertical;
 		CanvasStateInstance.context.textAlign = this.alignHorizontal;
 		CanvasStateInstance.context.direction = this.direction;
@@ -175,7 +124,5 @@ export default class Text extends GameObject {
 
 		CanvasStateInstance.context.fillText(this.text, this.x, this.y);
 		CanvasStateInstance.context.strokeText(this.text, this.x, this.y);
-
-		CanvasStateInstance.context.restore();
 	}
 }
