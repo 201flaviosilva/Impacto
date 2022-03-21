@@ -1,10 +1,13 @@
 import GameObject from "../GameObjectBase.js";
 import CommonMethods from "./CommonMethods.js";
+import Types from "../Types.js";
 
 export default class Circle extends GameObject {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.radius = radius;
+
+		this._type = Types.circle;
 	}
 
 	get x() { return this._x - this.radius * this.origin.x; } // Get the position X relative to the origin

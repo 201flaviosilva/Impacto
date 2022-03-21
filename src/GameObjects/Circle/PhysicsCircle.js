@@ -1,12 +1,13 @@
 import GameObject from "../PhysicsGameObject.js";
 import CommonMethods from "./CommonMethods.js";
+import Types from "../Types.js";
 
-export default class Circle extends GameObject {
+export default class PhysicsCircle extends GameObject {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.radius = radius;
 
-		this._type = "Circle";
+		this._type = Types.circle;
 	}
 
 	get x() { return this._x - this.radius * this.origin.x; } // Get the position X relative to the origin
@@ -20,4 +21,4 @@ export default class Circle extends GameObject {
 	}
 }
 
-Object.assign(Circle.prototype, CommonMethods);
+Object.assign(PhysicsCircle.prototype, CommonMethods);
