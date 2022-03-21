@@ -1,4 +1,4 @@
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 
 const CommonMethods = {
 	// Positions Based in the origin

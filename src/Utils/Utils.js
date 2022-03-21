@@ -1,10 +1,10 @@
-import Canvas from "./Canvas.js";
+import Draw from "./Draw.js";
 import Vector2 from "./Vector2.js";
 import ImpactoMath from "./Math.js";
 
 export default class Utils {
 	constructor() {
-		this.Canvas = new Canvas();
+		this.Draw = new Draw();
 		this.Math = new ImpactoMath();
 		this.Vector2 = Vector2;
 	}

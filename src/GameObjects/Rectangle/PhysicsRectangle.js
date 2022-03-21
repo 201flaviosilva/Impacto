@@ -1,6 +1,6 @@
 import PhysicsGameObject from "../PhysicsGameObject.js";
 import CommonMethods from "./CommonMethods.js";
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class PhysicsRectangle extends PhysicsGameObject {
@@ -17,8 +17,8 @@ export default class PhysicsRectangle extends PhysicsGameObject {
 
 	// ----- Private methods -----
 	_debugBody() {
-		CanvasInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
-		CanvasInstance.context.strokeStyle = this._strokeDebugColor;
+		CanvasStateInstance.context.fillStyle = "rgba(0, 0, 0, 0)";
+		CanvasStateInstance.context.strokeStyle = this._strokeDebugColor;
 		this._renderType();
 	}
 }
