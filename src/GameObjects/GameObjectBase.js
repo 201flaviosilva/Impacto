@@ -106,9 +106,9 @@ export default class GameObject {
 	_render() {
 		if (!this.visible) return;
 
-		CanvasInstance.context.fillStyle = this.fillColor;
-		CanvasInstance.context.strokeStyle = this.strokeColor;
-		CanvasInstance.context.lineWidth = this.strokeWidth;
+		CanvasStateInstance.context.fillStyle = this.fillColor;
+		CanvasStateInstance.context.strokeStyle = this.strokeColor;
+		CanvasStateInstance.context.lineWidth = this.strokeWidth;
 		this._renderType();
 	}
 }

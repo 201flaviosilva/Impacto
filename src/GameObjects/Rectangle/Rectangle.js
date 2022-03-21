@@ -8,6 +8,8 @@ export default class Rectangle extends GameObject {
 		this.width = width;
 		this.height = height;
 
+		this.setRound(0);
+
 		this._type = Types.rectangle;
 	}
 

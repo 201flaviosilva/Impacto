@@ -1,5 +1,5 @@
 import GameObject from "../GameObjectBase.js";
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class Text extends GameObject {
@@ -23,7 +23,7 @@ export default class Text extends GameObject {
 
 	get width() {
 		if (this.text === "") return 0;
-		return CanvasInstance.context.measureText(this.text, this.font).width;
+		return CanvasStateInstance.context.measureText(this.text, this.font).width;
 	}
 
 	get height() {
@@ -165,17 +165,17 @@ export default class Text extends GameObject {
 
 	// Private
 	_renderType() {
-		CanvasInstance.context.save();
+		CanvasStateInstance.context.save();
 
-		CanvasInstance.context.textBaseline = this.alignVertical;
-		CanvasInstance.context.textAlign = this.alignHorizontal;
-		CanvasInstance.context.direction = this.direction;
+		CanvasStateInstance.context.textBaseline = this.alignVertical;
+		CanvasStateInstance.context.textAlign = this.alignHorizontal;
+		CanvasStateInstance.context.direction = this.direction;
 
-		CanvasInstance.context.font = this.font;
+		CanvasStateInstance.context.font = this.font;
 
-		CanvasInstance.context.fillText(this.text, this.x, this.y);
-		CanvasInstance.context.strokeText(this.text, this.x, this.y);
+		CanvasStateInstance.context.fillText(this.text, this.x, this.y);
+		CanvasStateInstance.context.strokeText(this.text, this.x, this.y);
 
-		CanvasInstance.context.restore();
+		CanvasStateInstance.context.restore();
 	}
 }

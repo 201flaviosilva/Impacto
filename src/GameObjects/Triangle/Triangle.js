@@ -1,5 +1,5 @@
 import GameObject from "../GameObjectBase.js";
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class Triangle extends GameObject {
@@ -59,12 +59,12 @@ export default class Triangle extends GameObject {
 
 	// Private
 	_renderType() {
-		CanvasInstance.context.beginPath();
-		CanvasInstance.context.moveTo(this.x, this.y);
-		CanvasInstance.context.lineTo(this.x + this.width, this.y);
-		CanvasInstance.context.lineTo(this.x + this.width / 2, this.y + this.height);
-		CanvasInstance.context.closePath();
-		CanvasInstance.context.fill();
-		CanvasInstance.context.stroke();
+		CanvasStateInstance.context.beginPath();
+		CanvasStateInstance.context.moveTo(this.x, this.y);
+		CanvasStateInstance.context.lineTo(this.x + this.width, this.y);
+		CanvasStateInstance.context.lineTo(this.x + this.width / 2, this.y + this.height);
+		CanvasStateInstance.context.closePath();
+		CanvasStateInstance.context.fill();
+		CanvasStateInstance.context.stroke();
 	}
 }

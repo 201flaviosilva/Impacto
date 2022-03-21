@@ -1,5 +1,5 @@
 import GameObject from "../GameObjectBase.js";
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class Line extends GameObject {
@@ -73,11 +73,11 @@ export default class Line extends GameObject {
 
 	// Private
 	_renderType() {
-		CanvasInstance.context.beginPath();
-		CanvasInstance.context.moveTo(this.x, this.y);
-		CanvasInstance.context.lineTo(this.endX, this.endY);
-		CanvasInstance.context.closePath();
-		CanvasInstance.context.fill();
-		CanvasInstance.context.stroke();
+		CanvasStateInstance.context.beginPath();
+		CanvasStateInstance.context.moveTo(this.x, this.y);
+		CanvasStateInstance.context.lineTo(this.endX, this.endY);
+		CanvasStateInstance.context.closePath();
+		CanvasStateInstance.context.fill();
+		CanvasStateInstance.context.stroke();
 	}
 }

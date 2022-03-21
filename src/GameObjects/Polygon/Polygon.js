@@ -1,5 +1,5 @@
 import GameObject from "../GameObjectBase.js";
-import { CanvasInstance } from "../../Utils/Canvas.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class Polygon extends GameObject {
@@ -80,20 +80,20 @@ export default class Polygon extends GameObject {
 	_renderType() {
 		if (this.vertices.length === 0) return;
 
-		CanvasInstance.context.save();
-		CanvasInstance.context.translate(this.x, this.y);
+		CanvasStateInstance.context.save();
+		CanvasStateInstance.context.translate(this.x, this.y);
 
-		CanvasInstance.context.beginPath();
+		CanvasStateInstance.context.beginPath();
 
-		CanvasInstance.context.moveTo(this.vertices[0].x, this.vertices[0].y);
+		CanvasStateInstance.context.moveTo(this.vertices[0].x, this.vertices[0].y);
 		for (let i = 1; i < this.vertices.length; i++) {
-			CanvasInstance.context.lineTo(this.vertices[i].x, this.vertices[i].y);
+			CanvasStateInstance.context.lineTo(this.vertices[i].x, this.vertices[i].y);
 		}
-		if (this.close) CanvasInstance.context.closePath();
+		if (this.close) CanvasStateInstance.context.closePath();
 
-		CanvasInstance.context.stroke();
-		CanvasInstance.context.fill();
+		CanvasStateInstance.context.stroke();
+		CanvasStateInstance.context.fill();
 
-		CanvasInstance.context.restore();
+		CanvasStateInstance.context.restore();
 	}
 }
