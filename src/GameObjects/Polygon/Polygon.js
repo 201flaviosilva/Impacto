@@ -80,7 +80,6 @@ export default class Polygon extends GameObject {
 	_renderType() {
 		if (this.vertices.length === 0) return;
 
-		CanvasStateInstance.context.save();
 		CanvasStateInstance.context.translate(this.x, this.y);
 
 		CanvasStateInstance.context.beginPath();
@@ -93,7 +92,5 @@ export default class Polygon extends GameObject {
 
 		CanvasStateInstance.context.stroke();
 		CanvasStateInstance.context.fill();
-
-		CanvasStateInstance.context.restore();
 	}
 }

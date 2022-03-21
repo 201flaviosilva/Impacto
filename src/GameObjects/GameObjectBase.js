@@ -1,4 +1,5 @@
 import { CanvasStateInstance } from "../State/CanvasState.js";
+import { UtilsMathInstance } from "../Utils/Math.js";
 
 export default class GameObject {
 	constructor(x, y, fillColor, strokeColor) {
@@ -9,6 +10,8 @@ export default class GameObject {
 		this._x = x; // Get the real position X
 		this._y = y; // Get the real position Y
 		this.z = 0;
+		this.rotation = 0; // Rotation in radians
+		this.angle = 0; // Rotation in degrees
 		this.lastPosition = { x: this._x, y: this._y, z: this.z };
 		this.origin = { x: 0, y: 0 };
 		this.fillColor = fillColor;
@@ -53,6 +56,19 @@ export default class GameObject {
 				y + Math.random() * height
 			);
 		} while (!this.checkIsInsideWorldBounds());
+		return this;
+	}
+
+	// Rotation and angle
+	setRotation(rotation) {
+		this.rotation = rotation;
+		this.angle = UtilsMathInstance.radiansToDegrees(rotation);
+		return this;
+	}
+
+	setAngle(angle) {
+		this.angle = angle;
+		this.rotation = UtilsMathInstance.degreesToRadians(angle);
 		return this;
 	}
 
@@ -106,9 +122,17 @@ export default class GameObject {
 	_render() {
 		if (!this.visible) return;
 
+		CanvasStateInstance.context.save();
+
+		CanvasStateInstance.context.translate(this._x, this._y);
+		CanvasStateInstance.context.rotate(this.rotation);
+		CanvasStateInstance.context.translate(-this._x, -this._y);
+
 		CanvasStateInstance.context.fillStyle = this.fillColor;
 		CanvasStateInstance.context.strokeStyle = this.strokeColor;
 		CanvasStateInstance.context.lineWidth = this.strokeWidth;
 		this._renderType();
+
+		CanvasStateInstance.context.restore();
 	}
 }
