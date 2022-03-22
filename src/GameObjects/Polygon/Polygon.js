@@ -11,8 +11,8 @@ export default class Polygon extends GameObject {
 		this._type = Types.polygon;
 	}
 
-	get x() { return this._x - this.width * this.origin.x; } // Get the position X relative to the origin
-	get y() { return this._y - this.height * this.origin.y; } // Get the position Y relative to the origin
+	get x() { return this._x - this.width * this.origin.x * this.scale.x; } // Get the position X relative to the origin
+	get y() { return this._y - this.height * this.origin.y * this.scale.y; } // Get the position Y relative to the origin
 
 	get width() {
 		if (this.vertices.length === 0) return 0;

@@ -15,8 +15,8 @@ export default class Line extends GameObject {
 	get height() { return this.endY - this._y; }
 
 	// Positions Based in the origin
-	get x() { return this._x - this.width * this.origin.x; }
-	get y() { return this._y - this.height * this.origin.y; }
+	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
+	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
 
 	getTop() { return this.y; }
 	getBottom() { return this.y + this.height; }

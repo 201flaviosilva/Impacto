@@ -12,6 +12,8 @@ export default class GameObject {
 		this.z = 0;
 		this.rotation = 0; // Rotation in radians
 		this.angle = 0; // Rotation in degrees
+		this.scale = { x: 1, y: 1 };
+
 		this.lastPosition = { x: this._x, y: this._y, z: this.z };
 		this.origin = { x: 0, y: 0 };
 		this.fillColor = fillColor;
@@ -72,6 +74,21 @@ export default class GameObject {
 		return this;
 	}
 
+	// Scale
+	// Origin
+	setScaleX(x) {
+		this.setScale(x, this.scale.y);
+		return this;
+	}
+	setScaleY(y) {
+		this.setScale(this.scale.x, y);
+		return this;
+	}
+	setScale(x = 0, y = x) {
+		this.scale = { x, y };
+		return this;
+	}
+
 	// Origin
 	setOriginX(x) {
 		this.setOrigin(x, this.origin.y);
@@ -124,6 +141,12 @@ export default class GameObject {
 
 		CanvasStateInstance.context.save();
 
+		// Scale
+		CanvasStateInstance.context.translate(this.x, this.y);
+		CanvasStateInstance.context.scale(this.scale.x, this.scale.y);
+		CanvasStateInstance.context.translate(-this.x, -this.y);
+
+		// Rotation
 		CanvasStateInstance.context.translate(this._x, this._y);
 		CanvasStateInstance.context.rotate(this.rotation);
 		CanvasStateInstance.context.translate(-this._x, -this._y);

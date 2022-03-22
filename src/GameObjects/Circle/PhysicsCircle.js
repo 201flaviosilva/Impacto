@@ -10,8 +10,8 @@ export default class PhysicsCircle extends GameObject {
 		this._type = Types.circle;
 	}
 
-	get x() { return this._x - this.radius * this.origin.x; } // Get the position X relative to the origin
-	get y() { return this._y - this.radius * this.origin.y; } // Get the position Y relative to the origin
+	get x() { return this._x - this.radius * this.origin.x * this.scale.x; } // Get the position X relative to the origin
+	get y() { return this._y - this.radius * this.origin.y * this.scale.y; } // Get the position Y relative to the origin
 
 	_debugBody() {
 		if (!this.active) return;
