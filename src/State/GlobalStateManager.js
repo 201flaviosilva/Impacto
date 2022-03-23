@@ -3,12 +3,13 @@ export default class GlobalStateManager {
 		if (GlobalStateManager.instance instanceof GlobalStateManager) return GlobalStateManager.instance;
 		GlobalStateManager.instance = this;
 
+		this.configs = null;
 		this.debug = false;
 		this.gravity = { x: 0, y: 0, };
 	}
 
 	setConfig(configs) {
-		this.originalConfigs = configs;
+		this.configs = configs;
 		this.setDebug(configs.debug);
 		this.setGravity(configs.gravity);
 	}
