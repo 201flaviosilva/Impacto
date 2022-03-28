@@ -3,6 +3,7 @@ const Types = {
 	line: "Line",
 	polygon: "Polygon",
 	rectangle: "Rect",
+	sprite: "Sprite",
 	text: "Text",
 	triangle: "Triangle",
 }

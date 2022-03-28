@@ -4,6 +4,7 @@ import Circle from "./Circle/Circle.js";
 import Line from "./Line/Line.js";
 import Polygon from "./Polygon/Polygon.js";
 import Rectangle from "./Rectangle/Rectangle.js";
+import Sprite from "./Sprite/Sprite.js";
 import Text from "./Text/Text.js";
 import Triangle from "./Triangle/Triangle.js";
 
@@ -23,6 +24,7 @@ export default class GameObjects {
 		this.Line = Line;
 		this.Polygon = Polygon;
 		this.Rectangle = Rectangle;
+		this.Sprite = Sprite;
 		this.Text = Text;
 		this.Triangle = Triangle;
 
