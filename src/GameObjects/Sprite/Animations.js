@@ -10,10 +10,12 @@ export default class Animations {
 
 	get(name) { return this.animations[name]; }
 
-	add(name, numberOfFrames, speed, loop = true) {
-		this.animations[name] = new Animation(this._parent, name, numberOfFrames, speed, loop);
+	add(name, numberOfFrames, startFrame, speed = 100, loop = true) {
+		this.animations[name] = new Animation(this._parent, name, startFrame, numberOfFrames, speed, loop);
 		return this.get(name);
 	}
+
+	getAnimationsNames() { return Object.keys(this.animations); }
 
 	reset(name) {
 		this.animations[name].reset();

@@ -1,7 +1,8 @@
 export default class Animation {
-	constructor(parent, name, numberOfFrames, speed, loop = true) {
+	constructor(parent, name, startFrame, numberOfFrames, speed, loop = true) {
 		this._parent = parent;
 		this.name = name;
+		this.startFrame = startFrame;
 		this.numberOfFrames = numberOfFrames;
 		this.speed = speed;
 		this.loop = loop;
@@ -12,20 +13,16 @@ export default class Animation {
 		this._currentTime = 0;
 	}
 
-	getFrame() { return this.numberOfFrames[this._currentFrame]; }
-
-	reset() {
-		this._currentFrame = 0;
-		this._currentTime = 0;
-		return this;
-	}
-
 	setName(name) {
 		this.name = name;
 		return this;
 	}
 	setSpeed(speed) {
 		this.speed = speed;
+		return this;
+	}
+	setStartFrame(startFrame) {
+		this.startFrame = startFrame;
 		return this;
 	}
 	setNumberOfFrames(numberOfFrames) {
@@ -37,12 +34,18 @@ export default class Animation {
 		return this;
 	}
 
+	reset() {
+		this._currentFrame = 0;
+		this._currentTime = 0;
+		return this;
+	}
+
 	// Private
 	_update(deltaTime) {
 		this._currentTime += deltaTime * 100;
 
 		if (this._currentTime >= this.speed) {
-			this._currentTime = 0;
+			this._currentTime -= this.speed; // this._currentTime = 0;
 			this._currentFrame++;
 
 			if (this._currentFrame >= this.numberOfFrames) {
@@ -54,6 +57,6 @@ export default class Animation {
 			}
 		}
 
-		this._parent.setFrame(this._currentFrame);
+		this._parent.setFrame(this.startFrame + this._currentFrame);
 	}
 }
