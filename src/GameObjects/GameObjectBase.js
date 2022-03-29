@@ -136,7 +136,7 @@ export default class GameObject {
 		return this;
 	}
 
-	_render() {
+	_render(deltaTime) {
 		if (!this.visible) return;
 
 		CanvasStateInstance.context.save();
@@ -154,7 +154,7 @@ export default class GameObject {
 		CanvasStateInstance.context.fillStyle = this.fillColor;
 		CanvasStateInstance.context.strokeStyle = this.strokeColor;
 		CanvasStateInstance.context.lineWidth = this.strokeWidth;
-		this._renderType();
+		this._renderType(deltaTime);
 
 		CanvasStateInstance.context.restore();
 	}
