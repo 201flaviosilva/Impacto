@@ -107,7 +107,7 @@ export default class SceneManager {
 
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
 		zSortedChildren.forEach(child => {
-			if (child._render) child._render();
+			if (child._render) child._render(this.deltaTime);
 			if (GlobalStateManagerInstance.debug && child._debug) child._debug();
 		});
 
