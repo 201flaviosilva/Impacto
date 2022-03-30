@@ -14,8 +14,18 @@ export default class AssetsManager {
 		for (const key in assets) {
 			const category = assets[key];
 			if (key === "sprites") {
-				for (const name in category) {
-					await this.loadSprite(name, category[name]);
+				const spritesKeys = Object.keys(category);
+				if (spritesKeys.length > 0) {
+					for (const spriteKey of spritesKeys) {
+						await this.loadSprite(spriteKey, category[spriteKey]);
+					}
+				}
+			} else if (key === "fonts") {
+				const fontsKeys = Object.keys(category);
+				if (fontsKeys.length > 0) {
+					for (const fontKey of fontsKeys) {
+						await this.loadFont(fontKey, category[fontKey]);
+					}
 				}
 			}
 		}
@@ -39,9 +49,21 @@ export default class AssetsManager {
 		});
 	}
 
-	getSprite(name) {
-		return this.assets.sprites[name].image;
+	async loadFont(name, path) {
+		this.assets.fonts[name] = name;
+
+		const newCSSFont = document.createElement("style");
+		newCSSFont.type = "text/css";
+		newCSSFont.innerHTML = `
+			@font-face {
+				font-family: "${name}";
+				src: url("${path}") format("truetype");`;
+		document.body.appendChild(newCSSFont);
 	}
+
+	getSprite(name) { return this.assets.sprites[name].image; }
+	getFont(name) { return this.assets.fonts[name]; }
+
 	getSpriteSize(name) {
 		const sprite = this.getSprite(name);
 		if (sprite) return { width: sprite.width, height: sprite.height };
