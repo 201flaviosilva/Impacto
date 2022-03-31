@@ -1,4 +1,5 @@
 const Types = {
+	audioPlay: "AudioPlay",
 	circle: "Circle",
 	line: "Line",
 	polygon: "Polygon",
