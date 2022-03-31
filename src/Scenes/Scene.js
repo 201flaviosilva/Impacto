@@ -34,5 +34,5 @@ export default class Scene {
 
 	start() { }
 	update(delta) { }
-	posRender(ctx) { }
+	posRender(context) { }
 }

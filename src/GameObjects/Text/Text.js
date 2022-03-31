@@ -3,7 +3,7 @@ import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
 export default class Text extends GameObject {
-	constructor(x, y, text = "", fillColor = "#ffffff", strokeColor = "#000000") {
+	constructor(x, y, text = "", fillColor = "#000000", strokeColor = "#ffffff") {
 		super(x, y, fillColor, strokeColor);
 		this.text = text;
 
@@ -17,6 +17,8 @@ export default class Text extends GameObject {
 		this.alignVertical = "top"; // top, middle, bottom // textBaseline
 		this.alignHorizontal = "left"; // left, center, right // textAlign
 		this.direction = "inherit"; // ltr, rtl, inherit
+
+		this.setStrokeWidth(0);
 
 		this._type = Types.text;
 	}
