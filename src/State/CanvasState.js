@@ -9,6 +9,7 @@ export default class CanvasState {
 		this.backgroundColor = null;
 		this.width = 800;
 		this.height = 600;
+		this.volume = 1; // Audios volume
 	}
 
 	// Dom Element
@@ -42,6 +43,11 @@ export default class CanvasState {
 	setBackgroundColor(color) {
 		if (!color) color = null;
 		this.backgroundColor = color;
+	}
+
+	setVolume(volume) {
+		if (volume < 0 || volume > 1) throw new Error("Invalid volume");
+		this.volume = volume;
 	}
 }
 

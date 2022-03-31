@@ -1,5 +1,6 @@
 // Draw
 import GameObjectBase from "./GameObjectBase.js";
+import AudioPlay from "./AudioPlay/AudioPlay.js";
 import Circle from "./Circle/Circle.js";
 import Line from "./Line/Line.js";
 import Polygon from "./Polygon/Polygon.js";
@@ -20,6 +21,7 @@ export default class GameObjects {
 	constructor() {
 		// Basic GameObject
 		this.GameObjectBase = GameObjectBase;
+		this.AudioPlay = AudioPlay;
 		this.Circle = Circle;
 		this.Line = Line;
 		this.Polygon = Polygon;

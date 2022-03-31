@@ -4,8 +4,8 @@ export default class AssetsManager {
 		AssetsManager.instance = this;
 
 		this.assets = {
+			audios: {},
 			fonts: {},
-			sounds: {},
 			sprites: {},
 		}
 	}
@@ -25,6 +25,13 @@ export default class AssetsManager {
 				if (fontsKeys.length > 0) {
 					for (const fontKey of fontsKeys) {
 						await this.loadFont(fontKey, category[fontKey]);
+					}
+				}
+			} else if (key === "audios") {
+				const audiosKeys = Object.keys(category);
+				if (audiosKeys.length > 0) {
+					for (const soundKey of audiosKeys) {
+						await this.loadAudios(soundKey, category[soundKey]);
 					}
 				}
 			}
@@ -61,8 +68,23 @@ export default class AssetsManager {
 		document.body.appendChild(newCSSFont);
 	}
 
+	async loadAudios(name, path) {
+		this.assets.audios[name] = await this.loadAudio(path);
+		console.log(this.assets.audios[name]);
+	}
+
+	async loadAudio(path) {
+		return new Promise((resolve, reject) => {
+			const audio = new Audio();
+			audio.oncanplaythrough = () => resolve(audio);
+			audio.onerror = () => reject(new Error(`Could not load audio: ${path}`));
+			audio.src = path;
+		});
+	}
+
 	getSprite(name) { return this.assets.sprites[name].image; }
 	getFont(name) { return this.assets.fonts[name]; }
+	getAudio(name) { return this.assets.audios[name]; }
 
 	getSpriteSize(name) {
 		const sprite = this.getSprite(name);
