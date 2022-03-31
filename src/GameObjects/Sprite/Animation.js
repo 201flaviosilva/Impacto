@@ -45,7 +45,7 @@ export default class Animation {
 		this._currentTime += deltaTime * 100;
 
 		if (this._currentTime >= this.speed) {
-			this._currentTime -= this.speed; // this._currentTime = 0;
+			this._currentTime -= this.speed;
 			this._currentFrame++;
 
 			if (this._currentFrame >= this.numberOfFrames) {
