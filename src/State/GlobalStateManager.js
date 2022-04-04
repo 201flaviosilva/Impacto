@@ -3,17 +3,14 @@ export default class GlobalStateManager {
 		if (GlobalStateManager.instance instanceof GlobalStateManager) return GlobalStateManager.instance;
 		GlobalStateManager.instance = this;
 
-		this.configs = null;
 		this.debug = false;
 		this.gravity = { x: 0, y: 0, };
+		this.isPaused = false;
+		this.isMuted = false; // TODO
+		this.volume = 1; // TODO: // Audio default volume
 	}
 
-	setConfig(configs) {
-		this.configs = configs;
-		this.setDebug(configs.debug);
-		this.setGravity(configs.gravity);
-	}
-
+	setPause(pause) { this.isPaused = pause; }
 	setDebug(debug) { this.debug = debug; }
 
 	setGravity(gravity) {

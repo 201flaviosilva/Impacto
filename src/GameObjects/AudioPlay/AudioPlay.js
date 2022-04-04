@@ -1,9 +1,9 @@
 import { AssetsManagerInstance } from "../../State/AssetsManager.js";
-import { CanvasStateInstance } from "../../State/CanvasState.js";
+import { GlobalStateManagerInstance } from "../../State/GlobalStateManager.js";
 import Types from "../Types.js";
 
 export default class AudioPlay {
-	constructor(name, loop = true, paused = false, volume = CanvasStateInstance.volume, muted = false) {
+	constructor(name, loop = true, paused = false, volume = GlobalStateManagerInstance.volume, muted = false) {
 		this.name = name;
 		this.audio = AssetsManagerInstance.getAudio(name);
 		this.audio.volume = volume;
