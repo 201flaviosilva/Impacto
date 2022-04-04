@@ -9,7 +9,6 @@ export default class SceneManager {
 
 		this.currentScene = null;
 		this.scenes = [];
-		this.isPaused = false;
 
 		// Time
 		this._lastTimeUpdate = Date.now();
@@ -64,7 +63,7 @@ export default class SceneManager {
 
 	step(gameTime) {
 		window.requestAnimationFrame(this.step.bind(this));
-		if (this.isPaused) return;
+		if (GlobalStateManagerInstance.isPaused) return;
 
 		this.gameTime = gameTime;
 		const time = this.calcTime();
