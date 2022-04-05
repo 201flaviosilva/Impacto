@@ -10,6 +10,8 @@ export default class Circle extends GameObject {
 		this._type = Types.circle;
 	}
 
+	set x(x) { this.setX(x); }
+	set y(y) { this.setY(y); }
 	get x() { return this._x - this.radius * this.origin.x * this.scale.x; } // Get the position X relative to the origin
 	get y() { return this._y - this.radius * this.origin.y * this.scale.y; } // Get the position Y relative to the origin
 }

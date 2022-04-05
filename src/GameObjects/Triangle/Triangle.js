@@ -11,6 +11,9 @@ export default class Triangle extends GameObject {
 		this._type = Types.triangle;
 	}
 
+	set x(x) { this.setX(x); }
+	set y(y) { this.setY(y); }
+
 	// Positions Based in the origin
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
