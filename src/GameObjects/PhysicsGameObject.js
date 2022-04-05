@@ -1,5 +1,5 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
-import { SceneManagerInstance } from "../Scenes/SceneManager.js";
+import { CoreGameManagerInstance } from "../Core/CoreGameManager.js";
 import { PositionPrevisionsInstance } from "../Physics/PositionPrevisions.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 
@@ -158,8 +158,8 @@ export default class PhysicsGameObject extends GameObject2D {
 		);
 
 		this.setPosition(
-			this._x + this.velocity.x * SceneManagerInstance.deltaTime,
-			this._y + this.velocity.y * SceneManagerInstance.deltaTime
+			this._x + this.velocity.x * CoreGameManagerInstance.deltaTime,
+			this._y + this.velocity.y * CoreGameManagerInstance.deltaTime
 		);
 	}
 
