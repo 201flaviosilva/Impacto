@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import CommonMethods from "./CommonMethods.js";
 import Types from "../Types.js";
 
-export default class Rectangle extends GameObject {
+export default class Rectangle extends GameObject2D {
 	constructor(x, y, width = 100, height = 100, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.width = width;

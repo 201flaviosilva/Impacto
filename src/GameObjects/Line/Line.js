@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
-export default class Line extends GameObject {
+export default class Line extends GameObject2D {
 	constructor(x, y, endX, endY, strokeColor = "#000000") {
 		super(x, y, "none", strokeColor);
 		this.endX = endX;

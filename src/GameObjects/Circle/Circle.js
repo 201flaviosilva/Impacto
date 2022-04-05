@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import CommonMethods from "./CommonMethods.js";
 import Types from "../Types.js";
 
-export default class Circle extends GameObject {
+export default class Circle extends GameObject2D {
 	constructor(x, y, radius = 10, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.radius = radius;

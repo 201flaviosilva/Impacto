@@ -1,7 +1,7 @@
 import { CanvasStateInstance } from "../State/CanvasState.js";
 import { UtilsMathInstance } from "../Utils/Math.js";
 
-export default class GameObject {
+export default class GameObject2D {
 	constructor(x, y, fillColor, strokeColor) {
 		this.id = Math.random();
 		this.name = `Obj - ${this.id}`;

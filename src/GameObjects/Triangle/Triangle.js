@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
-export default class Triangle extends GameObject {
+export default class Triangle extends GameObject2D {
 	constructor(x, y, width, height, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.width = width;

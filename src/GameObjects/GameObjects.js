@@ -1,5 +1,5 @@
 // Draw
-import GameObjectBase from "./GameObjectBase.js";
+import GameObjectBase from "./GameObject2D.js";
 import AudioPlay from "./AudioPlay/AudioPlay.js";
 import Circle from "./Circle/Circle.js";
 import Line from "./Line/Line.js";

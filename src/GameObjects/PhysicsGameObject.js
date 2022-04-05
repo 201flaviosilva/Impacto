@@ -3,9 +3,9 @@ import { SceneManagerInstance } from "../Scenes/SceneManager.js";
 import { PositionPrevisionsInstance } from "../Physics/PositionPrevisions.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 
-import GameObject from "./GameObjectBase.js";
+import GameObject2D from "./GameObject2D.js";
 
-export default class PhysicsGameObject extends GameObject {
+export default class PhysicsGameObject extends GameObject2D {
 	constructor(x, y, fillColor, strokeColor) {
 		super(x, y, fillColor, strokeColor);
 
