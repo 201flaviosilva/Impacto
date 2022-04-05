@@ -3,9 +3,9 @@ import { GlobalStateManagerInstance } from "../../State/GlobalStateManager.js";
 import Types from "../Types.js";
 
 export default class AudioPlay {
-	constructor(name, loop = true, paused = false, volume = GlobalStateManagerInstance.volume, muted = false) {
-		this.name = name;
-		this.audio = AssetsManagerInstance.getAudio(name);
+	constructor(key, loop = false, paused = false, volume = GlobalStateManagerInstance.volume, muted = false, delay = 0) {
+		this.name = key;
+		this.audio = AssetsManagerInstance.getAudio(key);
 		this.audio.volume = volume;
 		this.audio.loop = loop;
 		this.audio.muted = muted;
@@ -14,20 +14,29 @@ export default class AudioPlay {
 		this.volume = volume;
 		this.loop = loop;
 		this.muted = muted;
+		this.delay = delay;
+		this.loopDelay = delay; // TODO: not implemented yet
 
+		this._delayTimer = null;
 		this._type = Types.audioPlay;
 
 		if (!this.paused) this.play();
 	}
 
 	play() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
 		this.audio.currentTime = 0;
 		this.audio.loop = this.loop;
-		this.audio.play();
+
+		if (this.delay > 0) {
+			this._delayTimer = setTimeout(() => this.audio.play(), this.delay);
+		} else this.audio.play();
+
 		return this;
 	}
 
 	playOnce() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
 		this.audio.currentTime = 0;
 		this.audio.loop = false;
 		this.audio.play();
@@ -35,12 +44,14 @@ export default class AudioPlay {
 	}
 
 	pause() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
 		this.paused = true;
 		this.audio.pause();
 		return this;
 	}
 
 	resume() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
 		this.paused = false;
 		this.audio.loop = this.loop;
 		this.audio.play();
@@ -48,6 +59,7 @@ export default class AudioPlay {
 	}
 
 	stop() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
 		this.audio.pause();
 		this.audio.currentTime = 0;
 		return this;
@@ -68,6 +80,11 @@ export default class AudioPlay {
 	setMuted(muted) {
 		this.muted = muted;
 		this.audio.muted = muted;
+		return this;
+	}
+
+	setDelay(delay) {
+		this.delay = delay;
 		return this;
 	}
 
