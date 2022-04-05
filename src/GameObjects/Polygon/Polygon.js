@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
-export default class Polygon extends GameObject {
+export default class Polygon extends GameObject2D {
 	constructor(x, y, vertices = [], fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.vertices = vertices;
@@ -11,6 +11,8 @@ export default class Polygon extends GameObject {
 		this._type = Types.polygon;
 	}
 
+	set x(x) { this.setX(x); }
+	set y(y) { this.setY(y); }
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; } // Get the position X relative to the origin
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; } // Get the position Y relative to the origin
 

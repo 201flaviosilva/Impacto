@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
-export default class Line extends GameObject {
+export default class Line extends GameObject2D {
 	constructor(x, y, endX, endY, strokeColor = "#000000") {
 		super(x, y, "none", strokeColor);
 		this.endX = endX;
@@ -14,6 +14,8 @@ export default class Line extends GameObject {
 	get width() { return this.endX - this._x; }
 	get height() { return this.endY - this._y; }
 
+	set x(x) { this.setX(x); }
+	set y(y) { this.setY(y); }
 	// Positions Based in the origin
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; }

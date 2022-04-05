@@ -1,11 +1,11 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
-import { SceneManagerInstance } from "../Scenes/SceneManager.js";
+import { CoreGameManagerInstance } from "../Core/CoreGameManager.js";
 import { PositionPrevisionsInstance } from "../Physics/PositionPrevisions.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 
-import GameObject from "./GameObjectBase.js";
+import GameObject2D from "./GameObject2D.js";
 
-export default class PhysicsGameObject extends GameObject {
+export default class PhysicsGameObject extends GameObject2D {
 	constructor(x, y, fillColor, strokeColor) {
 		super(x, y, fillColor, strokeColor);
 
@@ -158,8 +158,8 @@ export default class PhysicsGameObject extends GameObject {
 		);
 
 		this.setPosition(
-			this._x + this.velocity.x * SceneManagerInstance.deltaTime,
-			this._y + this.velocity.y * SceneManagerInstance.deltaTime
+			this._x + this.velocity.x * CoreGameManagerInstance.deltaTime,
+			this._y + this.velocity.y * CoreGameManagerInstance.deltaTime
 		);
 	}
 

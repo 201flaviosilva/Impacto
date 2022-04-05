@@ -1,25 +1,25 @@
-import { SceneManagerInstance } from "../Scenes/SceneManager.js";
+import { CoreGameManagerInstance } from "../Core/CoreGameManager.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 
 export default class PositionPrevisions {
 	getNextPrevisionTop(object) {
-		if (object._type == "Rect") return object.y + object.velocity.y * SceneManagerInstance.deltaTime;
-		else if (object._type == "Circle") return (object.y - object.radius) + object.velocity.y * SceneManagerInstance.deltaTime;
+		if (object._type == "Rect") return object.y + object.velocity.y * CoreGameManagerInstance.deltaTime;
+		else if (object._type == "Circle") return (object.y - object.radius) + object.velocity.y * CoreGameManagerInstance.deltaTime;
 	}
 
 	getNextPrevisionBottom(object) {
-		if (object._type == "Rect") return (object.y + object.height) + object.velocity.y * SceneManagerInstance.deltaTime;
-		else if (object._type == "Circle") return (object.y + object.radius) + object.velocity.y * SceneManagerInstance.deltaTime;
+		if (object._type == "Rect") return (object.y + object.height) + object.velocity.y * CoreGameManagerInstance.deltaTime;
+		else if (object._type == "Circle") return (object.y + object.radius) + object.velocity.y * CoreGameManagerInstance.deltaTime;
 	}
 
 	getNextPrevisionLeft(object) {
-		if (object._type == "Rect") return object.x + object.velocity.x * SceneManagerInstance.deltaTime;
-		else if (object._type == "Circle") return (object.x - object.radius) + object.velocity.x * SceneManagerInstance.deltaTime;
+		if (object._type == "Rect") return object.x + object.velocity.x * CoreGameManagerInstance.deltaTime;
+		else if (object._type == "Circle") return (object.x - object.radius) + object.velocity.x * CoreGameManagerInstance.deltaTime;
 	}
 
 	getNextPrevisionRight(object) {
-		if (object._type == "Rect") return (object.x + object.width) + object.velocity.x * SceneManagerInstance.deltaTime;
-		else if (object._type == "Circle") return (object.x + object.radius) + object.velocity.x * SceneManagerInstance.deltaTime;
+		if (object._type == "Rect") return (object.x + object.width) + object.velocity.x * CoreGameManagerInstance.deltaTime;
+		else if (object._type == "Circle") return (object.x + object.radius) + object.velocity.x * CoreGameManagerInstance.deltaTime;
 	}
 
 	checkNextPrevisionTopCollisionWorldBounds(object) { return this.getNextPrevisionTop(object) <= 0; }
@@ -36,8 +36,8 @@ export default class PositionPrevisions {
 
 	getNextPrevPosition(object) {
 		return {
-			x: object.x + object.velocity.x * SceneManagerInstance.deltaTime,
-			y: object.y + object.velocity.y * SceneManagerInstance.deltaTime,
+			x: object.x + object.velocity.x * CoreGameManagerInstance.deltaTime,
+			y: object.y + object.velocity.y * CoreGameManagerInstance.deltaTime,
 		};
 	}
 }

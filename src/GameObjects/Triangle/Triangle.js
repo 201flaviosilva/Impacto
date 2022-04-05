@@ -1,8 +1,8 @@
-import GameObject from "../GameObjectBase.js";
+import GameObject2D from "../GameObject2D.js";
 import { CanvasStateInstance } from "../../State/CanvasState.js";
 import Types from "../Types.js";
 
-export default class Triangle extends GameObject {
+export default class Triangle extends GameObject2D {
 	constructor(x, y, width, height, fillColor = "#ffffff", strokeColor = "#000000") {
 		super(x, y, fillColor, strokeColor);
 		this.width = width;
@@ -10,6 +10,9 @@ export default class Triangle extends GameObject {
 
 		this._type = Types.triangle;
 	}
+
+	set x(x) { this.setX(x); }
+	set y(y) { this.setY(y); }
 
 	// Positions Based in the origin
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }

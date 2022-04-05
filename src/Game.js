@@ -1,7 +1,6 @@
 import { AssetsManagerInstance } from "./State/AssetsManager.js";
-import { GlobalStateManagerInstance } from "./State/GlobalStateManager.js";
 import { CanvasStateInstance } from "./State/CanvasState.js";
-import SceneManager from "./Scenes/SceneManager.js";
+import CoreGameManager from "./Core/CoreGameManager.js";
 
 export default class Game {
 	constructor(config) {
@@ -16,9 +15,9 @@ export default class Game {
 			AssetsManagerInstance.load(config.assets).then(() => {
 
 				// Start Scene Manager
-				const sceneManager = new SceneManager();
-				sceneManager.addScene(config.scene);
-				sceneManager.startScene(0);
+				const gameManager = new CoreGameManager();
+				gameManager.addScene(config.scene);
+				gameManager.startScene(0);
 
 				resolve();
 			}).catch(reject);

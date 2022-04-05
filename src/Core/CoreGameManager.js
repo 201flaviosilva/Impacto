@@ -2,10 +2,10 @@ import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 import { CollisionResolveInstance } from "../Physics/CollisionResolve.js";
 
-export default class SceneManager {
+export default class CoreGameManager {
 	constructor() {
-		if (SceneManager.instance instanceof SceneManager) return SceneManager.instance;
-		SceneManager.instance = this;
+		if (CoreGameManager.instance instanceof CoreGameManager) return CoreGameManager.instance;
+		CoreGameManager.instance = this;
 
 		this.currentScene = null;
 		this.scenes = [];
@@ -114,4 +114,4 @@ export default class SceneManager {
 	}
 }
 
-export const SceneManagerInstance = new SceneManager();
+export const CoreGameManagerInstance = new CoreGameManager();
