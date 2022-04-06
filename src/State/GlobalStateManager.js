@@ -11,14 +11,6 @@ export default class GlobalStateManager {
 	}
 
 	setPause(pause) { this.isPaused = pause; }
-	setDebug(debug) { this.debug = debug; }
-
-	setGravity(gravity) {
-		if (!gravity) gravity = { x: 0, y: 0, };
-		if (gravity.x === undefined) gravity.x = 0;
-		if (gravity.y === undefined) gravity.y = 0;
-		this.gravity = gravity;
-	}
 }
 
 export const GlobalStateManagerInstance = new GlobalStateManager();

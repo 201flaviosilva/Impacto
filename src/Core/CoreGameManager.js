@@ -1,6 +1,5 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
-import { CollisionResolveInstance } from "../Physics/CollisionResolve.js";
 
 export default class CoreGameManager {
 	constructor() {
@@ -61,6 +60,7 @@ export default class CoreGameManager {
 		};
 	}
 
+	// Core function
 	step(gameTime) {
 		window.requestAnimationFrame(this.step.bind(this));
 		if (GlobalStateManagerInstance.isPaused) return;
@@ -76,23 +76,24 @@ export default class CoreGameManager {
 				fps: this.fps,
 				gameTime,
 			};
-			// Collision
-			const layersKeys = Object.keys(this.currentScene.collisions);
-			layersKeys.forEach(layerKey => {
-				const layer = this.currentScene.collisions[layerKey];
-				CollisionResolveInstance.collisionLayer(layer, this.currentScene);
-			});
 
+			// Objects Steep
 			this.currentScene.children.forEach(child => {
 				if (child._step) child._step();
 			});
 
-			this.currentScene.update(this.deltaTime, this.fps);
 
+			this.update();
 			this.render();
 		}
 	}
 
+	// Run User Code
+	update() {
+		this.currentScene.update(this.deltaTime, this.fps);
+	}
+
+	// Render
 	render() {
 		const ctx = CanvasStateInstance.context;
 		if (!ctx) return;
@@ -107,7 +108,6 @@ export default class CoreGameManager {
 		const zSortedChildren = this.currentScene.children.sort((a, b) => a.z - b.z);
 		zSortedChildren.forEach(child => {
 			if (child._render) child._render(this.deltaTime);
-			if (GlobalStateManagerInstance.debug && child._debug) child._debug();
 		});
 
 		this.currentScene.posRender(ctx);
