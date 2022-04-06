@@ -9,10 +9,6 @@ import Sprite from "./Sprite/Sprite.js";
 import Text from "./Text/Text.js";
 import Triangle from "./Triangle/Triangle.js";
 
-// Physics
-import PhysicsGameObject from "./PhysicsGameObject.js";
-import PhysicsCircle from "./Circle/PhysicsCircle.js";
-import PhysicsRectangle from "./Rectangle/PhysicsRectangle.js";
 
 // Others
 import Types from "./Types.js";
@@ -29,11 +25,6 @@ export default class GameObjects {
 		this.Sprite = Sprite;
 		this.Text = Text;
 		this.Triangle = Triangle;
-
-		// Physics GameObject
-		this.PhysicsGameObject = PhysicsGameObject;
-		this.PhysicsCircle = PhysicsCircle;
-		this.PhysicsRectangle = PhysicsRectangle;
 
 		// Others
 		this.Types = Types;

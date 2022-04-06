@@ -6,7 +6,6 @@ import GameObjects from "./GameObjects/GameObjects.js";
 import Inputs from "./Inputs/Inputs.js"
 
 import State from "./State/State.js";
-import Physics from "./Physics/Physics.js";
 import Utils from "./Utils/Utils.js";
 
 export default (function () {
@@ -25,7 +24,6 @@ export default (function () {
 
 		// Utils
 		State: new State(),
-		Physics: new Physics(),
 		Utils: new Utils(),
 	}
 })();
