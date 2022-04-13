@@ -6,20 +6,19 @@
   "main": "dist/Impacto.js",
   "scripts": {
     "clear": "rm -rf dist",
-    "build": "npm run clear && rollup -c",
+    "build": "npm run clear && webpack --mode production",
     "test": "node test/spec",
     "pretest": "npm run build",
     "bump": "np --no-tests",
-    "package": "npm run build && npm publish"
+    "package": "npm run build && npm publish",
+    "start:docs": "npm run start --prefix docs"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
+    "@babel/core": "^7.17.9",
+    "babel-loader": "^8.2.4",
     "np": "^7.6.0",
-    "rollup": "^2.61.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   },
   "files": [
     "dist",
