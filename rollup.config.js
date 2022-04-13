@@ -25,7 +25,7 @@ export default [
 	{
 		input: "src/Impacto.js",
 		output: [ // https://betterprogramming.pub/what-are-cjs-amd-umd-esm-system-and-iife-3633a112db62
-			// { file: folder + "Impacto.esm.js", format: "esm" }, // ES Module
+			{ file: folder + "Impacto.esm.js", format: "esm" }, // ES Module
 			{ file: folder + "Impacto.js", format: "cjs" }, // CommonJS
 			// { file: folder + "Impacto.amd.js", format: "amd" }, // Asynchronous Module Definition
 			// { file: folder + "Impacto.system.js", format: "system" }, // 
@@ -33,7 +33,8 @@ export default [
 		],
 		plugins: [
 			babel({
-				exclude: ["node_modules/**"],
+				exclude: ["**/node_modules/**"],
+				runtimeHelpers: true,
 			}),
 		],
 	},

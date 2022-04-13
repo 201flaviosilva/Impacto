@@ -2,7 +2,7 @@ import AssetsManager from "./AssetsManager.js";
 import CanvasState from "./CanvasState.js";
 import GlobalStateManager from "./GlobalStateManager.js";
 
-export default class Utils {
+export default class State {
 	constructor() {
 		this.Assets = new AssetsManager();
 		this.Canvas = new CanvasState();
@@ -10,4 +10,4 @@ export default class Utils {
 	}
 }
 
-export const UtilsInstance = new Utils();
+export const StateInstance = new State();
