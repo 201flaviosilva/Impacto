@@ -1,5 +1,6 @@
 _ignore
 .github/
 .vscode/
+.doc
 node_modules/
 .DS_Store

@@ -10,7 +10,8 @@
     "test": "node test/spec",
     "pretest": "npm run build",
     "bump": "np --no-tests",
-    "package": "npm run build && npm publish"
+    "package": "npm run build && npm publish",
+    "start:docs": "npm run start --prefix docs"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
