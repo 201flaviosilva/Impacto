@@ -1,7 +1,7 @@
 {
   "name": "impacto",
   "version": "0.9.0-0",
-  "description": "Um simples motor de fisica em JavaScript",
+  "description": "A modular javascript canvas render",
   "homepage": "https://201flaviosilva.github.io/Impacto/",
   "main": "dist/Impacto.js",
   "scripts": {
@@ -29,7 +29,11 @@
     "type": "git",
     "url": "git+https://github.com/201flaviosilva/Impacto.git"
   },
-  "keywords": [],
+  "keywords": [
+    "canvas",
+    "game-engine",
+    "rendering-engine"
+  ],
   "author": "Flávio Silva",
   "license": "MIT",
   "bugs": {
