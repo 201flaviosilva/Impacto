@@ -5,7 +5,7 @@ export default class Utils {
 		this.Math = new ImpactoMath();
 	}
 
-	getVersion() { return "Impacto: 0.9.0-0"; }
+	getVersion() { return "0.9.0-0"; }
 }
 
 export const UtilsInstance = new Utils();
