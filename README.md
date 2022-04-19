@@ -45,4 +45,4 @@ const game = new Impacto.Game({
 ```
 
 
-For more information about the Impacto API, please check the [Wiki](https://github.com/201flaviosilva/Impacto/wiki) or check the examples.
+For more information about the Impacto API, please check the Doc or check the examples.
