@@ -11,7 +11,8 @@
     "pretest": "npm run build",
     "bump": "np --no-tests",
     "package": "npm run build && npm publish",
-    "start:docs": "npm run start --prefix docs"
+    "start:docs": "npm run start --prefix docs",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

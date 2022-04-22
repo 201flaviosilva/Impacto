@@ -38,6 +38,7 @@ export default class Rectangle extends GameObject2D {
 	 * Sets the X position of the rectangle.
 	 * 
 	 * @param {number} x - The horizontal position of this Rectangle in the world.
+	 * @memberof Impacto.GameObjects.Rectangle
 	 */
 	set x(x) { this.setX(x); }
 
@@ -46,16 +47,21 @@ export default class Rectangle extends GameObject2D {
 	 * Gets the Y position of the rectangle.
 	 * 
 	 * @param {number} y - The vertical position of this Rectangle in the world.
+	 * @memberof Impacto.GameObjects.Rectangle
 	 */
 	set y(y) { this.setY(y); }
 
 	/**
 	 * @returns {number} The horizontal position of this Rectangle in the world relative to the origin.
+	 * @readonly
+	 * @memberof Impacto.GameObjects.Rectangle
 	 */
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
 
 	/**
 	 * @returns {number} The vertical position of this Rectangle in the world relative to the origin.
+	 * @readonly
+	 * @memberof Impacto.GameObjects.Rectangle
 	 */
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
 
