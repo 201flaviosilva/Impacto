@@ -5,10 +5,10 @@ import Types from "../Types.js";
 /**
  * @param {number} x - The horizontal position of this Triangle in the world.
  * @param {number} y - The vertical position of this Triangle in the world.
- * @param {width} width - The width of this Triangle.
- * @param {height} height - The height of this Triangle.
- * @param {number} [fillColor=0xffffff] - The color the Triangle will be filled with, i.e. 0xff0000 for red.
- * @param {number} [strokeColor=0x000000] - The color of the border of the Triangle, i.e. 0x00ff00 for green.
+ * @param {number} width - The width of this Triangle.
+ * @param {number} height - The height of this Triangle.
+ * @param {number | string} [fillColor=0xffffff] - The color the Triangle will be filled with, i.e. 0xff0000 for red.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border of the Triangle, i.e. 0x00ff00 for green.
  * 
  * @classdesc
  * This class will draw a triangle on the canvas.
@@ -31,10 +31,10 @@ export default class Triangle extends GameObject2D {
 	}
 
 	/**
- * Sets the X position of the Triangle.
- * 
- * @param {number} x - The horizontal position of this Triangle in the world.
- */
+	 * Sets the X position of the Triangle.
+	 * 
+	 * @param {number} x - The horizontal position of this Triangle in the world.
+	 */
 	set x(x) { this.setX(x); }
 
 	/**

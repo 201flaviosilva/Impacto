@@ -7,7 +7,7 @@ import Types from "../Types.js";
  * @param {number} y - The vertical position in the world.
  * @param {number} endX - The horizontal position of the end of the line.
  * @param {number} endY - The vertical position of the end of the line.
- * @param {number} [strokeColor=0x000000] - The color of the border, i.e. 0x00ff00 for green.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border, i.e. 0x00ff00 for green.
  * 
  * @classdesc
  * Line is a class that will draw a line on the canvas.

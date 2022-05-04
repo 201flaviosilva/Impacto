@@ -4,8 +4,8 @@ import { UtilsMathInstance } from "../Utils/Math.js";
 /**
  * @param {number} x - The horizontal position of this Object in the world.
  * @param {number} y - The vertical position of this Object in the world.
- * @param {number} [fillColor=0xffffff] - The color the Object will be filled with, i.e. 0xff0000 for red.
- * @param {number} [strokeColor=0x000000] - The color of the border of the Object, i.e. 0x00ff00 for green.
+ * @param {number | string} [fillColor=0xffffff] - The color the Object will be filled with, i.e. 0xff0000 for red.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border of the Object, i.e. 0x00ff00 for green.
  * 
  * @classdesc
  * The base class for a game objects.

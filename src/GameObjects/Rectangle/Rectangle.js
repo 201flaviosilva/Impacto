@@ -7,8 +7,8 @@ import Types from "../Types.js";
  * @param {number} y - The vertical position of this Rectangle in the world.
  * @param {number} [width=100] - The width of the rectangle.
  * @param {number} [height=100] - The height of the rectangle.
- * @param {number} [fillColor=0xffffff] - The color the rectangle will be filled with, i.e. 0xff0000 for red.
- * @param {number} [strokeColor=0x000000] - The color of the border of the rectangle, i.e. 0x00ff00 for green.
+ * @param {number | string} [fillColor=0xffffff] - The color the rectangle will be filled with, i.e. 0xff0000 for red.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border of the rectangle, i.e. 0x00ff00 for green.
  * 
  * @classdesc
  * The Rectangle Shape is a 2D Game Object that can be added to a Scene. 

@@ -6,8 +6,8 @@ import Types from "../Types.js";
  * @param {number} x - The horizontal position of this Circle in the world.
  * @param {number} y - The vertical position of this Circle in the world.
  * @param {number} [radius=10] - The radius of this Circle.
- * @param {number} [fillColor=0xffffff] - The color the Circle will be filled with, i.e. 0xff0000 for red.
- * @param {number} [strokeColor=0x000000] - The color of the border of the Circle, i.e. 0x00ff00 for green.
+ * @param {number | string} [fillColor=0xffffff] - The color the Circle will be filled with, i.e. 0xff0000 for red.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border of the Circle, i.e. 0x00ff00 for green.
  * 
  * @classdesc
  * Circle is a class that will draw a circle on the canvas.
