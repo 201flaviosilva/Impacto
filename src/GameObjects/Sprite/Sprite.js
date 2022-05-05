@@ -22,7 +22,7 @@ import Animations from "./Animations.js";
  * @class Sprite
  * @extends Impacto.GameObjects.GameObject2D
  * @memberof Impacto.GameObjects
- * @constructors 
+ * @constructors
  */
 export default class Sprite extends Rectangle {
 	constructor(x, y, key, frame = 0, width = 0, height = 0) {
@@ -77,7 +77,7 @@ export default class Sprite extends Rectangle {
 	}
 
 	/**
-	 * Returns the top side position of the sprite, based in the origin.
+	 * Returns the number of frames of this Sprite based on the width.
 	 * 
 	 * @example
 	 * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).getNumFramesByWidth(); // 8
