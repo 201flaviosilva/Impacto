@@ -1,3 +1,6 @@
+/**
+ * All the options for the text object
+ */
 const TextOptions = {
 	font: {
 		style: {
