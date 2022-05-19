@@ -1,6 +1,11 @@
 import { GlobalStateManagerInstance } from "../State/GlobalStateManager.js";
 import { CanvasStateInstance } from "../State/CanvasState.js";
 
+/**
+ * @class CoreGameManager
+ * @description A core class to manage the game cycle.
+ * @private
+ */
 export default class CoreGameManager {
 	constructor() {
 		if (CoreGameManager.instance instanceof CoreGameManager) return CoreGameManager.instance;
@@ -26,21 +31,42 @@ export default class CoreGameManager {
 		setInterval(this.updateFPS.bind(this), 1000);
 	}
 
+	/**
+	 * Add a new scene to the game
+	 * @param {Object} scene - The scene to add
+	 * @private
+	 */
 	addScene(scene) {
 		const newScene = new scene();
 		this.scenes.push(newScene);
 	}
 
+	/**
+	 * Initialize a scene and set it as the current scene
+	 * 
+	 * @param {number} index - The index of the scene to initialize
+	 * @private
+	 */
 	startScene(index) {
 		this.currentScene = this.scenes[index];
 		this.currentScene.start();
 	}
 
+	/**
+	 * Reset the calc of the FPS
+	 * 
+	 * @private
+	 */
 	updateFPS() {
 		this.fps = this._fps;
 		this._fps = 0;
 	}
 
+	/**
+	 * Calculate the time since the game start, the delta time and the FPS
+	 * 
+	 * @private
+	 */
 	calcTime() {
 		if (this.tabActive) return;
 
@@ -60,7 +86,12 @@ export default class CoreGameManager {
 		};
 	}
 
-	// Core function
+	/**
+	 * Update the game
+	 * 
+	 * @param {number} gameTime - The time since the game start
+	 * @private
+	 */
 	step(gameTime) {
 		window.requestAnimationFrame(this.step.bind(this));
 		if (GlobalStateManagerInstance.isPaused) return;
@@ -88,12 +119,20 @@ export default class CoreGameManager {
 		}
 	}
 
-	// Run User Code
+	/**
+	 * Run User Code
+	 * 
+	 * @private
+	 */
 	update() {
 		this.currentScene.update(this.deltaTime, this.fps);
 	}
 
-	// Render
+	/**
+	 * Render the game in the canvas
+	 * 
+	 * @private
+	 */
 	render() {
 		const ctx = CanvasStateInstance.context;
 		if (!ctx) return;
