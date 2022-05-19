@@ -22,7 +22,7 @@ export default class Utils {
 	 * @memberof Impacto.Utils
 	 * @method getVersion
 	 */
-	getVersion() { return "Impacto: 0.9.0-0"; }
+	getVersion() { return "0.9.0-0"; }
 }
 
 export const UtilsInstance = new Utils();

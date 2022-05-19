@@ -72,7 +72,7 @@ export default class GameObject2D {
 	 * @memberof Impacto.GameObjects.GameObject2D
 	 */
 	setX(x) {
-		this.setPosition(x, this._y, this.z);
+		this.setPosition(x + (this.width || this.radius) * this.origin.x, this._y, this.z);
 		return this;
 	}
 
@@ -88,7 +88,7 @@ export default class GameObject2D {
 	 * @memberof Impacto.GameObjects.GameObject2D
 	 */
 	setY(y) {
-		this.setPosition(this._x, y, this.z);
+		this.setPosition(this._x, y + (this.height || this.radius) * this.origin.y, this.z);
 		return this;
 	}
 
@@ -147,8 +147,7 @@ export default class GameObject2D {
 	 * @returns {Impacto.GameObjects.GameObject2D}
 	 * @memberof Impacto.GameObjects.GameObject2D
 	 */
-	setPosition(x, y, z = this.z, force = false) {
-		if (this.bodyType === "S" && !force) return;
+	setPosition(x, y, z = this.z) {
 		this.lastPosition = { x: this.x, y: this.y, z: this.z };
 
 		this._x = x;
@@ -168,12 +167,10 @@ export default class GameObject2D {
 	 * @memberof Impacto.GameObjects.GameObject2D
 	 */
 	setRandomPosition(x = 0, y = 0, width = CanvasStateInstance.width, height = CanvasStateInstance.height) {
-		do {
-			this.setPosition(
-				x + Math.random() * width,
-				y + Math.random() * height
-			);
-		} while (!this.checkIsInsideWorldBounds());
+		this.setPosition(
+			x + Math.random() * width,
+			y + Math.random() * height
+		);
 		return this;
 	}
 
