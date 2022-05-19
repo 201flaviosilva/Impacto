@@ -4,6 +4,8 @@
   "description": "A modular javascript canvas render",
   "homepage": "https://201flaviosilva.github.io/Impacto/",
   "main": "dist/Impacto.js",
+  "author": "Flávio Silva",
+  "license": "MIT",
   "scripts": {
     "clear": "rm -rf dist",
     "build": "npm run clear && webpack --mode production",
@@ -11,30 +13,33 @@
     "pretest": "npm run build",
     "bump": "np --no-tests",
     "package": "npm run build && npm publish",
-    "start:docs": "npm run start --prefix docs"
+    "start:docs": "npm run start --prefix docs",
+    "build:docs": "npm run build --prefix docs",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "jsdoc": "jsdoc -c jsdoc.conf.json",
+    "build:all": "npm run build && npm run types && npm run jsdoc && npm run build:docs"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "babel-loader": "^8.2.4",
+    "jsdoc": "^3.6.10",
     "np": "^7.6.0",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2"
   },
   "files": [
     "dist",
-    "src"
+    "types"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/201flaviosilva/Impacto.git"
-  },
   "keywords": [
     "canvas",
     "game-engine",
     "rendering-engine"
   ],
-  "author": "Flávio Silva",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/201flaviosilva/Impacto.git"
+  },
   "bugs": {
     "url": "https://github.com/201flaviosilva/Impacto/issues"
   }

@@ -8,6 +8,16 @@ import Inputs from "./Inputs/Inputs.js"
 import State from "./State/State.js";
 import Utils from "./Utils/Utils.js";
 
+/**
+ * @namespace Impacto
+ * 
+ * @property {Impacto.Game} Game
+ * @property {Impacto.Scenes.Scene} Scene
+ * @property {Impacto.GameObjects} GameObjects
+ * @property {Impacto.Inputs} Inputs
+ * @property {Impacto.State} State
+ * @property {Impacto.Utils} Utils
+ */
 export default (function () {
 	return {
 		// Game 

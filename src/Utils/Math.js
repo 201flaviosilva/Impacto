@@ -1,6 +1,4 @@
 export default class UtilsMath {
-	constructor() { }
-
 	randomFloat(min, max, precision = 2) {
 		if (!max) {
 			max = min;

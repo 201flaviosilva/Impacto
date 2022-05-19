@@ -1,3 +1,6 @@
+/**
+ * The types of the game objects.
+ */
 const Types = {
 	audioPlay: "AudioPlay",
 	circle: "Circle",
