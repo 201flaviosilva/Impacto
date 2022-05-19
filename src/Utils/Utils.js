@@ -1,9 +1,10 @@
 import ImpactoMath from "./Math.js";
 
 /**
- * @namespace Impacto.Utils
- * 
- * @property {Impacto.Utils.Math} Math
+ * @class Utils
+ * @description Utils class
+ * @memberof Impacto
+ * @instance
  */
 export default class Utils {
 	constructor() {

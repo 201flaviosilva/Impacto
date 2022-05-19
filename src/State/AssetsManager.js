@@ -1,3 +1,9 @@
+/**
+ * @class AssetsManager
+ * @description A class to manage the assets.
+ * @memberof Impacto.State
+ * @instance
+ */
 export default class AssetsManager {
 	constructor() {
 		if (AssetsManager.instance instanceof AssetsManager) return AssetsManager.instance;
@@ -10,6 +16,20 @@ export default class AssetsManager {
 		}
 	}
 
+	/**
+	 * Load the assets
+	 * 
+	 * @example
+	 * load({
+	 * 	sprites: { MySprite: "./MySprite.png", },
+	 * 	fonts: { "MyFont": "MyFont.ttf", },
+	 * 	audios: { "MyAudio": "MyAudio.mp3", }
+	 * });
+	 * 
+	 * 
+	 * @param {Object} assets - The assets to load
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	async load(assets) {
 		for (const key in assets) {
 			const category = assets[key];
@@ -38,8 +58,15 @@ export default class AssetsManager {
 		}
 	}
 
+	/**
+	 * Load a sprite
+	 * 
+	 * @param {string} name - The name of the sprite
+	 * @param {string} path - The path of the sprite
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	async loadSprite(name, path) {
-		const image = await this.loadImage(path);
+		const image = await this._loadImage(path);
 		this.assets.sprites[name] = {
 			image,
 			width: image.width,
@@ -47,7 +74,14 @@ export default class AssetsManager {
 		};
 	}
 
-	async loadImage(path) {
+	/**
+	 * @description
+	 * Private (Core) function to load images/sprites
+	 * 
+	 * @private
+	 * @memberof Impacto.State.AssetsManager
+	 */
+	async _loadImage(path) {
 		return new Promise((resolve, reject) => {
 			const image = new Image();
 			image.onload = () => resolve(image);
@@ -56,6 +90,13 @@ export default class AssetsManager {
 		});
 	}
 
+	/**
+	 * Load a font
+	 * 
+	 * @param {string} name - The name of the font
+	 * @param {string} path - The path of the font
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	async loadFont(name, path) {
 		this.assets.fonts[name] = name;
 
@@ -68,12 +109,26 @@ export default class AssetsManager {
 		document.body.appendChild(newCSSFont);
 	}
 
+	/**
+	 * Load a sound
+	 * 
+	 * @param {string} name - The name of the sound
+	 * @param {string} path - The path of the sound
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	async loadAudios(name, path) {
-		this.assets.audios[name] = await this.loadAudio(path);
+		this.assets.audios[name] = await this._loadAudio(path);
 		console.log(this.assets.audios[name]);
 	}
 
-	async loadAudio(path) {
+	/**
+	 * @description
+	 * Private (Core) function to load sounds/audios
+	 * 
+	 * @private
+	 * @memberof Impacto.State.AssetsManager
+	 */
+	async _loadAudio(path) {
 		return new Promise((resolve, reject) => {
 			const audio = new Audio();
 			audio.oncanplaythrough = () => resolve(audio);
@@ -82,10 +137,40 @@ export default class AssetsManager {
 		});
 	}
 
+	/**
+	 * Return the sprite based on the name
+	 * 
+	 * @param {string} name - The name of the sprite
+	 * @returns {Object} The sprite
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	getSprite(name) { return this.assets.sprites[name].image; }
+
+	/**
+	 * Return the font based on the name
+	 * 
+	 * @param {string} name - The name of the font
+	 * @returns {string} The font
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	getFont(name) { return this.assets.fonts[name]; }
+
+	/**
+	 * Return the audio based on the name
+	 * 
+	 * @param {string} name - The name of the audio
+	 * @returns {Object} The audio
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	getAudio(name) { return this.assets.audios[name]; }
 
+	/**
+	 * Return the size of the sprite
+	 * 
+	 * @param {string} name - The name of the sprite
+	 * @returns {Object} The size of the sprite
+	 * @memberof Impacto.State.AssetsManager
+	 */
 	getSpriteSize(name) {
 		const sprite = this.getSprite(name);
 		if (sprite) return { width: sprite.width, height: sprite.height };
