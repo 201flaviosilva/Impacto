@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GameObjects/Sprite/Sprite.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GameObjects/Sprite/Sprite.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { AssetsManagerInstance } from "../../State/AssetsManager.js";
+import { CanvasStateInstance } from "../../State/CanvasState.js";
+import Rectangle from "../Rectangle/Rectangle.js";
+import Types from "../Types.js";
+
+import Animations from "./Animations.js";
+
+/**
+ * @param {number} x - The horizontal position of this Sprite in the world.
+ * @param {number} y - The vertical position of this Sprite in the world.
+ * @param {number} key - The name of the Sprite.
+ * @param {number} [frame=0] - The frame of the Sprite.
+ * @param {number} [width=0] - The width of the Sprite.
+ * @param {number} [height=0] - The height of the Sprite.
+ * 
+ * @classdesc
+ * This class will draw a Sprite on the canvas.
+ * 
+ * @example
+ * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32);
+ * 
+ * @class Sprite
+ * @extends Impacto.GameObjects.GameObject2D
+ * @memberof Impacto.GameObjects
+ * @constructors
+ */
+export default class Sprite extends Rectangle {
+	constructor(x, y, key, frame = 0, width = 0, height = 0) {
+		super(x, y, "#ffffff", "#000000");
+		this.texture = AssetsManagerInstance.getSprite(key);
+		this.frame = frame;
+		this.width = width || AssetsManagerInstance.getSpriteSize(key).width;
+		this.height = height || AssetsManagerInstance.getSpriteSize(key).height;
+
+		this.animations = new Animations(this);
+
+		this._type = Types.sprite;
+	}
+
+	/**
+ * Sets the X position of the Sprite.
+ * 
+ * @param {number} x - The horizontal position of this Sprite in the world.
+ */
+	set x(x) { this.setX(x); }
+
+	/**
+ * Sets the Y position of the Sprite.
+ * 
+ * @param {number} y - The vertical position of this Sprite in the world.
+ */
+	set y(y) { this.setY(y); }
+
+	/**
+	 * @returns {number} The horizontal position of this Sprite in the world relative to the origin.
+	 */
+	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
+
+	/**
+	* @returns {number} The vertical position of this Sprite in the world relative to the origin.
+	*/
+	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
+
+	/**
+	 * Change the frame of this Sprite.
+	 * 
+	 * @example
+	 * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).setFrame(1);
+	 * 
+	 * @param {number} frame - The frame of the Sprite.
+	 * @returns {Impacto.GameObjects.Sprite} The Sprite itself.
+	 * @memberof Impacto.GameObjects.Sprite
+	 */
+	setFrame(frame) {
+		this.frame = frame;
+		return this;
+	}
+
+	/**
+	 * Returns the number of frames of this Sprite based on the width.
+	 * 
+	 * @example
+	 * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).getNumFramesByWidth(); // 8
+	 * 
+	 * @returns {number} The number of frames by width.
+	 * @memberof Impacto.GameObjects.Sprite
+	 */
+	getNumFramesByWidth() { return Math.floor(this.texture.width / this.width); }
+
+	/**
+	 * @description
+	 * Private (Core) function to render the position of the Sprite.
+	 * 
+	 * @private
+	 * @readonly
+	 * @memberof Impacto.GameObjects.Sprite
+	 */
+	_renderType(deltaTime) {
+		this.animations._update(deltaTime);
+		CanvasStateInstance.context.drawImage(
+			this.texture, // Image
+			this.frame * this.width, 0, // Source X, Source Y
+			this.width, this.height, // Source Width, Source Height
+			this.x, this.y, // Destination X, Destination Y
+			this.width, this.height  // Destination Width, Destination Height
+		);
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Impacto.html">Impacto</a></li><li><a href="Impacto.GameObjects.html">GameObjects</a></li></ul><h3>Classes</h3><ul><li><a href="Animations.html">Animations</a></li><li><a href="Game.html">Game</a></li><li><a href="Impacto.GameObjects.AudioPlay.html">AudioPlay</a></li><li><a href="Impacto.GameObjects.Circle.html">Circle</a></li><li><a href="Impacto.GameObjects.GameObject2D.html">GameObject2D</a></li><li><a href="Impacto.GameObjects.Line.html">Line</a></li><li><a href="Impacto.GameObjects.Polygon.html">Polygon</a></li><li><a href="Impacto.GameObjects.Rectangle.html">Rectangle</a></li><li><a href="Impacto.GameObjects.Sprite.html">Sprite</a></li><li><a href="Impacto.GameObjects.Text.html">Text</a></li><li><a href="Impacto.GameObjects.Triangle.html">Triangle</a></li><li><a href="Impacto.Inputs.KeyboardManager.html">KeyboardManager</a></li><li><a href="Impacto.Scene.html">Scene</a></li><li><a href="Impacto.State_AssetsManager.html">AssetsManager</a></li><li><a href="Impacto.State_CanvasState.html">CanvasState</a></li><li><a href="Impacto.State_GlobalStateManager.html">GlobalStateManager</a></li><li><a href="Impacto_Inputs.html">Inputs</a></li><li><a href="Impacto_State.html">State</a></li><li><a href="Impacto_Utils.html">Utils</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#setPause">setPause</a></li><li><a href="global.html#setStrokeColor">setStrokeColor</a></li><li><a href="global.html#TextOptions">TextOptions</a></li><li><a href="global.html#Types">Types</a></li><li><a href="global.html#width">width</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#y">y</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:18:34 GMT+0100 (Horário de Verão da Europa Ocidental)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

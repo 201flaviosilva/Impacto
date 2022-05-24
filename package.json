@@ -9,6 +9,7 @@
   "scripts": {
     "clear": "rm -rf dist",
     "build": "npm run clear && webpack --mode production",
+    "build:all": "npm run build && npm run types && npm run jsdoc && npm run build:docs",
     "test": "node test/spec",
     "pretest": "npm run build",
     "bump": "np --no-tests",
@@ -16,8 +17,7 @@
     "start:docs": "npm run start --prefix docs",
     "build:docs": "npm run build --prefix docs",
     "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
-    "jsdoc": "jsdoc -c jsdoc.conf.json",
-    "build:all": "npm run build && npm run types && npm run jsdoc && npm run build:docs"
+    "jsdoc": "jsdoc -c jsdoc.conf.json"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

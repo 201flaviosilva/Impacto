@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GameObjects/GameObject2D.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GameObjects/GameObject2D.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { CanvasStateInstance } from "../State/CanvasState.js";
+import { UtilsMathInstance } from "../Utils/Math.js";
+
+/**
+ * @param {number} x - The horizontal position of this Object in the world.
+ * @param {number} y - The vertical position of this Object in the world.
+ * @param {number | string} [fillColor=0xffffff] - The color the Object will be filled with, i.e. 0xff0000 for red.
+ * @param {number | string} [strokeColor=0x000000] - The color of the border of the Object, i.e. 0x00ff00 for green.
+ * 
+ * @classdesc
+ * The base class for a game objects.
+ * Probably you don't need to use this class directly.
+ * Use this class to extend your own game objects.
+ * 
+ * @example
+ * class MyGameObject extends Impacto.GameObject.GameObject2D {
+ * 	constructor(x, y, fillColor, strokeColor, ...args) {
+ * 		super(x, y, fillColor, strokeColor);
+ * 	}
+ * }
+ * 
+ * @class GameObject2D
+ * @memberof Impacto.GameObjects
+ * @constructors
+ */
+export default class GameObject2D {
+	constructor(x, y, fillColor, strokeColor) {
+		this.id = Math.random();
+		this.name = `Obj - ${this.id}`;
+
+		// Render
+		this._x = x; // Get the real position X
+		this._y = y; // Get the real position Y
+		this.z = 0;
+		this.rotation = 0; // Rotation in radians
+		this.angle = 0; // Rotation in degrees
+		this.scale = { x: 1, y: 1 };
+
+		this.lastPosition = { x: this._x, y: this._y, z: this.z };
+		this.origin = { x: 0, y: 0 };
+		this.fillColor = fillColor;
+		this.strokeColor = strokeColor;
+		this.strokeWidth = 1;
+		this.visible = true;
+	}
+
+	/**
+	 * @description
+	 * Set the game object's name.
+	 * 
+	 * @example
+	 * obj.setName("My Game Object");
+	 * 
+	 * @param {string} name - The name of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setName(name) {
+		this.name = name;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the horizontal position of the game object in the world based on the origin.
+	 * 
+	 * @example
+	 * obj.setX(100);
+	 * 
+	 * @param {number} x - The horizontal position of the game object in the world.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setX(x) {
+		this.setPosition(x + (this.width || this.radius) * this.origin.x, this._y, this.z);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the vertical position of the game object in the world based on the origin.
+	 * 
+	 * @example
+	 * obj.setY(100);
+	 * 
+	 * @param {number} y - The vertical position of the game object in the world.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setY(y) {
+		this.setPosition(this._x, y + (this.height || this.radius) * this.origin.y, this.z);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the Z position of the game object in the world based on the origin.
+	 * 
+	 * @example
+	 * obj.setZ(100);
+	 * 
+	 * @param {number} z - The Z position of the game object in the world.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setZ(z) {
+		this.setPosition(this._x, this._y, z);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Returns the position of the object's in the world relative on the object origin.
+	 * 
+	 * @example
+	 * obj.getPosition();
+	 * 
+	 * @returns {Object} - {x:number, y:number, z:number} - The position of the object in the world.
+	 * @readonly
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
+
+	/**
+	 * @description
+	 * Returns the real position of the object's in the world. (Not relative on the object origin)
+	 * 
+	 * @example
+	 * obj.getRealPosition();
+	 * 
+	 * @returns {Object} - {x:number, y:number, z:number} - The real position of the object in the world.
+	 * @readonly
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	getRealPosition() { return { x: this._x, y: this._y, z: this.z }; }
+
+	/**
+	 * @description
+	 * Set the position of the game object in the world.
+	 * 
+	 * @example
+	 * obj.setPosition(100, 100, 100);
+	 * 
+	 * @param {number} x - The horizontal position of the game object in the world.
+	 * @param {number} y - The vertical position of the game object in the world.
+	 * @param {number} z - The Z position of the game object in the world.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setPosition(x, y, z = this.z) {
+		this.lastPosition = { x: this.x, y: this.y, z: this.z };
+
+		this._x = x;
+		this._y = y;
+		this.z = z;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set a random position of the game object in the world.
+	 * 
+	 * @example
+	 * obj.setRandomPosition();
+	 * 
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setRandomPosition(x = 0, y = 0, width = CanvasStateInstance.width, height = CanvasStateInstance.height) {
+		this.setPosition(
+			x + Math.random() * width,
+			y + Math.random() * height
+		);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the rotation of the game object in the world based in radians.
+	 * 
+	 * @example
+	 * obj.setRotation(1.5);
+	 * 
+	 * @param {number} rotation - The rotation of the game object in the world in radians.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setRotation(rotation) {
+		this.rotation = rotation;
+		this.angle = UtilsMathInstance.radiansToDegrees(rotation);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the angle of the game object in the world based in degrees.
+	 * 
+	 * @example
+	 * obj.setAngle(90);
+	 * 
+	 * @param {number} angle - The angle of the game object in the world in degrees.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setAngle(angle) {
+		this.angle = angle;
+		this.rotation = UtilsMathInstance.degreesToRadians(angle);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the horizontal scale of the game object.
+	 * 
+	 * @example
+	 * obj.setScaleX(2);
+	 * 
+	 * @param {number} scaleX - The horizontal scale of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setScaleX(x) {
+		this.setScale(x, this.scale.y);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the vertical scale of the game object.
+	 * 
+	 * @example
+	 * obj.setScaleY(2);
+	 * 
+	 * @param {number} scaleY - The vertical scale of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setScaleY(y) {
+		this.setScale(this.scale.x, y);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the horizontal and vertical scale of the game object.
+	 * 
+	 * @example
+	 * obj.setScale(2);
+	 * 
+	 * @param {number} scale - The scale of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setScale(x = 0, y = x) {
+		this.scale = { x, y };
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the horizontal origin point of the game object.
+	 * The origin point is between 0 and 1.
+	 * 
+	 * @example
+	 * obj.setOriginX(0.5);
+	 * 
+	 * @param {number} originX - The horizontal origin point of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setOriginX(x) {
+		this.setOrigin(x, this.origin.y);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the vertical origin point of the game object.
+	 * The origin point is between 0 and 1.
+	 * 
+	 * @example
+	 * obj.setOriginY(0.5);
+	 * 
+	 * @param {number} originY - The vertical origin point of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setOriginY(y) {
+		this.setOrigin(this.origin.x, y);
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the horizontal and vertical origin point of the game object.
+	 * The origin point is between 0 and 1.
+	 * 
+	 * @example
+	 * obj.setOrigin(0.5);
+	 * 
+	 * @param {number} origin - The origin point of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setOrigin(x = 0, y = x) {
+		this.origin = { x, y };
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the fill color of the game object.
+	 * 
+	 * @example
+	 * obj.setFillColor("#FF0000");
+	 * 
+	 * @param {string} color - The fill color of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setFillColor(fillColor) {
+		this.fillColor = fillColor;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the stroke/border color of the game object.
+	 * 
+	 * @example
+	 * obj.setStrokeColor("#FF0000");
+	 * 
+	 * @param {string} color - The stroke color of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 */
+	setStrokeColor(strokeColor) {
+		this.strokeColor = strokeColor;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the stroke/border width of the game object.
+	 * 
+	 * @example
+	 * obj.setStrokeWidth(2);
+	 * 
+	 * @param {number} width - The stroke width of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setStrokeWidth(strokeWidth) {
+		this.strokeWidth = strokeWidth;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Set the visibility of the game object.
+	 * 
+	 * @example
+	 * obj.setVisible(false);
+	 * 
+	 * @param {boolean} visible - The visibility of the game object.
+	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 */
+	setVisible(isVisible) {
+		this.visible = isVisible;
+		return this;
+	}
+
+	/**
+	 * @description
+	 * Private (Core) function to render the game object.
+	 * 
+	 * @private
+	 * @readonly
+	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @param {number} deltaTime - The time since the last frame.
+	 */
+	_render(deltaTime) {
+		if (!this.visible) return;
+
+		CanvasStateInstance.context.save();
+
+		// Scale
+		CanvasStateInstance.context.translate(this.x, this.y);
+		CanvasStateInstance.context.scale(this.scale.x, this.scale.y);
+		CanvasStateInstance.context.translate(-this.x, -this.y);
+
+		// Rotation
+		CanvasStateInstance.context.translate(this._x, this._y);
+		CanvasStateInstance.context.rotate(this.rotation);
+		CanvasStateInstance.context.translate(-this._x, -this._y);
+
+		CanvasStateInstance.context.fillStyle = this.fillColor;
+		CanvasStateInstance.context.strokeStyle = this.strokeColor;
+		CanvasStateInstance.context.lineWidth = this.strokeWidth;
+		this._renderType(deltaTime);
+
+		CanvasStateInstance.context.restore();
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Impacto.html">Impacto</a></li><li><a href="Impacto.GameObjects.html">GameObjects</a></li></ul><h3>Classes</h3><ul><li><a href="Animations.html">Animations</a></li><li><a href="Game.html">Game</a></li><li><a href="Impacto.GameObjects.AudioPlay.html">AudioPlay</a></li><li><a href="Impacto.GameObjects.Circle.html">Circle</a></li><li><a href="Impacto.GameObjects.GameObject2D.html">GameObject2D</a></li><li><a href="Impacto.GameObjects.Line.html">Line</a></li><li><a href="Impacto.GameObjects.Polygon.html">Polygon</a></li><li><a href="Impacto.GameObjects.Rectangle.html">Rectangle</a></li><li><a href="Impacto.GameObjects.Sprite.html">Sprite</a></li><li><a href="Impacto.GameObjects.Text.html">Text</a></li><li><a href="Impacto.GameObjects.Triangle.html">Triangle</a></li><li><a href="Impacto.Inputs.KeyboardManager.html">KeyboardManager</a></li><li><a href="Impacto.Scene.html">Scene</a></li><li><a href="Impacto.State_AssetsManager.html">AssetsManager</a></li><li><a href="Impacto.State_CanvasState.html">CanvasState</a></li><li><a href="Impacto.State_GlobalStateManager.html">GlobalStateManager</a></li><li><a href="Impacto_Inputs.html">Inputs</a></li><li><a href="Impacto_State.html">State</a></li><li><a href="Impacto_Utils.html">Utils</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#setPause">setPause</a></li><li><a href="global.html#setStrokeColor">setStrokeColor</a></li><li><a href="global.html#TextOptions">TextOptions</a></li><li><a href="global.html#Types">Types</a></li><li><a href="global.html#width">width</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#y">y</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:18:34 GMT+0100 (Horário de Verão da Europa Ocidental)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

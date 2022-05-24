@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: State/CanvasState.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: State/CanvasState.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @class CanvasState
+ * @description A class to manage canvas state.
+ * @memberof Impacto.State
+ * @instance
+ */
+export default class CanvasState {
+	constructor() {
+		if (CanvasState.instance instanceof CanvasState) return CanvasState.instance;
+		CanvasState.instance = this;
+
+		this.parent = document.body;
+		this.canvas = null;
+		this.context = null;
+		this.backgroundColor = null;
+		this.width = 800;
+		this.height = 600;
+	}
+
+	/**
+	 * Change the parent element of the canvas.
+	 * If not specified, the canvas will be appended to the body.
+	 * 
+	 * @param {string|HTMLElement} parent - The parent element of the canvas
+	 * @memberof Impacto.State.CanvasState
+	 */
+	setParent(parent) {
+		if (!parent) parent = document.body;
+		else if (typeof parent === "string") parent = document.getElementById(parent);
+		else if (!(parent instanceof HTMLElement)) throw new Error("Invalid parent");
+		this.parent = parent;
+	}
+
+	/**
+	 * Initialize the canvas state.
+	 * If the canvas is not specified, a new canvas will be created.
+	 * 
+	 * @param {string|HTMLElement} canvas - The canvas element
+	 * @memberof Impacto.State.CanvasState
+	 */
+	setCanvas(canvas) {
+		if (typeof canvas === "string") this.canvas = document.getElementById(canvas);
+		else if (canvas instanceof HTMLElement) this.canvas = canvas;
+		else this.canvas = document.createElement("canvas");
+		this.canvas.width = this.width;
+		this.canvas.height = this.height;
+		this.context = this.canvas.getContext("2d");
+		this.parent.appendChild(this.canvas);
+	}
+
+	/**
+	 * Change the canvas width and height.
+	 * 
+	 * @param {number} width - The width of the canvas. Default 800
+	 * @param {number} height - The height of the canvas. Default 600
+	 * @memberof Impacto.State.CanvasState
+	 */
+	setSize(width = 800, height = 600) {
+		this.width = width;
+		this.height = height;
+		if (this.canvas) {
+			this.canvas.width = this.width;
+			this.canvas.height = this.height;
+		}
+	}
+
+	/**
+	 * Change the background color of the canvas.
+	 * 
+	 * @param {number|string} color - The background color of the canvas. Default black
+	 * @memberof Impacto.State.CanvasState
+	 */
+	setBackgroundColor(color = 0x000000) {
+		if (!color) color = null;
+		this.backgroundColor = color;
+	}
+}
+
+export const CanvasStateInstance = new CanvasState();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Impacto.html">Impacto</a></li><li><a href="Impacto.GameObjects.html">GameObjects</a></li></ul><h3>Classes</h3><ul><li><a href="Animations.html">Animations</a></li><li><a href="Game.html">Game</a></li><li><a href="Impacto.GameObjects.AudioPlay.html">AudioPlay</a></li><li><a href="Impacto.GameObjects.Circle.html">Circle</a></li><li><a href="Impacto.GameObjects.GameObject2D.html">GameObject2D</a></li><li><a href="Impacto.GameObjects.Line.html">Line</a></li><li><a href="Impacto.GameObjects.Polygon.html">Polygon</a></li><li><a href="Impacto.GameObjects.Rectangle.html">Rectangle</a></li><li><a href="Impacto.GameObjects.Sprite.html">Sprite</a></li><li><a href="Impacto.GameObjects.Text.html">Text</a></li><li><a href="Impacto.GameObjects.Triangle.html">Triangle</a></li><li><a href="Impacto.Inputs.KeyboardManager.html">KeyboardManager</a></li><li><a href="Impacto.Scene.html">Scene</a></li><li><a href="Impacto.State_AssetsManager.html">AssetsManager</a></li><li><a href="Impacto.State_CanvasState.html">CanvasState</a></li><li><a href="Impacto.State_GlobalStateManager.html">GlobalStateManager</a></li><li><a href="Impacto_Inputs.html">Inputs</a></li><li><a href="Impacto_State.html">State</a></li><li><a href="Impacto_Utils.html">Utils</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#setPause">setPause</a></li><li><a href="global.html#setStrokeColor">setStrokeColor</a></li><li><a href="global.html#TextOptions">TextOptions</a></li><li><a href="global.html#Types">Types</a></li><li><a href="global.html#width">width</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#y">y</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 24 2022 21:18:34 GMT+0100 (Horário de Verão da Europa Ocidental)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
