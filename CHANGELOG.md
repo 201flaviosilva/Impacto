@@ -6,10 +6,10 @@
 
 - [CHANGELOG](#changelog)
 	- [Table of Contents](#table-of-contents)
-	- [Unreleased](#unreleased)
-	- [0.9.0 (Date: 01/01/2022)](#090-date-01012022)
+	- [0.9.0 (Date: 20/05/2022)](#090-date-20052022)
 
-## Unreleased
 
-## 0.9.0 (Date: 01/01/2022)
-- (Removed) 
+## 0.9.0 (Date: 20/05/2022)
+- (Add) 
+  - The first complete version of the engine.
+  - All function documented

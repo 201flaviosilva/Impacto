@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "description": "A modular javascript canvas render",
   "homepage": "https://201flaviosilva.github.io/Impacto/",
+  "readme": "README.md",
   "main": "dist/Impacto.js",
   "author": "Flávio Silva",
   "license": "MIT",
@@ -16,7 +17,7 @@
     "package": "npm run build && npm publish",
     "start:docs": "npm run start --prefix docs",
     "build:docs": "npm run build --prefix docs",
-    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types && npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "jsdoc": "jsdoc -c jsdoc.conf.json"
   },
   "devDependencies": {

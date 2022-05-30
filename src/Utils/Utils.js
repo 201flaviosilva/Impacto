@@ -1,4 +1,5 @@
 import ImpactoMath from "./Math.js";
+import Package from "../../package.json";
 
 /**
  * @class Utils
@@ -22,7 +23,7 @@ export default class Utils {
 	 * @memberof Impacto.Utils
 	 * @method getVersion
 	 */
-	getVersion() { return "0.9.0-0"; }
+	getVersion() { return Package.version; }
 }
 
 export const UtilsInstance = new Utils();
