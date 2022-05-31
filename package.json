@@ -17,7 +17,7 @@
     "package": "npm run build && npm publish",
     "start:docs": "npm run start --prefix docs",
     "build:docs": "npm run build --prefix docs",
-    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types && npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "types": "tsc --p tsconfig.json",
     "jsdoc": "jsdoc -c jsdoc.conf.json"
   },
   "devDependencies": {
