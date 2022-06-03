@@ -10,6 +10,7 @@ const config = {
   tagline: 'A modular javascript canvas render',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
+  staticDirectories: ['static'],
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -33,6 +34,8 @@ const config = {
         },
       }),
     ],
+
+    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
   ],
 
   i18n: {

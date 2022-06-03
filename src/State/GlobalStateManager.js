@@ -1,8 +1,6 @@
 /**
  * @class GlobalStateManager
  * @description A class to manage all global states.
- * @memberof Impacto.State
- * @instance
  */
 export default class GlobalStateManager {
 	constructor() {
@@ -15,9 +13,11 @@ export default class GlobalStateManager {
 	}
 
 	/**
-	 * 
+	 * Pauses/Unpauses the game.
 	 * 
 	 * @param {boolean} pause - Pause the game
+	 * @returns {void}
+	 * @memberof GlobalStateManager
 	 */
 	setPause(pause) { this.isPaused = pause; }
 
@@ -25,7 +25,8 @@ export default class GlobalStateManager {
  * Change the volume of the audio.
  * 
  * @param {number} volume - The volume of the audio. Default 1
- * @memberof Impacto.State.GlobalStateManager
+ * @returns {void}
+ * @memberof GlobalStateManager
  */
 	setVolume(volume = 1) {
 		if (volume < 0 || volume > 1) throw new Error("Invalid volume");

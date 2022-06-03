@@ -6,7 +6,6 @@
  * class MyScene extends Scene {}
  * 
  * @class Scene
- * @memberof Impacto
  * @constructors 
  */
 export default class Scene {
@@ -32,8 +31,8 @@ export default class Scene {
 	 * this.addChild(mySprite);
 	 * 
 	 * @param {Impacto.GameObject} child - The child to add
-	 * @returns {Impacto.Scene} This scene
-	 * @memberof Impacto.Scene
+	 * @returns {Scene} This scene
+	 * @memberof Scene
 	 */
 	addChild(child) {
 		this.children.push(child);
@@ -47,8 +46,8 @@ export default class Scene {
 	 * this.removeChild(mySprite);
 	 * 
 	 * @param {Impacto.GameObject} child - The child to remove
-	 * @returns {Impacto.Scene} This scene
-	 * @memberof Impacto.Scene
+	 * @returns {Scene} This scene
+	 * @memberof Scene
 	 */
 	removeChild(child) {
 		const index = this.children.indexOf(child);
@@ -68,7 +67,7 @@ export default class Scene {
 	 * 	}
 	 * }
 	 *
-	 * @memberof Impacto.Scene
+	 * @memberof Scene
 	 */
 	start() { }
 
@@ -84,7 +83,7 @@ export default class Scene {
 	 * }
 	 * 
 	 * @param {number} delta - The time since the last frame
-	 * @memberof Impacto.Scene
+	 * @memberof Scene
 	 */
 	update(delta) { }
 
@@ -100,7 +99,7 @@ export default class Scene {
 	 * }
 	 * 
 	 * @param {CanvasRenderingContext2D} context - The canvas context
-	 * @memberof Impacto.Scene
+	 * @memberof Scene
 	 */
 	posRender(context) { }
 }

@@ -3,10 +3,11 @@ import CanvasState from "./CanvasState.js";
 import GlobalStateManager from "./GlobalStateManager.js";
 
 /**
- * @class State
- * @description State class
- * @memberof Impacto
- * @instance
+ * @namespace Impacto.State
+ * 
+ * @property {Impacto.Inputs.AssetsManager} Assets
+ * @property {Impacto.Inputs.CanvasState} Canvas
+ * @property {Impacto.Inputs.GlobalStateManager} Global
  */
 export default class State {
 	constructor() {

@@ -17,7 +17,6 @@ import Types from "../Types.js";
  * 
  * @class Text
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors 
  */
 export default class Text extends GameObject2D {
@@ -45,7 +44,7 @@ export default class Text extends GameObject2D {
 	 * Returns the width of the text.
 	 * 
 	 * @returns {number} The width of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	get width() {
 		if (this.text === "") return 0;
@@ -56,7 +55,7 @@ export default class Text extends GameObject2D {
 	 * Returns the height of the text.
 	 * 
 	 * @returns {number} The height of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	get height() {
 		if (this.text === "") return 0;
@@ -67,7 +66,7 @@ export default class Text extends GameObject2D {
 	 * Sets the horizontal position of the text.
 	 * 
 	 * @param {string} align - The horizontal position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	set x(x) { this.setX(x); }
 
@@ -75,7 +74,7 @@ export default class Text extends GameObject2D {
 	 * Sets the vertical position of the text.
 	 * 
 	 * @param {string} align - The vertical position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	set y(y) { this.setY(y); }
 
@@ -83,7 +82,7 @@ export default class Text extends GameObject2D {
 	 * Returns the horizontal position of the text.
 	 * 
 	 * @returns {number} The horizontal position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
 
@@ -91,7 +90,7 @@ export default class Text extends GameObject2D {
 	 * Returns the vertical position of the text.
 	 * 
 	 * @returns {number} The vertical position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
 
@@ -103,7 +102,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getTop(); // 300
 	 * 
 	 * @returns {number} The top side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getTop() { return this.y; }
 
@@ -115,7 +114,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getBottom(); // 300
 	 * 
 	 * @returns {number} The bottom side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getBottom() { return this.y + this.height; }
 
@@ -127,7 +126,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getLeft(); // 400
 	 * 
 	 * @returns {number} The left side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getLeft() { return this.x; }
 
@@ -139,7 +138,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRight(); // 400
 	 * 
 	 * @returns {number} The right side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRight() { return this.x + this.width; }
 
@@ -151,7 +150,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterX(); // 400
 	 * 
 	 * @returns {number} The horizontal center position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getCenterX() { return this.x + this.width / 2; }
 
@@ -163,7 +162,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterY(); // 300
 	 * 
 	 * @returns {number} The vertical center position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getCenterY() { return this.y + this.height / 2; }
 
@@ -175,7 +174,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealTop(); // 300
 	 * 
 	 * @returns {number} The real top side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealTop() { return this._y; }
 
@@ -187,7 +186,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealBottom(); // 300
 	 * 
 	 * @returns {number} The real bottom side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealBottom() { return this._y + this.height; }
 
@@ -199,7 +198,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealLeft(); // 400
 	 * 
 	 * @returns {number} The real left side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealLeft() { return this._x; }
 
@@ -211,7 +210,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealRight(); // 400
 	 * 
 	 * @returns {number} The real right side position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealRight() { return this._x + this.width; }
 
@@ -223,7 +222,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterX(); // 400
 	 * 
 	 * @returns {number} The real horizontal center position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealCenterX() { return this._x + this.width / 2; }
 
@@ -235,7 +234,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterY(); // 300
 	 * 
 	 * @returns {number} The real vertical center position of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getRealCenterY() { return this._y + this.height / 2; }
 
@@ -247,7 +246,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getWords(); // ["Hello", "World"]
 	 * 
 	 * @returns {string[]} All words of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getWords() { return this.text.split(" "); }
 
@@ -259,7 +258,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getWordsCount(); // 2
 	 * 
 	 * @returns {number} The number of words of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getWordsNumber() { return this.getWords().length; }
 
@@ -271,7 +270,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharacters(); // ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"]
 	 * 
 	 * @returns {string[]} All characters of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getCharacters() { return this.text.split(""); }
 
@@ -283,7 +282,7 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharactersCount(); // 11
 	 * 
 	 * @returns {number} The number of characters of the text.
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	getCharactersNumber() { return this.getCharacters().length; }
 
@@ -296,8 +295,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setText("MyText");
 	 * 
 	 * @param {string} text The new text.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setText(text) {
 		this.text = text;
@@ -312,8 +311,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontSize(20);
 	 * 
 	 * @param {number} size The new font size.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFontSize(size) {
 		this.setFont({ size });
@@ -328,8 +327,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontFamily("Arial");
 	 * 
 	 * @param {string} family The new font family.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFontFamily(family) {
 		this.setFont({ family });
@@ -344,8 +343,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontStyle("italic");
 	 * 
 	 * @param {string} style The new font style.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFontStyle(style) {
 		this.setFont({ style });
@@ -360,8 +359,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontVariant("small-caps");
 	 * 
 	 * @param {string} variant The new font variant.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFontVariant(variant) {
 		this.setFont({ variant });
@@ -376,8 +375,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontWeight("bold");
 	 * 
 	 * @param {string} weight The new font weight.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFontWeight(weight) {
 		this.setFont({ weight });
@@ -398,8 +397,8 @@ export default class Text extends GameObject2D {
 	 * });
 	 * 
 	 * @param {object} font The new properties of the font.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setFont(options) { // { size, family, style, variant, weight }
 		this.fontSize = options.size || this.fontSize;
@@ -419,8 +418,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setVerticalAlignment("top");
 	 * 
 	 * @param {string} align The new text alignment.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setAlignVertical(align) {
 		this.alignVertical = align;
@@ -435,8 +434,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setHorizontalAlignment("left");
 	 * 
 	 * @param {string} align The new text alignment.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setAlignHorizontal(align) {
 		this.alignHorizontal = align;
@@ -451,8 +450,8 @@ export default class Text extends GameObject2D {
 	 * new Impacto.GameObjects.Text(400, 300, "Hello World").setDirection("rtl");
 	 * 
 	 * @param {string} direction The new text direction.
-	 * @returns {Impacto.GameObjects.Text} The text object.
-	 * @memberof Impacto.GameObjects.Text
+	 * @returns {Text} The text object.
+	 * @memberof Text
 	 */
 	setDirection(direction) {
 		this.direction = direction;
@@ -464,8 +463,7 @@ export default class Text extends GameObject2D {
 	 * Private (Core) function to render the position of the text.
 	 * 
 	 * @private
-	 * @readonly
-	 * @memberof Impacto.GameObjects.Text
+	 * @memberof Text
 	 */
 	_renderType() {
 		CanvasStateInstance.context.textBaseline = this.alignVertical;

@@ -3,8 +3,11 @@ import { CanvasStateInstance } from "./State/CanvasState.js";
 import CoreGameManager from "./Core/CoreGameManager.js";
 
 /**
+ * @param {Object} config - The configuration of the game
+ * 
  * @class Game
  * @description The main class of the game.
+ * 
  * @example
  * class Game extends Impacto.Scene {
  * 	start() {
@@ -20,6 +23,7 @@ import CoreGameManager from "./Core/CoreGameManager.js";
  * 	scene: Game,
  * });
  * 
+ * @constructor
  */
 export default class Game {
 	constructor(config) {

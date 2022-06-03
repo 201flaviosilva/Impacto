@@ -2,10 +2,10 @@ import KeyBoard from "./Keyboard.js";
 import MouseManager from "./Mouse.js";
 
 /**
- * @class Inputs
- * @description Inputs class
- * @memberof Impacto
- * @instance
+ * @namespace Impacto.Inputs
+ * 
+ * @property {Impacto.Inputs.KeyBoard} KeyBoard
+ * @property {Impacto.Inputs.MouseManager} MouseManager
  */
 export default class Inputs {
 	constructor() {

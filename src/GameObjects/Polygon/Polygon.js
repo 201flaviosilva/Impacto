@@ -17,7 +17,6 @@ import Types from "../Types.js";
  * 
  * @class Polygon
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors 
  */
 export default class Polygon extends GameObject2D {
@@ -33,6 +32,7 @@ export default class Polygon extends GameObject2D {
 	 * Sets the X position of the Polygon.
 	 * 
 	 * @param {number} x - The horizontal position of this Polygon in the world.
+	 * @memberof Polygon
 	 */
 	set x(x) { this.setX(x); }
 
@@ -40,21 +40,25 @@ export default class Polygon extends GameObject2D {
 	 * Sets the Y position of the Polygon.
 	 * 
 	 * @param {number} y - The vertical position of this Polygon in the world.
+	 * @memberof Polygon
 	 */
 	set y(y) { this.setY(y); }
 
 	/**
 	 * @returns {number} The horizontal position of this Polygon in the world relative to the origin.
+	 * @memberof Polygon
 	 */
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; } // Get the position X relative to the origin
 
 	/**
 	 * @returns {number} The vertical position of this Polygon in the world relative to the origin.
+	 * @memberof Polygon
 	 */
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; } // Get the position Y relative to the origin
 
 	/**
 	 * @returns {number} The width of this Polygon.
+	 * @memberof Polygon
 	 */
 	get width() {
 		if (this.vertices.length === 0) return 0;
@@ -63,6 +67,7 @@ export default class Polygon extends GameObject2D {
 
 	/**
 	 * @returns {number} The height of this Polygon.
+	 * @memberof Polygon
 	 */
 	get height() {
 		if (this.vertices.length === 0) return 0;
@@ -76,7 +81,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getTop(); // 10
 	 * 
 	 * @returns {number} The topmost point of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getTop() {
 		if (this.vertices.length === 0) return 0;
@@ -90,7 +95,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getBottom(); // 20
 	 * 
 	 * @returns {number} The bottommost point of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getBottom() {
 		if (this.vertices.length === 0) return 0;
@@ -104,7 +109,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getLeft(); // 10
 	 * 
 	 * @returns {number} The leftmost point of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getLeft() {
 		if (this.vertices.length === 0) return 0;
@@ -118,7 +123,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getRight(); // 20
 	 * 
 	 * @returns {number} The rightmost point of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getRight() {
 		if (this.vertices.length === 0) return 0;
@@ -132,7 +137,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenterX(); // 15
 	 * 
 	 * @returns {number} The horizontal center of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getCenterX() { return this.x + this.width / 2; }
 
@@ -143,7 +148,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenterY(); // 15
 	 * 
 	 * @returns {number} The vertical center of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getCenterY() { return this.y + this.height / 2; }
 
@@ -154,7 +159,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenter(); // {x: 15, y: 15}
 	 * 
 	 * @returns {Object} The center of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getCenter() { return { x: this.getCenterX(), y: this.getCenterY() }; }
 
@@ -166,8 +171,8 @@ export default class Polygon extends GameObject2D {
 	 * 
 	 * @param {number} x - The x coordinate of the point
 	 * @param {number} y - The y coordinate of the point
-	 * @returns {Impacto.GameObjects.Polygon} The polygon itself
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Polygon} The polygon itself
+	 * @memberof Polygon
 	 */
 	add(x, y) {
 		this.vertices.push({ x, y });
@@ -182,8 +187,8 @@ export default class Polygon extends GameObject2D {
 	 * 
 	 * @param {number} x - The x coordinate of the point
 	 * @param {number} y - The y coordinate of the point
-	 * @returns {Impacto.GameObjects.Polygon} The polygon itself
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Polygon} The polygon itself
+	 * @memberof Polygon
 	 */
 	remove(x, y) {
 		const index = this.vertices.findIndex(vertex => vertex.x === x && vertex.y === y);
@@ -198,8 +203,8 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removePoint({x: 10, y: 10});
 	 * 
 	 * @param {Object} point - The point to be removed
-	 * @returns {Impacto.GameObjects.Polygon} The polygon itself
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Polygon} The polygon itself
+	 * @memberof Polygon
 	 */
 	removePoint(point) {
 		return this.remove(point.x, point.y);
@@ -212,8 +217,8 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removeIndex(0);
 	 * 
 	 * @param {number} index - The index of the point
-	 * @returns {Impacto.GameObjects.Polygon} The polygon itself
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Polygon} The polygon itself
+	 * @memberof Polygon
 	 */
 	removeIndex(index) {
 		if (index !== -1) this.vertices.splice(index, 1);
@@ -227,8 +232,8 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).setClose(true);
 	 * 
 	 * @param {boolean} close - Whether the polygon should be closed or not
-	 * @returns {Impacto.GameObjects.Polygon} The polygon itself
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Polygon} The polygon itself
+	 * @memberof Polygon
 	 */
 	setClose(isClose) {
 		this.close = isClose;
@@ -242,7 +247,7 @@ export default class Polygon extends GameObject2D {
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getBounds(); // {x: 10, y: 10, width: 20, height: 20}
 	 * 
 	 * @returns {Object} The bounds of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @memberof Polygon
 	 */
 	getBounds() {
 		return {
@@ -259,19 +264,16 @@ export default class Polygon extends GameObject2D {
 	 * @example
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getVertices(); // [{x: 10, y: 10}, {x: 20, y: 20}, {x: 10, y: 20}]
 	 * 
-	 * @returns {Array} The vertices of the polygon
-	 * @memberof Impacto.GameObjects.Polygon
+	 * @returns {Object[]} The vertices of the polygon
+	 * @memberof Polygon
 	 */
 	getVertices() { return this.vertices; }
-
-
 
 	/**
 	 * Private (Core) function to render.
 	 * 
+	 * @memberof Polygon
 	 * @private
-	 * @readonly
-	 * @memberof Impacto.GameObjects.Polygon
 	 */
 	_renderType() {
 		if (this.vertices.length === 0) return;

@@ -4,7 +4,6 @@ import Package from "../../package.json";
 /**
  * @class Utils
  * @description Utils class
- * @memberof Impacto
  * @instance
  */
 export default class Utils {
@@ -19,11 +18,11 @@ export default class Utils {
 	 * @example
 	 * console.log(Impacto.Utils.getVersion());
 	 * 
-	 * @returns {String}
-	 * @memberof Impacto.Utils
-	 * @method getVersion
+	 * @returns {String} The current version of the library
+	 * @memberof Utils
+	 * @static
 	 */
-	getVersion() { return Package.version; }
+	static getVersion() { return Package.version; }
 }
 
 export const UtilsInstance = new Utils();
