@@ -197,7 +197,7 @@ export default class Polygon extends GameObject2D {
 	}
 
 	/**
-	 * Remove a point from the polygon based in the object {x, y}
+	 * Remove a point from the polygon based in the object
 	 * 
 	 * @example
 	 * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removePoint({x: 10, y: 10});

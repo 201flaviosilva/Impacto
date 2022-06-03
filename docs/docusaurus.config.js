@@ -10,7 +10,7 @@ const config = {
   tagline: 'A modular javascript canvas render',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
-  staticDirectories: ['static'],
+  staticDirectories: ['static', "jsdoc"],
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

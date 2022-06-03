@@ -202,7 +202,7 @@ new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removePoint(
 <a name="Polygon.removePoint"></a>
 
 ## Polygon.removePoint(point) ⇒ [<code>Polygon</code>](#Polygon)
-<p>Remove a point from the polygon based in the object {x, y}</p>
+<p>Remove a point from the polygon based in the object</p>
 
 **Kind**: static method of [<code>Polygon</code>](#Polygon)  
 **Returns**: [<code>Polygon</code>](#Polygon) - <p>The polygon itself</p>  
