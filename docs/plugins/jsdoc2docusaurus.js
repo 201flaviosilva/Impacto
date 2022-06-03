@@ -8,7 +8,7 @@ const jsdoc2md = require("jsdoc-to-markdown");
 /**
  * Runs through packages folders looking for JSDoc and generates markdown docs
  */
-function generateDocs() {
+function generateDocs(context, opts) {
 	console.log("Generating package docs");
 	// Use glob to get all js/ts files
 	const pathPattern = path.join(__dirname, "../../src/**/*.js");
@@ -52,5 +52,12 @@ function generateDocs() {
 	console.log("\u001B[32m", "✔️ Package docs generated", "\u001B[0m");
 }
 
-generateDocs();
-process.exit(0);
+function jsdoc2docusaurus(context, opts) {
+	return {
+		name: "jsdoc2docusaurus",
+		async loadContent() { return generateDocs(context, opts); },
+	};
+};
+// generateDocs();
+
+module.exports = jsdoc2docusaurus;

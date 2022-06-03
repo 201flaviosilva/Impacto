@@ -1,5 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+const path = require("path");
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -35,7 +36,7 @@ const config = {
       }),
     ],
 
-    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
+    ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
   ],
 
   i18n: {
