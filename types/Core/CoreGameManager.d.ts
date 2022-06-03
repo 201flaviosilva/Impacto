@@ -5,13 +5,13 @@
  */
 export default class CoreGameManager {
     currentScene: any;
-    scenes: any[];
-    _lastTimeUpdate: number;
-    delta: number;
-    deltaTime: number;
-    gameTime: number;
-    _fps: number;
-    fps: number;
+    scenes: any[] | undefined;
+    _lastTimeUpdate: number | undefined;
+    delta: number | undefined;
+    deltaTime: number | undefined;
+    gameTime: number | undefined;
+    _fps: number | undefined;
+    fps: number | undefined;
     tabActive: boolean;
     /**
      * Add a new scene to the game
@@ -59,3 +59,4 @@ export default class CoreGameManager {
     private render;
 }
 export const CoreGameManagerInstance: CoreGameManager;
+//# sourceMappingURL=CoreGameManager.d.ts.map

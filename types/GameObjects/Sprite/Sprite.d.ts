@@ -1,7 +1,7 @@
 /**
  * @param {number} x - The horizontal position of this Sprite in the world.
  * @param {number} y - The vertical position of this Sprite in the world.
- * @param {number} key - The name of the Sprite.
+ * @param {string} key - The name of the Sprite.
  * @param {number} [frame=0] - The frame of the Sprite.
  * @param {number} [width=0] - The width of the Sprite.
  * @param {number} [height=0] - The height of the Sprite.
@@ -13,13 +13,12 @@
  * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32);
  *
  * @class Sprite
- * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
+ * @extends Impacto.GameObjects.Rectangle
  * @constructors
  */
 export default class Sprite {
     constructor(x: any, y: any, key: any, frame?: number, width?: number, height?: number);
-    texture: any;
+    texture: Object;
     frame: number;
     width: any;
     height: any;
@@ -29,20 +28,24 @@ export default class Sprite {
  * Sets the X position of the Sprite.
  *
  * @param {number} x - The horizontal position of this Sprite in the world.
+ * @memberof Sprite
  */
     set x(arg: number);
     /**
      * @returns {number} The horizontal position of this Sprite in the world relative to the origin.
+     * @memberof Sprite
      */
     get x(): number;
     /**
  * Sets the Y position of the Sprite.
  *
  * @param {number} y - The vertical position of this Sprite in the world.
+ * @memberof Sprite
  */
     set y(arg: number);
     /**
     * @returns {number} The vertical position of this Sprite in the world relative to the origin.
+    * @memberof Sprite
     */
     get y(): number;
     /**
@@ -52,10 +55,10 @@ export default class Sprite {
      * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).setFrame(1);
      *
      * @param {number} frame - The frame of the Sprite.
-     * @returns {Impacto.GameObjects.Sprite} The Sprite itself.
-     * @memberof Impacto.GameObjects.Sprite
+     * @returns {Sprite} The Sprite itself.
+     * @memberof Sprite
      */
-    setFrame(frame: number): Impacto.GameObjects.Sprite;
+    setFrame(frame: number): Sprite;
     /**
      * Returns the number of frames of this Sprite based on the width.
      *
@@ -63,7 +66,7 @@ export default class Sprite {
      * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).getNumFramesByWidth(); // 8
      *
      * @returns {number} The number of frames by width.
-     * @memberof Impacto.GameObjects.Sprite
+     * @memberof Sprite
      */
     getNumFramesByWidth(): number;
     /**
@@ -71,9 +74,9 @@ export default class Sprite {
      * Private (Core) function to render the position of the Sprite.
      *
      * @private
-     * @readonly
-     * @memberof Impacto.GameObjects.Sprite
+     * @memberof Sprite
      */
-    private readonly _renderType;
+    private _renderType;
 }
 import Animations from "./Animations.js";
+//# sourceMappingURL=Sprite.d.ts.map

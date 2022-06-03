@@ -45,3 +45,4 @@ import Rectangle from "./Rectangle/Rectangle.js";
 import Sprite from "./Sprite/Sprite.js";
 import Text from "./Text/Text.js";
 import Triangle from "./Triangle/Triangle.js";
+//# sourceMappingURL=GameObjects.d.ts.map

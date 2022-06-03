@@ -13,7 +13,6 @@
  *
  * @class Text
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 export default class Text {
@@ -33,42 +32,42 @@ export default class Text {
      * Returns the width of the text.
      *
      * @returns {number} The width of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     get width(): number;
     /**
      * Returns the height of the text.
      *
      * @returns {number} The height of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     get height(): number;
     /**
      * Sets the horizontal position of the text.
      *
      * @param {string} align - The horizontal position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     set x(arg: number);
     /**
      * Returns the horizontal position of the text.
      *
      * @returns {number} The horizontal position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     get x(): number;
     /**
      * Sets the vertical position of the text.
      *
      * @param {string} align - The vertical position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     set y(arg: number);
     /**
      * Returns the vertical position of the text.
      *
      * @returns {number} The vertical position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     get y(): number;
     /**
@@ -79,7 +78,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getTop(); // 300
      *
      * @returns {number} The top side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getTop(): number;
     /**
@@ -90,7 +89,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getBottom(); // 300
      *
      * @returns {number} The bottom side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getBottom(): number;
     /**
@@ -101,7 +100,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getLeft(); // 400
      *
      * @returns {number} The left side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getLeft(): number;
     /**
@@ -112,7 +111,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRight(); // 400
      *
      * @returns {number} The right side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRight(): number;
     /**
@@ -123,7 +122,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterX(); // 400
      *
      * @returns {number} The horizontal center position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getCenterX(): number;
     /**
@@ -134,7 +133,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterY(); // 300
      *
      * @returns {number} The vertical center position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getCenterY(): number;
     /**
@@ -145,7 +144,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealTop(); // 300
      *
      * @returns {number} The real top side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealTop(): number;
     /**
@@ -156,7 +155,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealBottom(); // 300
      *
      * @returns {number} The real bottom side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealBottom(): number;
     /**
@@ -167,7 +166,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealLeft(); // 400
      *
      * @returns {number} The real left side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealLeft(): number;
     /**
@@ -178,7 +177,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealRight(); // 400
      *
      * @returns {number} The real right side position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealRight(): number;
     /**
@@ -189,7 +188,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterX(); // 400
      *
      * @returns {number} The real horizontal center position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealCenterX(): number;
     /**
@@ -200,7 +199,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterY(); // 300
      *
      * @returns {number} The real vertical center position of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getRealCenterY(): number;
     /**
@@ -211,7 +210,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getWords(); // ["Hello", "World"]
      *
      * @returns {string[]} All words of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getWords(): string[];
     /**
@@ -222,7 +221,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getWordsCount(); // 2
      *
      * @returns {number} The number of words of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getWordsNumber(): number;
     /**
@@ -233,7 +232,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharacters(); // ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"]
      *
      * @returns {string[]} All characters of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getCharacters(): string[];
     /**
@@ -244,7 +243,7 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharactersCount(); // 11
      *
      * @returns {number} The number of characters of the text.
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
     getCharactersNumber(): number;
     /**
@@ -255,10 +254,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setText("MyText");
      *
      * @param {string} text The new text.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setText(text: string): Impacto.GameObjects.Text;
+    setText(text: string): Text;
     /**
      * @description
      * Change the font size.
@@ -267,10 +266,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontSize(20);
      *
      * @param {number} size The new font size.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFontSize(size: number): Impacto.GameObjects.Text;
+    setFontSize(size: number): Text;
     /**
      * @description
      * Change the font family.
@@ -279,10 +278,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontFamily("Arial");
      *
      * @param {string} family The new font family.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFontFamily(family: string): Impacto.GameObjects.Text;
+    setFontFamily(family: string): Text;
     /**
      * @description
      * Change the font style.
@@ -291,10 +290,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontStyle("italic");
      *
      * @param {string} style The new font style.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFontStyle(style: string): Impacto.GameObjects.Text;
+    setFontStyle(style: string): Text;
     /**
      * @description
      * Change the font variant.
@@ -303,10 +302,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontVariant("small-caps");
      *
      * @param {string} variant The new font variant.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFontVariant(variant: string): Impacto.GameObjects.Text;
+    setFontVariant(variant: string): Text;
     /**
      * @description
      * Change the font weight.
@@ -315,10 +314,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontWeight("bold");
      *
      * @param {string} weight The new font weight.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFontWeight(weight: string): Impacto.GameObjects.Text;
+    setFontWeight(weight: string): Text;
     /**
      * @description
      * Change the font.
@@ -333,10 +332,10 @@ export default class Text {
      * });
      *
      * @param {object} font The new properties of the font.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setFont(options: any): Impacto.GameObjects.Text;
+    setFont(options: any): Text;
     /**
      * @description
      * Change the vertical text alignment.
@@ -345,10 +344,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setVerticalAlignment("top");
      *
      * @param {string} align The new text alignment.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setAlignVertical(align: string): Impacto.GameObjects.Text;
+    setAlignVertical(align: string): Text;
     /**
      * @description
      * Change the horizontal text alignment.
@@ -357,10 +356,10 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setHorizontalAlignment("left");
      *
      * @param {string} align The new text alignment.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setAlignHorizontal(align: string): Impacto.GameObjects.Text;
+    setAlignHorizontal(align: string): Text;
     /**
      * @description
      * Change the direction of the text.
@@ -369,17 +368,17 @@ export default class Text {
      * new Impacto.GameObjects.Text(400, 300, "Hello World").setDirection("rtl");
      *
      * @param {string} direction The new text direction.
-     * @returns {Impacto.GameObjects.Text} The text object.
-     * @memberof Impacto.GameObjects.Text
+     * @returns {Text} The text object.
+     * @memberof Text
      */
-    setDirection(direction: string): Impacto.GameObjects.Text;
+    setDirection(direction: string): Text;
     /**
      * @description
      * Private (Core) function to render the position of the text.
      *
      * @private
-     * @readonly
-     * @memberof Impacto.GameObjects.Text
+     * @memberof Text
      */
-    private readonly _renderType;
+    private _renderType;
 }
+//# sourceMappingURL=Text.d.ts.map

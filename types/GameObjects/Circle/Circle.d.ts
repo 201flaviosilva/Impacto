@@ -13,7 +13,6 @@
  *
  * @class Circle
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 export default class Circle {
@@ -28,13 +27,12 @@ export default class Circle {
      * circ.x = 100;
      *
      * @param {number} x - The horizontal position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
+     * @memberof Circle
      */
     set x(arg: number);
     /**
      * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-     * @readonly
-     * @memberof Impacto.GameObjects.Circle
+     * @memberof Circle
      */
     get x(): number;
     /**
@@ -45,13 +43,12 @@ export default class Circle {
      * circ.y = 100;
      *
      * @param {number} y - The vertical position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
+     * @memberof Circle
      */
     set y(arg: number);
     /**
      * @returns {number} The vertical position of this Circle in the world relative to the origin.
-     * @readonly
-     * @memberof Impacto.GameObjects.Circle
+     * @memberof Circle
      */
     get y(): number;
     /**
@@ -62,12 +59,10 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).setRadius(100); // 100
      *
      * @param {number} radius - The radius of this Circle.
-     * @returns {Impacto.GameObjects.Circle} This Circle.
-     * @memberof Impacto.GameObjects.Circle
-     * @public
-     * @instance
+     * @returns {Circle} This Circle.
+     * @memberof Circle
      */
-    public setRadius(radius: number): Impacto.GameObjects.Circle;
+    setRadius(radius: number): Circle;
     /**
      * @description
      * Returns the top side position of the Circle.
@@ -76,12 +71,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getTop(); // 275
      *
      * @returns {number} The vertical position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getTop(): number;
+    getTop(): number;
     /**
      * @description
      * Returns the bottom side position of the Circle.
@@ -90,12 +82,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getBottom(); // 325
      *
      * @returns {number} The vertical position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getBottom(): number;
+    getBottom(): number;
     /**
      * @description
      * Returns the left side position of the Circle.
@@ -104,12 +93,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getLeft(); // 375
      *
      * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getLeft(): number;
+    getLeft(): number;
     /**
      * @description
      * Returns the right side position of the Circle.
@@ -118,12 +104,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRight(); // 425
      *
      * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRight(): number;
+    getRight(): number;
     /**
      * @description
      * Returns the center X position of the Circle.
@@ -132,12 +115,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getCenterX(); // 400
      *
      * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getCenterX(): number;
+    getCenterX(): number;
     /**
      * @description
      * Returns the center Y position of the Circle.
@@ -146,12 +126,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getCenterY(); // 300
      *
      * @returns {number} The vertical position of this Circle in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getCenterY(): number;
+    getCenterY(): number;
     /**
      * @description
      * Returns the real top side position of the Circle (not relative to the origin).
@@ -160,12 +137,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealTop(); // 275
      *
      * @returns {number} The vertical position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealTop(): number;
+    getRealTop(): number;
     /**
      * @description
      * Returns the real bottom side position of the Circle (not relative to the origin).
@@ -174,12 +148,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealBottom(); // 325
      *
      * @returns {number} The vertical position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealBottom(): number;
+    getRealBottom(): number;
     /**
      * @description
      * Returns the real left side position of the Circle (not relative to the origin).
@@ -188,12 +159,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealLeft(); // 375
      *
      * @returns {number} The horizontal position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealLeft(): number;
+    getRealLeft(): number;
     /**
      * @description
      * Returns the real right side position of the Circle (not relative to the origin).
@@ -202,12 +170,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealRight(); // 425
      *
      * @returns {number} The horizontal position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealRight(): number;
+    getRealRight(): number;
     /**
      * @description
      * Returns the real center X position of the Circle (not relative to the origin).
@@ -216,12 +181,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealCenterX(); // 400
      *
      * @returns {number} The horizontal position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealCenterX(): number;
+    getRealCenterX(): number;
     /**
      * @description
      * Returns the real center Y position of the Circle (not relative to the origin).
@@ -230,12 +192,9 @@ export default class Circle {
      * new Impacto.GameObjects.Circle(400, 300, 50).getRealCenterY(); // 300
      *
      * @returns {number} The vertical position of this Circle in the world.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Circle
      */
-    public readonly getRealCenterY(): number;
+    getRealCenterY(): number;
     /**
      * @description
      * Returns a box that encloses the Circle.
@@ -243,21 +202,17 @@ export default class Circle {
      * @example
      * new Impacto.GameObjects.Circle(400, 300, 50).getBounds(); // { x: 375, y: 275, width: 150, height: 150 }
      *
-     * @returns {Impacto.GameObjects.Box} A box that encloses the Circle.
-     * @memberof Impacto.GameObjects.Circle
-     * @readonly
-     * @public
-     * @instance
-     * @function
+     * @returns {Object} A box that encloses the Circle.
+     * @memberof Circle
      */
-    public readonly getBounds(): Impacto.GameObjects.Box;
+    getBounds(): Object;
     /**
      * @description
      * Private (Core) function to render the position of the Circle.
      *
-     * @memberof Impacto.GameObjects.Circle
+     * @memberof Circle
      * @private
-     * @readonly
      */
-    private readonly _renderType;
+    private _renderType;
 }
+//# sourceMappingURL=Circle.d.ts.map

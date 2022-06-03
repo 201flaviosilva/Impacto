@@ -1,15 +1,13 @@
 /**
  * @class AssetsManager
  * @description A class to manage the assets.
- * @memberof Impacto.State
- * @instance
  */
 export default class AssetsManager {
     assets: {
         audios: {};
         fonts: {};
         sprites: {};
-    };
+    } | undefined;
     /**
      * Load the assets
      *
@@ -22,23 +20,25 @@ export default class AssetsManager {
      *
      *
      * @param {Object} assets - The assets to load
-     * @memberof Impacto.State.AssetsManager
+     * @returns {void}
+     * @memberof AssetsManager
      */
-    load(assets: any): Promise<void>;
+    load(assets: Object): void;
     /**
      * Load a sprite
      *
      * @param {string} name - The name of the sprite
      * @param {string} path - The path of the sprite
-     * @memberof Impacto.State.AssetsManager
+     * @returns {void}
+     * @memberof AssetsManager
      */
-    loadSprite(name: string, path: string): Promise<void>;
+    loadSprite(name: string, path: string): void;
     /**
      * @description
      * Private (Core) function to load images/sprites
      *
+     * @memberof AssetsManager
      * @private
-     * @memberof Impacto.State.AssetsManager
      */
     private _loadImage;
     /**
@@ -46,23 +46,25 @@ export default class AssetsManager {
      *
      * @param {string} name - The name of the font
      * @param {string} path - The path of the font
-     * @memberof Impacto.State.AssetsManager
+     * @returns {void}
+     * @memberof AssetsManager
      */
-    loadFont(name: string, path: string): Promise<void>;
+    loadFont(name: string, path: string): void;
     /**
      * Load a sound
      *
      * @param {string} name - The name of the sound
      * @param {string} path - The path of the sound
-     * @memberof Impacto.State.AssetsManager
+     * @returns {void}
+     * @memberof AssetsManager
      */
-    loadAudios(name: string, path: string): Promise<void>;
+    loadAudios(name: string, path: string): void;
     /**
      * @description
      * Private (Core) function to load sounds/audios
      *
+     * @memberof AssetsManager
      * @private
-     * @memberof Impacto.State.AssetsManager
      */
     private _loadAudio;
     /**
@@ -70,15 +72,15 @@ export default class AssetsManager {
      *
      * @param {string} name - The name of the sprite
      * @returns {Object} The sprite
-     * @memberof Impacto.State.AssetsManager
+     * @memberof AssetsManager
      */
-    getSprite(name: string): any;
+    getSprite(name: string): Object;
     /**
      * Return the font based on the name
      *
      * @param {string} name - The name of the font
      * @returns {string} The font
-     * @memberof Impacto.State.AssetsManager
+     * @memberof AssetsManager
      */
     getFont(name: string): string;
     /**
@@ -86,16 +88,17 @@ export default class AssetsManager {
      *
      * @param {string} name - The name of the audio
      * @returns {Object} The audio
-     * @memberof Impacto.State.AssetsManager
+     * @memberof AssetsManager
      */
-    getAudio(name: string): any;
+    getAudio(name: string): Object;
     /**
      * Return the size of the sprite
      *
      * @param {string} name - The name of the sprite
      * @returns {Object} The size of the sprite
-     * @memberof Impacto.State.AssetsManager
+     * @memberof AssetsManager
      */
-    getSpriteSize(name: string): any;
+    getSpriteSize(name: string): Object;
 }
 export const AssetsManagerInstance: AssetsManager;
+//# sourceMappingURL=AssetsManager.d.ts.map

@@ -1,14 +1,11 @@
 /**
  * @classdesc
- * The Rectangle Shape is a 2D Game Object that can be added to a Scene.
- * Its possible to set a rounder corner radius.
+ * Manages the mouse input.
  *
  * @example
- * const { left } = Impacto.Inputs.KeyBoard.keys;
- * if (Impacto.Inputs.KeyBoard.isKeyPressed(left)) { console.log("Left"); }
+ * const { x, y } = Impacto.Inputs.Mouse;
  *
- * @class KeyboardManager
- * @memberof Impacto.Inputs
+ * @class MouseManager
  * @constructors
  */
 export default class MouseManager {
@@ -23,25 +20,26 @@ export default class MouseManager {
     };
     isDown: {};
     /**
+     * @description
      * Returns the mouse position relative to the canvas.
      *
      * @example
      * const { x, y } = Impacto.Inputs.Mouse.getPosition();
      *
-     * @returns {Object} - The current mouse position {x, y}
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {Object} The current mouse position {x, y}
+     * @memberof MouseManager
      */
-    getPosition(): any;
+    getPosition(): Object;
     /**
      * Returns the mouse position relative to the window.
      *
      * @example
      * const { x, y } = Impacto.Inputs.Mouse.getWindowPosition();
      *
-     * @returns {Object} - The current mouse position {x, y}
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {Object} The current mouse position {x, y}
+     * @memberof MouseManager
      */
-    getWindowPosition(): any;
+    getWindowPosition(): Object;
     /**
      * Returns the name of the button by the button code.
      *
@@ -49,8 +47,8 @@ export default class MouseManager {
      * console.log(Impacto.Inputs.Mouse.getNameByButtonCode(1)); // "middle"
      *
      * @param {number} buttonCode - The button code
-     * @returns {string} - The name of the button
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {string} The name of the button
+     * @memberof MouseManager
      */
     getNameByButtonCode(buttonCode: number): string;
     /**
@@ -60,8 +58,8 @@ export default class MouseManager {
      * console.log(Impacto.Inputs.Mouse.getButtonCodeByName("left")); // 0
      *
      * @param {string} buttonName - The name of the button
-     * @returns {number} - The button code
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {number} The button code
+     * @memberof MouseManager
      */
     getButtonKeyByName(name: any): number;
     /**
@@ -71,8 +69,8 @@ export default class MouseManager {
      * Impacto.Inputs.Mouse.isButtonPressed("left") // True
      *
      * @param {string|number} button - The button name or code
-     * @returns {boolean} - True if the button is pressed
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {boolean} True if the button is pressed
+     * @memberof MouseManager
      */
     isButtonDown(button: string | number): boolean;
     /**
@@ -82,8 +80,8 @@ export default class MouseManager {
      * Impacto.Inputs.Mouse.isButtonDownByName("left") // True
      *
      * @param {string|number} button - The button name
-     * @returns {boolean} - True if the button is pressed
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {boolean} True if the button is pressed
+     * @memberof MouseManager
      */
     isButtonDownByName(name: any): boolean;
     /**
@@ -93,41 +91,42 @@ export default class MouseManager {
      * Impacto.Inputs.Mouse.isButtonDownByName(2) // True
      *
      * @param {string|number} button - The button code
-     * @returns {boolean} - True if the button is pressed
-     * @memberof Impacto.Inputs.MouseManager
+     * @returns {boolean} True if the button is pressed
+     * @memberof MouseManager
      */
     isButtonDownByButtonCode(buttonCode: any): boolean;
     /**
      * @description
      * Private (Core) function to handle the mouse position.
      *
+     * @memberof KeyBoard
      * @private
-     * @memberof Impacto.Inputs.KeyBoard
      */
     private _updateMousePosition;
     /**
      * @description
      * Private (Core) function to handle the mouse position.
      *
+     * @memberof KeyBoard
      * @private
-     * @memberof Impacto.Inputs.KeyBoard
      */
     private _mousemove;
     /**
      * @description
      * Private (Core) function to handle the mouse position.
      *
+     * @memberof KeyBoard
      * @private
-     * @memberof Impacto.Inputs.KeyBoard
      */
     private _mousedown;
     /**
      * @description
      * Private (Core) function to handle the mouse position.
      *
+     * @memberof KeyBoard
      * @private
-     * @memberof Impacto.Inputs.KeyBoard
      */
     private _mouseup;
 }
 export const MouseInstance: MouseManager;
+//# sourceMappingURL=Mouse.d.ts.map

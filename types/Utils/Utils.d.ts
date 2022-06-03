@@ -1,11 +1,9 @@
 /**
  * @class Utils
  * @description Utils class
- * @memberof Impacto
  * @instance
  */
 export default class Utils {
-    Math: ImpactoMath;
     /**
      * @description
      * Returns teh current version of the library
@@ -13,11 +11,13 @@ export default class Utils {
      * @example
      * console.log(Impacto.Utils.getVersion());
      *
-     * @returns {String}
-     * @memberof Impacto.Utils
-     * @method getVersion
+     * @returns {String} The current version of the library
+     * @memberof Utils
+     * @static
      */
-    getVersion(): string;
+    static getVersion(): string;
+    Math: ImpactoMath;
 }
 export const UtilsInstance: Utils;
 import ImpactoMath from "./Math.js";
+//# sourceMappingURL=Utils.d.ts.map

@@ -9,3 +9,4 @@ declare namespace Types {
     const text: string;
     const triangle: string;
 }
+//# sourceMappingURL=Types.d.ts.map
