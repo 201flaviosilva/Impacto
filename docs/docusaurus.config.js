@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Impacto",
   tagline: "A modular javascript canvas render",
-  url: "https://201flaviosilva-labs.github.io/Impacto/",
+  url: "https://201flaviosilva-labs.github.io/",
   baseUrl: "/Impacto/",
   staticDirectories: ["static", "jsdoc"],
   onBrokenLinks: "throw",
