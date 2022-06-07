@@ -4,20 +4,20 @@ import Types from "../Types.js";
 
 
 /**
- * @property {string} src - The source of the audio file.
+ * @property {string} key - The key of the sprite.
  * @property {boolean} loop - If the audio file should loop.
  * @property {boolean} paused - If the audio file is paused.
  * @property {number} volume - The volume of the audio file.
  * @property {boolean} muted - If the audio file should be muted.
  * @property {number} delay - The delay of the audio file.
-
- * @classdesc AudioPlay is a class that plays audio files.
+ * 
+ * @classdesc 
+ * AudioPlay is a class that plays audio files.
  * 
  * @example
  * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
  * 
  * @class AudioPlay
- * @memberof Impacto.GameObjects
  */
 export default class AudioPlay {
 	constructor(key, loop = false, paused = false, volume = GlobalStateManagerInstance.volume, muted = false, delay = 0) {
@@ -26,10 +26,7 @@ export default class AudioPlay {
 		* @default ""
 		* @description The source of the audio file.
 		*
-		* @memberof Impacto.GameObjects.AudioPlay
-		* @readonly
-		* @instance
-		* @public
+		* @memberof AudioPlay
 		*/
 		this.name = key;
 
@@ -46,10 +43,7 @@ export default class AudioPlay {
 		 * @default false
 		 * @description If the audio file should loop.
 		 * 
-		 * @memberof Impacto.GameObjects.AudioPlay
-		 * @readonly
-		 * @instance
-		 * @public
+		 * @memberof AudioPlay
 		 */
 		this.paused = paused;
 
@@ -58,10 +52,7 @@ export default class AudioPlay {
 		 * @default 1
 		 * @description The volume on reproducing the audio file.
 		 * 
-		 * @memberof Impacto.GameObjects.AudioPlay
-		 * @readonly
-		 * @instance
-		 * @public
+		 * @memberof AudioPlay
 		 */
 		this.volume = volume;
 
@@ -70,10 +61,7 @@ export default class AudioPlay {
 		 * @default false
 		 * @description If the audio should be in loop.
 		 * 
-		 * @memberof Impacto.GameObjects.AudioPlay
-		 * @readonly
-		 * @instance
-		 * @public
+		 * @memberof AudioPlay
 		 */
 		this.loop = loop;
 
@@ -82,10 +70,7 @@ export default class AudioPlay {
 		 * @default false
 		 * @description If the audio should be muted.
 		 * 
-		 * @memberof Impacto.GameObjects.AudioPlay
-		 * @readonly
-		 * @instance
-		 * @public
+		 * @memberof AudioPlay
 		 */
 		this.muted = muted;
 
@@ -94,12 +79,17 @@ export default class AudioPlay {
 		 * @default 0
 		 * @description The delay of the audio file.
 		 * 
-		 * @memberof Impacto.GameObjects.AudioPlay
-		 * @readonly
-		 * @instance
-		 * @public
+		 * @memberof AudioPlay
 		 */
 		this.delay = delay;
+
+		/**
+		 * @type {number}
+		 * @default 0
+		 * @description The time of the audio file.
+		 * 
+		 * @memberof AudioPlay
+		 */
 		this.loopDelay = delay; // TODO: not implemented yet
 
 		/**
@@ -124,12 +114,8 @@ export default class AudioPlay {
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.play();
 	 * 
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	play() {
 		if (this._delayTimer) clearTimeout(this._delayTimer);
@@ -150,12 +136,8 @@ export default class AudioPlay {
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.playOnce();
 	 * 
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	playOnce() {
 		if (this._delayTimer) clearTimeout(this._delayTimer);
@@ -172,12 +154,8 @@ export default class AudioPlay {
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.pause();
 	 * 
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	pause() {
 		if (this._delayTimer) clearTimeout(this._delayTimer);
@@ -193,12 +171,8 @@ export default class AudioPlay {
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.resume();
 	 * 
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	resume() {
 		if (this._delayTimer) clearTimeout(this._delayTimer);
@@ -215,12 +189,8 @@ export default class AudioPlay {
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.stop();
 	 * 
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	stop() {
 		if (this._delayTimer) clearTimeout(this._delayTimer);
@@ -237,12 +207,8 @@ export default class AudioPlay {
 	 * myAudioPlay.setVolume(0.5);
 	 * 
 	 * @param {number} volume - The volume of the audio file.
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	setVolume(volume) {
 		this.volume = volume;
@@ -258,12 +224,8 @@ export default class AudioPlay {
 	 * myAudioPlay.setLoop(true);
 	 * 
 	 * @param {boolean} loop - If the audio file should be looping.
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	setLoop(loop) {
 		this.loop = loop;
@@ -279,12 +241,8 @@ export default class AudioPlay {
 	 * myAudioPlay.setDelay(1000);
 	 * 
 	 * @param {number} delay - The delay of the audio file.
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	setMuted(muted) {
 		this.muted = muted;
@@ -300,12 +258,8 @@ export default class AudioPlay {
 	 * myAudioPlay.setDelay(1000);
 	 * 
 	 * @param {number} delay - The delay of the audio file.
-	 * @returns {Impacto.GameObjects.AudioPlay}
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
 	 */
 	setDelay(delay) {
 		this.delay = delay;
@@ -314,19 +268,14 @@ export default class AudioPlay {
 
 	/**
 	 * @description Check if the audio file is ended playing.
+	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended}
 	 * 
 	 * @example
 	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
 	 * myAudioPlay.isEnded();
 	 * 
 	 * @returns {boolean} If the audio file is ended playing.
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
-	 * @readonly
-	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended}
+	 * @memberof AudioPlay
 	 */
 	isEnded() { return this.audio.ended; }
 
@@ -338,12 +287,7 @@ export default class AudioPlay {
 	 * myAudioPlay.getDuration();
 	 * 
 	 * @returns {number} The time of the audio file.
-	 * 
-	 * @memberof Impacto.GameObjects.AudioPlay
-	 * @instance
-	 * @public
-	 * @function
-	 * @readonly
+	 * @memberof AudioPlay
 	 */
 	getDuration() { return this.audio.duration; }
 }

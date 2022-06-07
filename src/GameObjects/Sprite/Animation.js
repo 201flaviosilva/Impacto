@@ -6,6 +6,9 @@
  * @param {number} speed - The speed of the Animations.
  * @param {boolean} [loop=true] - Whether the Animations should loop or not.
  * 
+ * @classdesc
+ * A class to animate a sprite
+ * 
  * @example
  * new Animation(MySprite, "Default", 0, 10, 100, true);
  * 
@@ -34,7 +37,7 @@ export default class Animation {
 	 * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setName("MyNewName");
 	 * 
 	 * @param {string} newName - The 
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	setName(newName) {
@@ -50,7 +53,7 @@ export default class Animation {
 	 * 
 	 * @param {string} name - The name of the Animation.
 	 * @param {number} speed - The new speed of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	setSpeed(speed) {
@@ -65,7 +68,7 @@ export default class Animation {
 	 * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setStartFrame(5);
 	 * 
 	 * @param {number} startFrame - The new start frame of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	setStartFrame(startFrame) {
@@ -80,7 +83,7 @@ export default class Animation {
 	 * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setNumberOfFrames(5);
 	 * 
 	 * @param {number} numberOfFrames - The new number of frames of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	setNumberOfFrames(numberOfFrames) {
@@ -95,7 +98,7 @@ export default class Animation {
 	 * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100, true).setLoop(false);
 	 * 
 	 * @param {boolean} loop - The new loop of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	setLoop(loop) {
@@ -109,7 +112,7 @@ export default class Animation {
 	 * @example
 	 * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).reset();
 	 * 
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animation
 	 */
 	reset() {
@@ -123,7 +126,6 @@ export default class Animation {
 	 * Private (Core) function to update the animation.
 	 * 
 	 * @private
-	 * @readonly
 	 * @memberof Animation
 	 */
 	_update(deltaTime) {

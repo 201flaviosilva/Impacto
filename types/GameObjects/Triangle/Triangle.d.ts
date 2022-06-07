@@ -14,7 +14,6 @@
  *
  * @class Triangle
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 export default class Triangle {
@@ -26,20 +25,24 @@ export default class Triangle {
      * Sets the X position of the Triangle.
      *
      * @param {number} x - The horizontal position of this Triangle in the world.
+     * @memberof Triangle
      */
     set x(arg: number);
     /**
      * @returns {number} The horizontal position of this Triangle in the world relative to the origin.
+     * @memberof Triangle
      */
     get x(): number;
     /**
      * Sets the Y position of the Triangle.
      *
      * @param {number} y - The vertical position of this Triangle in the world.
+     * @memberof Triangle
      */
     set y(arg: number);
     /**
      * @returns {number} The vertical position of this Triangle in the world relative to the origin.
+     * @memberof Triangle
      */
     get y(): number;
     /**
@@ -49,7 +52,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getTop(); // 300
      *
      * @returns {number} The topmost point of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getTop(): number;
     /**
@@ -59,7 +62,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getBottom(); // 400
      *
      * @returns {number} The bottommost point of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getBottom(): number;
     /**
@@ -69,7 +72,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getLeft(); // 400
      *
      * @returns {number} The leftmost point of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getLeft(): number;
     /**
@@ -79,7 +82,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRight(); // 500
      *
      * @returns {number} The rightmost point of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRight(): number;
     /**
@@ -89,7 +92,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getCenterX(); // 450
      *
      * @returns {number} The width of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getCenterX(): number;
     /**
@@ -99,7 +102,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getCenterY(); // 450
      *
      * @returns {number} The height of the triangle
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getCenterY(): number;
     /**
@@ -109,7 +112,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealTop(); // 300
      *
      * @returns {number} The real top position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealTop(): number;
     /**
@@ -119,7 +122,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealBottom(); // 400
      *
      * @returns {number} The real bottom position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealBottom(): number;
     /**
@@ -129,7 +132,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealLeft(); // 400
      *
      * @returns {number} The real left position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealLeft(): number;
     /**
@@ -139,7 +142,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealRight(); // 400
      *
      * @returns {number} The real right position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealRight(): number;
     /**
@@ -149,7 +152,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealCenterX(); // 450
      *
      * @returns {number} The real center position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealCenterX(): number;
     /**
@@ -159,7 +162,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealCenterY(); // 450
      *
      * @returns {number} The real center position of the triangle in the world
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getRealCenterY(): number;
     /**
@@ -169,10 +172,10 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).setWidth(200); // 200
      *
      * @param {number} width - The new width of the triangle.
-     * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-     * @memberof Impacto.GameObjects.Triangle
+     * @returns {Triangle} The triangle itself.
+     * @memberof Triangle
      */
-    setWidth(width: number): Impacto.GameObjects.Triangle;
+    setWidth(width: number): Triangle;
     /**
      * Change the height of the triangle.
      *
@@ -180,10 +183,10 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).setHeight(200); // 200
      *
      * @param {number} height - The new height of the triangle.
-     * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-     * @memberof Impacto.GameObjects.Triangle
+     * @returns {Triangle} The triangle itself.
+     * @memberof Triangle
      */
-    setHeight(height: number): Impacto.GameObjects.Triangle;
+    setHeight(height: number): Triangle;
     /**
      * Change the size of the triangle.
      *
@@ -194,10 +197,10 @@ export default class Triangle {
      *
      * @param {number} width - The new width of the triangle.
      * @param {number} height - The new height of the triangle.
-     * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-     * @memberof Impacto.GameObjects.Triangle
+     * @returns {Triangle} The triangle itself.
+     * @memberof Triangle
      */
-    setSize(width: number, height?: number): Impacto.GameObjects.Triangle;
+    setSize(width: number, height?: number): Triangle;
     /**
      * Calculate the area of the triangle.
      *
@@ -205,7 +208,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getArea(); // 5000
      *
      * @returns {number} The area of the triangle.
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getArea(): number;
     /**
@@ -215,7 +218,7 @@ export default class Triangle {
      * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getPerimeter(); // 300
      *
      * @returns {number} The perimeter of the triangle.
-     * @memberof Impacto.GameObjects.Triangle
+     * @memberof Triangle
      */
     getPerimeter(): number;
     /**
@@ -227,16 +230,16 @@ export default class Triangle {
      *  {"x": 200,"y": 100},
      *  {"x": 150,"y": 200}]
      *
-     * @returns {Object} The triangle's vertices.
-     * @memberof Impacto.GameObjects.Triangle
+     * @returns {Object[]} The triangle's vertices.
+     * @memberof Triangle
      */
-    getVertices(): any;
+    getVertices(): Object[];
     /**
      * Private (Core) function to render.
      *
+     * @memberof Polygon
      * @private
-     * @readonly
-     * @memberof Impacto.GameObjects.Polygon
      */
-    private readonly _renderType;
+    private _renderType;
 }
+//# sourceMappingURL=Triangle.d.ts.map

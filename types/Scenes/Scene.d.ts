@@ -6,13 +6,12 @@
  * class MyScene extends Scene {}
  *
  * @class Scene
- * @memberof Impacto
  * @constructors
  */
 export default class Scene {
     children: any[];
     collisions: {
-        layer1: any[];
+        layer1: never[];
     };
     time: {
         delta: number;
@@ -28,10 +27,10 @@ export default class Scene {
      * this.addChild(mySprite);
      *
      * @param {Impacto.GameObject} child - The child to add
-     * @returns {Impacto.Scene} This scene
-     * @memberof Impacto.Scene
+     * @returns {Scene} This scene
+     * @memberof Scene
      */
-    addChild(child: Impacto.GameObject): Impacto.Scene;
+    addChild(child: Impacto.GameObject): Scene;
     /**
      * @description
      * Remove a child from the scene
@@ -40,10 +39,10 @@ export default class Scene {
      * this.removeChild(mySprite);
      *
      * @param {Impacto.GameObject} child - The child to remove
-     * @returns {Impacto.Scene} This scene
-     * @memberof Impacto.Scene
+     * @returns {Scene} This scene
+     * @memberof Scene
      */
-    removeChild(child: Impacto.GameObject): Impacto.Scene;
+    removeChild(child: Impacto.GameObject): Scene;
     /**
      * @description
      * The entry point of the scene, this function is called once when the scene is loaded
@@ -57,7 +56,7 @@ export default class Scene {
      * 	}
      * }
      *
-     * @memberof Impacto.Scene
+     * @memberof Scene
      */
     start(): void;
     /**
@@ -72,7 +71,7 @@ export default class Scene {
      * }
      *
      * @param {number} delta - The time since the last frame
-     * @memberof Impacto.Scene
+     * @memberof Scene
      */
     update(delta: number): void;
     /**
@@ -87,7 +86,8 @@ export default class Scene {
      * }
      *
      * @param {CanvasRenderingContext2D} context - The canvas context
-     * @memberof Impacto.Scene
+     * @memberof Scene
      */
     posRender(context: CanvasRenderingContext2D): void;
 }
+//# sourceMappingURL=Scene.d.ts.map

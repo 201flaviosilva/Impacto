@@ -31,8 +31,6 @@ __webpack_require__.d(__webpack_exports__, {
 /**
  * @class AssetsManager
  * @description A class to manage the assets.
- * @memberof Impacto.State
- * @instance
  */
 class AssetsManager {
   constructor() {
@@ -56,7 +54,8 @@ class AssetsManager {
    * 
    * 
    * @param {Object} assets - The assets to load
-   * @memberof Impacto.State.AssetsManager
+   * @returns {void}
+   * @memberof AssetsManager
    */
 
 
@@ -96,7 +95,8 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the sprite
    * @param {string} path - The path of the sprite
-   * @memberof Impacto.State.AssetsManager
+   * @returns {void}
+   * @memberof AssetsManager
    */
 
 
@@ -112,8 +112,8 @@ class AssetsManager {
    * @description
    * Private (Core) function to load images/sprites
    * 
+   * @memberof AssetsManager
    * @private
-   * @memberof Impacto.State.AssetsManager
    */
 
 
@@ -133,7 +133,8 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the font
    * @param {string} path - The path of the font
-   * @memberof Impacto.State.AssetsManager
+   * @returns {void}
+   * @memberof AssetsManager
    */
 
 
@@ -152,20 +153,20 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the sound
    * @param {string} path - The path of the sound
-   * @memberof Impacto.State.AssetsManager
+   * @returns {void}
+   * @memberof AssetsManager
    */
 
 
   async loadAudios(name, path) {
     this.assets.audios[name] = await this._loadAudio(path);
-    console.log(this.assets.audios[name]);
   }
   /**
    * @description
    * Private (Core) function to load sounds/audios
    * 
+   * @memberof AssetsManager
    * @private
-   * @memberof Impacto.State.AssetsManager
    */
 
 
@@ -185,7 +186,7 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the sprite
    * @returns {Object} The sprite
-   * @memberof Impacto.State.AssetsManager
+   * @memberof AssetsManager
    */
 
 
@@ -197,7 +198,7 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the font
    * @returns {string} The font
-   * @memberof Impacto.State.AssetsManager
+   * @memberof AssetsManager
    */
 
 
@@ -209,7 +210,7 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the audio
    * @returns {Object} The audio
-   * @memberof Impacto.State.AssetsManager
+   * @memberof AssetsManager
    */
 
 
@@ -221,7 +222,7 @@ class AssetsManager {
    * 
    * @param {string} name - The name of the sprite
    * @returns {Object} The size of the sprite
-   * @memberof Impacto.State.AssetsManager
+   * @memberof AssetsManager
    */
 
 
@@ -240,8 +241,6 @@ const AssetsManagerInstance = new AssetsManager();
 /**
  * @class CanvasState
  * @description A class to manage canvas state.
- * @memberof Impacto.State
- * @instance
  */
 class CanvasState {
   constructor() {
@@ -259,7 +258,8 @@ class CanvasState {
    * If not specified, the canvas will be appended to the body.
    * 
    * @param {string|HTMLElement} parent - The parent element of the canvas
-   * @memberof Impacto.State.CanvasState
+   * @returns {void}
+   * @memberof CanvasState
    */
 
 
@@ -272,7 +272,8 @@ class CanvasState {
    * If the canvas is not specified, a new canvas will be created.
    * 
    * @param {string|HTMLElement} canvas - The canvas element
-   * @memberof Impacto.State.CanvasState
+   * @returns {void}
+   * @memberof CanvasState
    */
 
 
@@ -288,7 +289,8 @@ class CanvasState {
    * 
    * @param {number} width - The width of the canvas. Default 800
    * @param {number} height - The height of the canvas. Default 600
-   * @memberof Impacto.State.CanvasState
+   * @returns {void}
+   * @memberof CanvasState
    */
 
 
@@ -305,7 +307,8 @@ class CanvasState {
    * Change the background color of the canvas.
    * 
    * @param {number|string} color - The background color of the canvas. Default black
-   * @memberof Impacto.State.CanvasState
+   * @returns {void}
+   * @memberof CanvasState
    */
 
 
@@ -320,8 +323,6 @@ const CanvasStateInstance = new CanvasState();
 /**
  * @class GlobalStateManager
  * @description A class to manage all global states.
- * @memberof Impacto.State
- * @instance
  */
 class GlobalStateManager {
   constructor() {
@@ -333,9 +334,11 @@ class GlobalStateManager {
     this.volume = 1; // TODO: // Audio default volume
   }
   /**
-   * 
+   * Pauses/Unpauses the game.
    * 
    * @param {boolean} pause - Pause the game
+   * @returns {void}
+   * @memberof GlobalStateManager
    */
 
 
@@ -346,7 +349,8 @@ class GlobalStateManager {
   * Change the volume of the audio.
   * 
   * @param {number} volume - The volume of the audio. Default 1
-  * @memberof Impacto.State.GlobalStateManager
+  * @returns {void}
+  * @memberof GlobalStateManager
   */
 
 
@@ -513,8 +517,11 @@ const CoreGameManagerInstance = new CoreGameManager();
 
 
 /**
+ * @param {Object} config - The configuration of the game
+ * 
  * @class Game
  * @description The main class of the game.
+ * 
  * @example
  * class Game extends Impacto.Scene {
  * 	start() {
@@ -530,6 +537,7 @@ const CoreGameManagerInstance = new CoreGameManager();
  * 	scene: Game,
  * });
  * 
+ * @constructor
  */
 
 class Game {
@@ -561,7 +569,6 @@ class Game {
  * class MyScene extends Scene {}
  * 
  * @class Scene
- * @memberof Impacto
  * @constructors 
  */
 class Scene {
@@ -585,8 +592,8 @@ class Scene {
    * this.addChild(mySprite);
    * 
    * @param {Impacto.GameObject} child - The child to add
-   * @returns {Impacto.Scene} This scene
-   * @memberof Impacto.Scene
+   * @returns {Scene} This scene
+   * @memberof Scene
    */
 
 
@@ -601,8 +608,8 @@ class Scene {
    * this.removeChild(mySprite);
    * 
    * @param {Impacto.GameObject} child - The child to remove
-   * @returns {Impacto.Scene} This scene
-   * @memberof Impacto.Scene
+   * @returns {Scene} This scene
+   * @memberof Scene
    */
 
 
@@ -623,7 +630,7 @@ class Scene {
    * 	}
    * }
    *
-   * @memberof Impacto.Scene
+   * @memberof Scene
    */
 
 
@@ -640,7 +647,7 @@ class Scene {
    * }
    * 
    * @param {number} delta - The time since the last frame
-   * @memberof Impacto.Scene
+   * @memberof Scene
    */
 
 
@@ -657,7 +664,7 @@ class Scene {
    * }
    * 
    * @param {CanvasRenderingContext2D} context - The canvas context
-   * @memberof Impacto.Scene
+   * @memberof Scene
    */
 
 
@@ -909,7 +916,6 @@ const UtilsMathInstance = new UtilsMath();
  * }
  * 
  * @class GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 
@@ -953,8 +959,8 @@ class GameObject2D {
    * obj.setName("My Game Object");
    * 
    * @param {string} name - The name of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -970,8 +976,8 @@ class GameObject2D {
    * obj.setX(100);
    * 
    * @param {number} x - The horizontal position of the game object in the world.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -987,8 +993,8 @@ class GameObject2D {
    * obj.setY(100);
    * 
    * @param {number} y - The vertical position of the game object in the world.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1004,8 +1010,8 @@ class GameObject2D {
    * obj.setZ(100);
    * 
    * @param {number} z - The Z position of the game object in the world.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1020,9 +1026,8 @@ class GameObject2D {
    * @example
    * obj.getPosition();
    * 
-   * @returns {Object} - {x:number, y:number, z:number} - The position of the object in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {Object} {x:number, y:number, z:number} - The position of the object in the world.
+   * @memberof GameObject2D
    */
 
 
@@ -1040,9 +1045,8 @@ class GameObject2D {
    * @example
    * obj.getRealPosition();
    * 
-   * @returns {Object} - {x:number, y:number, z:number} - The real position of the object in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {Object} {x:number, y:number, z:number} - The real position of the object in the world.
+   * @memberof GameObject2D
    */
 
 
@@ -1063,8 +1067,8 @@ class GameObject2D {
    * @param {number} x - The horizontal position of the game object in the world.
    * @param {number} y - The vertical position of the game object in the world.
    * @param {number} z - The Z position of the game object in the world.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1086,8 +1090,8 @@ class GameObject2D {
    * @example
    * obj.setRandomPosition();
    * 
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1103,8 +1107,8 @@ class GameObject2D {
    * obj.setRotation(1.5);
    * 
    * @param {number} rotation - The rotation of the game object in the world in radians.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1121,8 +1125,8 @@ class GameObject2D {
    * obj.setAngle(90);
    * 
    * @param {number} angle - The angle of the game object in the world in degrees.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1139,8 +1143,8 @@ class GameObject2D {
    * obj.setScaleX(2);
    * 
    * @param {number} scaleX - The horizontal scale of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1156,8 +1160,8 @@ class GameObject2D {
    * obj.setScaleY(2);
    * 
    * @param {number} scaleY - The vertical scale of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1173,8 +1177,8 @@ class GameObject2D {
    * obj.setScale(2);
    * 
    * @param {number} scale - The scale of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1194,8 +1198,8 @@ class GameObject2D {
    * obj.setOriginX(0.5);
    * 
    * @param {number} originX - The horizontal origin point of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1212,8 +1216,8 @@ class GameObject2D {
    * obj.setOriginY(0.5);
    * 
    * @param {number} originY - The vertical origin point of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1230,8 +1234,8 @@ class GameObject2D {
    * obj.setOrigin(0.5);
    * 
    * @param {number} origin - The origin point of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1250,8 +1254,8 @@ class GameObject2D {
    * obj.setFillColor("#FF0000");
    * 
    * @param {string} color - The fill color of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1267,7 +1271,8 @@ class GameObject2D {
    * obj.setStrokeColor("#FF0000");
    * 
    * @param {string} color - The stroke color of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1283,8 +1288,8 @@ class GameObject2D {
    * obj.setStrokeWidth(2);
    * 
    * @param {number} width - The stroke width of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1300,8 +1305,8 @@ class GameObject2D {
    * obj.setVisible(false);
    * 
    * @param {boolean} visible - The visibility of the game object.
-   * @returns {Impacto.GameObjects.GameObject2D}
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @returns {GameObject2D}
+   * @memberof GameObject2D
    */
 
 
@@ -1313,10 +1318,9 @@ class GameObject2D {
    * @description
    * Private (Core) function to render the game object.
    * 
-   * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.GameObject2D
+   * @memberof GameObject2D
    * @param {number} deltaTime - The time since the last frame.
+   * @private
    */
 
 
@@ -1361,20 +1365,20 @@ const Types = {
 
 
 /**
- * @property {string} src - The source of the audio file.
+ * @property {string} key - The key of the sprite.
  * @property {boolean} loop - If the audio file should loop.
  * @property {boolean} paused - If the audio file is paused.
  * @property {number} volume - The volume of the audio file.
  * @property {boolean} muted - If the audio file should be muted.
  * @property {number} delay - The delay of the audio file.
-
- * @classdesc AudioPlay is a class that plays audio files.
+ * 
+ * @classdesc 
+ * AudioPlay is a class that plays audio files.
  * 
  * @example
  * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
  * 
  * @class AudioPlay
- * @memberof Impacto.GameObjects
  */
 
 class AudioPlay {
@@ -1384,10 +1388,7 @@ class AudioPlay {
     * @default ""
     * @description The source of the audio file.
     *
-    * @memberof Impacto.GameObjects.AudioPlay
-    * @readonly
-    * @instance
-    * @public
+    * @memberof AudioPlay
     */
     this.name = key;
     /**
@@ -1403,10 +1404,7 @@ class AudioPlay {
      * @default false
      * @description If the audio file should loop.
      * 
-     * @memberof Impacto.GameObjects.AudioPlay
-     * @readonly
-     * @instance
-     * @public
+     * @memberof AudioPlay
      */
 
     this.paused = paused;
@@ -1415,10 +1413,7 @@ class AudioPlay {
      * @default 1
      * @description The volume on reproducing the audio file.
      * 
-     * @memberof Impacto.GameObjects.AudioPlay
-     * @readonly
-     * @instance
-     * @public
+     * @memberof AudioPlay
      */
 
     this.volume = volume;
@@ -1427,10 +1422,7 @@ class AudioPlay {
      * @default false
      * @description If the audio should be in loop.
      * 
-     * @memberof Impacto.GameObjects.AudioPlay
-     * @readonly
-     * @instance
-     * @public
+     * @memberof AudioPlay
      */
 
     this.loop = loop;
@@ -1439,10 +1431,7 @@ class AudioPlay {
      * @default false
      * @description If the audio should be muted.
      * 
-     * @memberof Impacto.GameObjects.AudioPlay
-     * @readonly
-     * @instance
-     * @public
+     * @memberof AudioPlay
      */
 
     this.muted = muted;
@@ -1451,13 +1440,18 @@ class AudioPlay {
      * @default 0
      * @description The delay of the audio file.
      * 
-     * @memberof Impacto.GameObjects.AudioPlay
-     * @readonly
-     * @instance
-     * @public
+     * @memberof AudioPlay
      */
 
     this.delay = delay;
+    /**
+     * @type {number}
+     * @default 0
+     * @description The time of the audio file.
+     * 
+     * @memberof AudioPlay
+     */
+
     this.loopDelay = delay; // TODO: not implemented yet
 
     /**
@@ -1481,12 +1475,8 @@ class AudioPlay {
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.play();
    * 
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1508,12 +1498,8 @@ class AudioPlay {
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.playOnce();
    * 
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1531,12 +1517,8 @@ class AudioPlay {
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.pause();
    * 
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1553,12 +1535,8 @@ class AudioPlay {
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.resume();
    * 
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1576,12 +1554,8 @@ class AudioPlay {
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.stop();
    * 
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1599,12 +1573,8 @@ class AudioPlay {
    * myAudioPlay.setVolume(0.5);
    * 
    * @param {number} volume - The volume of the audio file.
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1621,12 +1591,8 @@ class AudioPlay {
    * myAudioPlay.setLoop(true);
    * 
    * @param {boolean} loop - If the audio file should be looping.
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1643,12 +1609,8 @@ class AudioPlay {
    * myAudioPlay.setDelay(1000);
    * 
    * @param {number} delay - The delay of the audio file.
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1665,12 +1627,8 @@ class AudioPlay {
    * myAudioPlay.setDelay(1000);
    * 
    * @param {number} delay - The delay of the audio file.
-   * @returns {Impacto.GameObjects.AudioPlay}
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
+   * @returns {AudioPlay}
+   * @memberof AudioPlay
    */
 
 
@@ -1680,19 +1638,14 @@ class AudioPlay {
   }
   /**
    * @description Check if the audio file is ended playing.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended}
    * 
    * @example
    * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
    * myAudioPlay.isEnded();
    * 
    * @returns {boolean} If the audio file is ended playing.
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
-   * @readonly
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended}
+   * @memberof AudioPlay
    */
 
 
@@ -1707,12 +1660,7 @@ class AudioPlay {
    * myAudioPlay.getDuration();
    * 
    * @returns {number} The time of the audio file.
-   * 
-   * @memberof Impacto.GameObjects.AudioPlay
-   * @instance
-   * @public
-   * @function
-   * @readonly
+   * @memberof AudioPlay
    */
 
 
@@ -1740,7 +1688,6 @@ class AudioPlay {
  * 
  * @class Circle
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 
@@ -1758,7 +1705,7 @@ class Circle extends GameObject2D {
    * circ.x = 100;
    * 
    * @param {number} x - The horizontal position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
+   * @memberof Circle
    */
 
 
@@ -1773,7 +1720,7 @@ class Circle extends GameObject2D {
    * circ.y = 100;
    * 
    * @param {number} y - The vertical position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
+   * @memberof Circle
    */
 
 
@@ -1782,8 +1729,7 @@ class Circle extends GameObject2D {
   }
   /**
    * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Circle
+   * @memberof Circle
    */
 
 
@@ -1792,8 +1738,7 @@ class Circle extends GameObject2D {
   }
   /**
    * @returns {number} The vertical position of this Circle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Circle
+   * @memberof Circle
    */
 
 
@@ -1808,10 +1753,8 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).setRadius(100); // 100
    * 
    * @param {number} radius - The radius of this Circle.
-   * @returns {Impacto.GameObjects.Circle} This Circle.
-   * @memberof Impacto.GameObjects.Circle
-   * @public
-   * @instance
+   * @returns {Circle} This Circle.
+   * @memberof Circle
    */
 
 
@@ -1827,10 +1770,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getTop(); // 275
    * 
    * @returns {number} The vertical position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1845,10 +1785,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getBottom(); // 325
    * 
    * @returns {number} The vertical position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1863,10 +1800,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getLeft(); // 375
    * 
    * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1881,10 +1815,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRight(); // 425
    * 
    * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1899,10 +1830,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getCenterX(); // 400
    * 
    * @returns {number} The horizontal position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1917,10 +1845,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getCenterY(); // 300
    * 
    * @returns {number} The vertical position of this Circle in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1935,10 +1860,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealTop(); // 275
    * 
    * @returns {number} The vertical position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1953,10 +1875,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealBottom(); // 325
    * 
    * @returns {number} The vertical position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1971,10 +1890,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealLeft(); // 375
    * 
    * @returns {number} The horizontal position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -1989,10 +1905,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealRight(); // 425
    * 
    * @returns {number} The horizontal position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -2007,10 +1920,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealCenterX(); // 400
    * 
    * @returns {number} The horizontal position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -2025,10 +1935,7 @@ class Circle extends GameObject2D {
    * new Impacto.GameObjects.Circle(400, 300, 50).getRealCenterY(); // 300
    * 
    * @returns {number} The vertical position of this Circle in the world.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Circle
    */
 
 
@@ -2042,12 +1949,8 @@ class Circle extends GameObject2D {
    * @example
    * new Impacto.GameObjects.Circle(400, 300, 50).getBounds(); // { x: 375, y: 275, width: 150, height: 150 }
    * 
-   * @returns {Impacto.GameObjects.Box} A box that encloses the Circle.
-   * @memberof Impacto.GameObjects.Circle
-   * @readonly
-   * @public
-   * @instance
-   * @function
+   * @returns {Object} A box that encloses the Circle.
+   * @memberof Circle
    */
 
 
@@ -2063,9 +1966,8 @@ class Circle extends GameObject2D {
    * @description
    * Private (Core) function to render the position of the Circle.
    * 
-   * @memberof Impacto.GameObjects.Circle
+   * @memberof Circle
    * @private
-   * @readonly
    */
 
 
@@ -2096,7 +1998,6 @@ class Circle extends GameObject2D {
  * 
  * @class Line
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 
@@ -2109,8 +2010,7 @@ class Line extends GameObject2D {
   }
   /**
    * @returns {number} The width of the line.
-   * @readonly
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2119,8 +2019,7 @@ class Line extends GameObject2D {
   }
   /**
    * @returns {number} The height of the line.
-   * @readonly
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2136,7 +2035,7 @@ class Line extends GameObject2D {
    * myLine.x = 200;
    * 
    * @param {number} x - The horizontal position in the world.
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2152,7 +2051,7 @@ class Line extends GameObject2D {
    * myLine.y = 200;
    * 
    * @param {number} y - The vertical position in the world.
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2161,8 +2060,7 @@ class Line extends GameObject2D {
   }
   /**
    * @returns {number} The horizontal position.
-   * @readonly
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2171,8 +2069,7 @@ class Line extends GameObject2D {
   }
   /**
    * @returns {number} The vertical position.
-   * @readonly
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2187,10 +2084,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getTop(); // 300
    * 
    * @returns {number} The vertical position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2205,10 +2099,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getBottom(); // 325
    * 
    * @returns {number} The vertical position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2223,10 +2114,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getLeft(); // 400
    * 
    * @returns {number} The horizontal position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2241,10 +2129,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRight(); // 450
    * 
    * @returns {number} The horizontal position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2259,10 +2144,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getCenterX(); // 425
    * 
    * @returns {number} The horizontal position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2277,10 +2159,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getCenterY(); // 325
    * 
    * @returns {number} The vertical position of this Line in the world relative to the origin.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2295,10 +2174,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealTop(); // 300
    * 
    * @returns {number} The vertical position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2313,10 +2189,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealBottom(); // 350
    * 
    * @returns {number} The vertical position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2331,10 +2204,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealLeft(); // 400
    * 
    * @returns {number} The horizontal position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2349,10 +2219,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealRight(); // 450
    * 
    * @returns {number} The horizontal position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2367,10 +2234,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealCenterX(); // 425
    * 
    * @returns {number} The horizontal position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2385,10 +2249,7 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealCenterY(); // 325
    * 
    * @returns {number} The vertical position of this Line in the world.
-   * @memberof Impacto.GameObjects.Line
-   * @readonly
-   * @public
-   * @instance
+   * @memberof Line
    */
 
 
@@ -2403,10 +2264,8 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).setWidth(100);
    * 
    * @param {number} width - The new width.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2422,10 +2281,8 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).setHeight(100);
    * 
    * @param {number} height - The new height.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2442,10 +2299,8 @@ class Line extends GameObject2D {
    * 
    * @param {number} width - The new width.
    * @param {number} height - The new height.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2462,10 +2317,8 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).setEndX(500);
    * 
    * @param {number} endX - The new horizontal position.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2481,10 +2334,8 @@ class Line extends GameObject2D {
    * new Impacto.GameObjects.Line(400, 300, 450, 350).setEndY(500);
    * 
    * @param {number} endY - The new vertical position.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2501,10 +2352,8 @@ class Line extends GameObject2D {
    * 
    * @param {number} endX - The new horizontal position.
    * @param {number} endY - The new vertical position.
-   * @returns {Impacto.GameObjects.Line} This Line.
-   * @memberof Impacto.GameObjects.Line
-   * @public
-   * @instance
+   * @returns {Line} This Line.
+   * @memberof Line
    */
 
 
@@ -2518,8 +2367,7 @@ class Line extends GameObject2D {
    * Private (Core) function to render the position.
    * 
    * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.Line
+   * @memberof Line
    */
 
 
@@ -2552,7 +2400,6 @@ class Line extends GameObject2D {
  * 
  * @class Polygon
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors 
  */
 
@@ -2567,6 +2414,7 @@ class Polygon extends GameObject2D {
    * Sets the X position of the Polygon.
    * 
    * @param {number} x - The horizontal position of this Polygon in the world.
+   * @memberof Polygon
    */
 
 
@@ -2577,6 +2425,7 @@ class Polygon extends GameObject2D {
    * Sets the Y position of the Polygon.
    * 
    * @param {number} y - The vertical position of this Polygon in the world.
+   * @memberof Polygon
    */
 
 
@@ -2585,6 +2434,7 @@ class Polygon extends GameObject2D {
   }
   /**
    * @returns {number} The horizontal position of this Polygon in the world relative to the origin.
+   * @memberof Polygon
    */
 
 
@@ -2594,6 +2444,7 @@ class Polygon extends GameObject2D {
 
   /**
    * @returns {number} The vertical position of this Polygon in the world relative to the origin.
+   * @memberof Polygon
    */
 
 
@@ -2603,6 +2454,7 @@ class Polygon extends GameObject2D {
 
   /**
    * @returns {number} The width of this Polygon.
+   * @memberof Polygon
    */
 
 
@@ -2612,6 +2464,7 @@ class Polygon extends GameObject2D {
   }
   /**
    * @returns {number} The height of this Polygon.
+   * @memberof Polygon
    */
 
 
@@ -2626,7 +2479,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getTop(); // 10
    * 
    * @returns {number} The topmost point of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2641,7 +2494,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getBottom(); // 20
    * 
    * @returns {number} The bottommost point of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2656,7 +2509,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getLeft(); // 10
    * 
    * @returns {number} The leftmost point of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2671,7 +2524,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getRight(); // 20
    * 
    * @returns {number} The rightmost point of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2686,7 +2539,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenterX(); // 15
    * 
    * @returns {number} The horizontal center of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2700,7 +2553,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenterY(); // 15
    * 
    * @returns {number} The vertical center of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2714,7 +2567,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getCenter(); // {x: 15, y: 15}
    * 
    * @returns {Object} The center of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2732,8 +2585,8 @@ class Polygon extends GameObject2D {
    * 
    * @param {number} x - The x coordinate of the point
    * @param {number} y - The y coordinate of the point
-   * @returns {Impacto.GameObjects.Polygon} The polygon itself
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Polygon} The polygon itself
+   * @memberof Polygon
    */
 
 
@@ -2752,8 +2605,8 @@ class Polygon extends GameObject2D {
    * 
    * @param {number} x - The x coordinate of the point
    * @param {number} y - The y coordinate of the point
-   * @returns {Impacto.GameObjects.Polygon} The polygon itself
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Polygon} The polygon itself
+   * @memberof Polygon
    */
 
 
@@ -2763,14 +2616,14 @@ class Polygon extends GameObject2D {
     return this;
   }
   /**
-   * Remove a point from the polygon based in the object {x, y}
+   * Remove a point from the polygon based in the object
    * 
    * @example
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removePoint({x: 10, y: 10});
    * 
    * @param {Object} point - The point to be removed
-   * @returns {Impacto.GameObjects.Polygon} The polygon itself
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Polygon} The polygon itself
+   * @memberof Polygon
    */
 
 
@@ -2784,8 +2637,8 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).removeIndex(0);
    * 
    * @param {number} index - The index of the point
-   * @returns {Impacto.GameObjects.Polygon} The polygon itself
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Polygon} The polygon itself
+   * @memberof Polygon
    */
 
 
@@ -2800,8 +2653,8 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).setClose(true);
    * 
    * @param {boolean} close - Whether the polygon should be closed or not
-   * @returns {Impacto.GameObjects.Polygon} The polygon itself
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Polygon} The polygon itself
+   * @memberof Polygon
    */
 
 
@@ -2816,7 +2669,7 @@ class Polygon extends GameObject2D {
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getBounds(); // {x: 10, y: 10, width: 20, height: 20}
    * 
    * @returns {Object} The bounds of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @memberof Polygon
    */
 
 
@@ -2834,8 +2687,8 @@ class Polygon extends GameObject2D {
    * @example
    * new Impacto.GameObjects.Polygon(400, 300, [10, 10, 20, 20, 10, 20]).getVertices(); // [{x: 10, y: 10}, {x: 20, y: 20}, {x: 10, y: 20}]
    * 
-   * @returns {Array} The vertices of the polygon
-   * @memberof Impacto.GameObjects.Polygon
+   * @returns {Object[]} The vertices of the polygon
+   * @memberof Polygon
    */
 
 
@@ -2845,9 +2698,8 @@ class Polygon extends GameObject2D {
   /**
    * Private (Core) function to render.
    * 
+   * @memberof Polygon
    * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.Polygon
    */
 
 
@@ -2888,7 +2740,6 @@ class Polygon extends GameObject2D {
  * 
  * @class Rectangle
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 
@@ -2905,7 +2756,7 @@ class Rectangle extends GameObject2D {
    * Sets the X position of the rectangle.
    * 
    * @param {number} x - The horizontal position of this Rectangle in the world.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2917,7 +2768,7 @@ class Rectangle extends GameObject2D {
    * Gets the Y position of the rectangle.
    * 
    * @param {number} y - The vertical position of this Rectangle in the world.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2926,8 +2777,7 @@ class Rectangle extends GameObject2D {
   }
   /**
    * @returns {number} The horizontal position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2936,8 +2786,7 @@ class Rectangle extends GameObject2D {
   }
   /**
    * @returns {number} The vertical position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2949,8 +2798,7 @@ class Rectangle extends GameObject2D {
    * Returns the top side position of the rectangle.
    * 
    * @returns {number} The vertical position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2962,8 +2810,7 @@ class Rectangle extends GameObject2D {
    * Returns the bottom side position of the rectangle.
    * 
    * @returns {number} The vertical position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2975,8 +2822,7 @@ class Rectangle extends GameObject2D {
    * Returns the left side position of the rectangle.
    * 
    * @returns {number} The horizontal position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -2989,8 +2835,7 @@ class Rectangle extends GameObject2D {
    * 
    * 
    * @returns {number} The horizontal position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3005,8 +2850,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).setOrigin(0.5).getCenterX(); // 27.5
    * 
    * @returns {number} The horizontal position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3021,8 +2865,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).setOrigin(0.5).getCenterY(); // 27.5
    * 
    * @returns {number} The vertical position of this Rectangle in the world relative to the origin.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3037,8 +2880,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealTop(); // 10
    * 
    * @returns {number} The real vertical position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3053,8 +2895,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealBottom(); // 110
    * 
    * @returns {number} The real vertical position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3069,8 +2910,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealLeft(); // 10
    * 
    * @returns {number} The real horizontal position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3085,8 +2925,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealRight(); // 110
    * 
    * @returns {number} The real horizontal position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3101,8 +2940,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealCenterX(); // 55
    * 
    * @returns {number} The real horizontal position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3117,8 +2955,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).getRealCenterY(); // 55
    * 
    * @returns {number} The real vertical position of this Rectangle in the world.
-   * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3133,8 +2970,8 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).setWidth(200);
    * 
    * @param {number} width - The new width of this Rectangle.
-   * @returns {Impacto.GameObjects.Rectangle} This Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @returns {Rectangle} This Rectangle.
+   * @memberof Rectangle
    */
 
 
@@ -3150,8 +2987,8 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(10, 10, 100, 100).setHeight(200);
    * 
    * @param {number} height - The new height of this Rectangle.
-   * @returns {Impacto.GameObjects.Rectangle} This Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @returns {Rectangle} This Rectangle.
+   * @memberof Rectangle
    */
 
 
@@ -3168,8 +3005,8 @@ class Rectangle extends GameObject2D {
    * 
    * @param {number} width - The new width of this Rectangle.
    * @param {number} height - The new height of this Rectangle.
-   * @returns {Impacto.GameObjects.Rectangle} This Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @returns {Rectangle} This Rectangle.
+   * @memberof Rectangle
    */
 
 
@@ -3190,8 +3027,8 @@ class Rectangle extends GameObject2D {
    * @param {number} y - The new vertical position of this Rectangle.
    * @param {number} width - The new width of this Rectangle.
    * @param {number} height - The new height of this Rectangle.
-   * @returns {Impacto.GameObjects.Rectangle} This Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @returns {Rectangle} This Rectangle.
+   * @memberof Rectangle
    */
 
 
@@ -3211,8 +3048,8 @@ class Rectangle extends GameObject2D {
    * @param {number} topRight - The new roundedness of the top right corner.
    * @param {number} bottomLeft - The new roundedness of the bottom left corner.
    * @param {number} bottomRight - The new roundedness of the bottom right corner.
-   * @returns {Impacto.GameObjects.Rectangle} This Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @returns {Rectangle} This Rectangle.
+   * @memberof Rectangle
    */
 
 
@@ -3243,8 +3080,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(0, 0).getBoundingBox(); // { x: 0, y: 0, width: 100, height: 100 }
    * 
    * @returns {Object} The bounding box of this Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
-   * @readonly
+   * @memberof Rectangle
    */
 
 
@@ -3264,7 +3100,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(0, 0, 100, 100).getArea(); // 10000
    * 
    * @returns {number} The area of this Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    * @readonly
    */
 
@@ -3280,7 +3116,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(0, 0, 100, 100).getPerimeter(); // 200
    * 
    * @returns {number} The perimeter of this Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    * @readonly
    */
 
@@ -3296,7 +3132,7 @@ class Rectangle extends GameObject2D {
    * new Impacto.GameObjects.Rectangle(0, 0, 100, 100).getVertices(); // [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }, { x: 0, y: 100 }]
    * 
    * @returns {Array} All vertices of this Rectangle.
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    * @readonly
    */
 
@@ -3322,7 +3158,7 @@ class Rectangle extends GameObject2D {
    * 
    * @private
    * @readonly
-   * @memberof Impacto.GameObjects.Rectangle
+   * @memberof Rectangle
    */
 
 
@@ -3353,6 +3189,9 @@ class Rectangle extends GameObject2D {
  * @param {number} speed - The speed of the Animations.
  * @param {boolean} [loop=true] - Whether the Animations should loop or not.
  * 
+ * @classdesc
+ * A class to animate a sprite
+ * 
  * @example
  * new Animation(MySprite, "Default", 0, 10, 100, true);
  * 
@@ -3381,7 +3220,7 @@ class Animation {
    * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setName("MyNewName");
    * 
    * @param {string} newName - The 
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3398,7 +3237,7 @@ class Animation {
    * 
    * @param {string} name - The name of the Animation.
    * @param {number} speed - The new speed of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3414,7 +3253,7 @@ class Animation {
    * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setStartFrame(5);
    * 
    * @param {number} startFrame - The new start frame of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3430,7 +3269,7 @@ class Animation {
    * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).setNumberOfFrames(5);
    * 
    * @param {number} numberOfFrames - The new number of frames of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3446,7 +3285,7 @@ class Animation {
    * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100, true).setLoop(false);
    * 
    * @param {boolean} loop - The new loop of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3461,7 +3300,7 @@ class Animation {
    * @example
    * const myAnimation = new Animation(MySprite, "MyAnimation" , 0, 10, 100).reset();
    * 
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animation
    */
 
@@ -3475,7 +3314,6 @@ class Animation {
    * Private (Core) function to update the animation.
    * 
    * @private
-   * @readonly
    * @memberof Animation
    */
 
@@ -3511,7 +3349,7 @@ class Animation {
  * @param {boolean} [loop] - Whether the Animations should loop or not.
  * 
  * @classdesc
- * A class to animate sprites
+ * A class to manage the animations of a sprite
  * 
  * @example
  * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
@@ -3536,7 +3374,8 @@ class Animations {
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth(), 0, 10, false);
    * console.log(mySprite.animations.get(""Default""));
    * 
-   * @returns {Animation} - The animation state
+   * @param {string} name - The name of the Animation.
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3556,6 +3395,7 @@ class Animations {
    * @param {number} [startFrame=0] - The first frame of the Animation.
    * @param {number} [speed=100] - The speed of the Animation.
    * @param {boolean} [loop=true] - Whether the Animation should loop or not.
+   * @memberof Animations
    */
 
 
@@ -3571,7 +3411,7 @@ class Animations {
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth());
    * console.log(mySprite.animations.getAnimationsNames());
    * 
-   * @returns {string[]} - The names of the animations
+   * @returns {string[]} The names of the animations
    * @memberof Animations
    */
 
@@ -3586,7 +3426,7 @@ class Animations {
    * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).reset();
    * 
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3603,7 +3443,7 @@ class Animations {
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).play("Default");
    * 
    * @param {string} name - The name of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3621,7 +3461,7 @@ class Animations {
    * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).pause();
    * 
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3637,7 +3477,7 @@ class Animations {
    * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
    * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).resume();
    * 
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3655,7 +3495,7 @@ class Animations {
    * 
    * @param {string} oldName - The name of the Animation.
    * @param {string} newName - The new name of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3672,7 +3512,7 @@ class Animations {
    * 
    * @param {string} name - The name of the Animation.
    * @param {number} speed - The new speed of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3689,7 +3529,7 @@ class Animations {
    * 
    * @param {string} name - The name of the Animation.
    * @param {number} numberOfFrames - The new number of frames of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3706,7 +3546,7 @@ class Animations {
    * 
    * @param {string} name - The name of the Animation.
    * @param {boolean} loop - The new loop state of the Animation.
-   * @returns {Animation} - The animation state
+   * @returns {Animation} The animation state
    * @memberof Animations
    */
 
@@ -3718,7 +3558,6 @@ class Animations {
    * Private (Core) function to update the animation.
    * 
    * @private
-   * @readonly
    * @memberof Animations
    */
 
@@ -3738,7 +3577,7 @@ class Animations {
 /**
  * @param {number} x - The horizontal position of this Sprite in the world.
  * @param {number} y - The vertical position of this Sprite in the world.
- * @param {number} key - The name of the Sprite.
+ * @param {string} key - The name of the Sprite.
  * @param {number} [frame=0] - The frame of the Sprite.
  * @param {number} [width=0] - The width of the Sprite.
  * @param {number} [height=0] - The height of the Sprite.
@@ -3750,8 +3589,7 @@ class Animations {
  * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32);
  * 
  * @class Sprite
- * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
+ * @extends Impacto.GameObjects.Rectangle
  * @constructors
  */
 
@@ -3769,6 +3607,7 @@ class Sprite extends Rectangle {
   * Sets the X position of the Sprite.
   * 
   * @param {number} x - The horizontal position of this Sprite in the world.
+  * @memberof Sprite
   */
 
 
@@ -3779,6 +3618,7 @@ class Sprite extends Rectangle {
   * Sets the Y position of the Sprite.
   * 
   * @param {number} y - The vertical position of this Sprite in the world.
+  * @memberof Sprite
   */
 
 
@@ -3787,6 +3627,7 @@ class Sprite extends Rectangle {
   }
   /**
    * @returns {number} The horizontal position of this Sprite in the world relative to the origin.
+   * @memberof Sprite
    */
 
 
@@ -3795,6 +3636,7 @@ class Sprite extends Rectangle {
   }
   /**
   * @returns {number} The vertical position of this Sprite in the world relative to the origin.
+  * @memberof Sprite
   */
 
 
@@ -3808,8 +3650,8 @@ class Sprite extends Rectangle {
    * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).setFrame(1);
    * 
    * @param {number} frame - The frame of the Sprite.
-   * @returns {Impacto.GameObjects.Sprite} The Sprite itself.
-   * @memberof Impacto.GameObjects.Sprite
+   * @returns {Sprite} The Sprite itself.
+   * @memberof Sprite
    */
 
 
@@ -3824,7 +3666,7 @@ class Sprite extends Rectangle {
    * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).getNumFramesByWidth(); // 8
    * 
    * @returns {number} The number of frames by width.
-   * @memberof Impacto.GameObjects.Sprite
+   * @memberof Sprite
    */
 
 
@@ -3836,8 +3678,7 @@ class Sprite extends Rectangle {
    * Private (Core) function to render the position of the Sprite.
    * 
    * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.Sprite
+   * @memberof Sprite
    */
 
 
@@ -3872,7 +3713,6 @@ class Sprite extends Rectangle {
  * 
  * @class Text
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors 
  */
 
@@ -3903,7 +3743,7 @@ class Text extends GameObject2D {
    * Returns the width of the text.
    * 
    * @returns {number} The width of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3915,7 +3755,7 @@ class Text extends GameObject2D {
    * Returns the height of the text.
    * 
    * @returns {number} The height of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3927,7 +3767,7 @@ class Text extends GameObject2D {
    * Sets the horizontal position of the text.
    * 
    * @param {string} align - The horizontal position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3938,7 +3778,7 @@ class Text extends GameObject2D {
    * Sets the vertical position of the text.
    * 
    * @param {string} align - The vertical position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3949,7 +3789,7 @@ class Text extends GameObject2D {
    * Returns the horizontal position of the text.
    * 
    * @returns {number} The horizontal position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3960,7 +3800,7 @@ class Text extends GameObject2D {
    * Returns the vertical position of the text.
    * 
    * @returns {number} The vertical position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3975,7 +3815,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getTop(); // 300
    * 
    * @returns {number} The top side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -3990,7 +3830,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getBottom(); // 300
    * 
    * @returns {number} The bottom side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4005,7 +3845,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getLeft(); // 400
    * 
    * @returns {number} The left side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4020,7 +3860,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRight(); // 400
    * 
    * @returns {number} The right side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4035,7 +3875,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterX(); // 400
    * 
    * @returns {number} The horizontal center position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4050,7 +3890,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getCenterY(); // 300
    * 
    * @returns {number} The vertical center position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4065,7 +3905,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealTop(); // 300
    * 
    * @returns {number} The real top side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4080,7 +3920,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealBottom(); // 300
    * 
    * @returns {number} The real bottom side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4095,7 +3935,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealLeft(); // 400
    * 
    * @returns {number} The real left side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4110,7 +3950,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealRight(); // 400
    * 
    * @returns {number} The real right side position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4125,7 +3965,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterX(); // 400
    * 
    * @returns {number} The real horizontal center position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4140,7 +3980,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getRealCenterY(); // 300
    * 
    * @returns {number} The real vertical center position of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4155,7 +3995,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getWords(); // ["Hello", "World"]
    * 
    * @returns {string[]} All words of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4170,7 +4010,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getWordsCount(); // 2
    * 
    * @returns {number} The number of words of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4185,7 +4025,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharacters(); // ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"]
    * 
    * @returns {string[]} All characters of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4200,7 +4040,7 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").getCharactersCount(); // 11
    * 
    * @returns {number} The number of characters of the text.
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4215,8 +4055,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setText("MyText");
    * 
    * @param {string} text The new text.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4232,8 +4072,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontSize(20);
    * 
    * @param {number} size The new font size.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4251,8 +4091,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontFamily("Arial");
    * 
    * @param {string} family The new font family.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4270,8 +4110,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontStyle("italic");
    * 
    * @param {string} style The new font style.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4289,8 +4129,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontVariant("small-caps");
    * 
    * @param {string} variant The new font variant.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4308,8 +4148,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setFontWeight("bold");
    * 
    * @param {string} weight The new font weight.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4333,8 +4173,8 @@ class Text extends GameObject2D {
    * });
    * 
    * @param {object} font The new properties of the font.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4356,8 +4196,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setVerticalAlignment("top");
    * 
    * @param {string} align The new text alignment.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4373,8 +4213,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setHorizontalAlignment("left");
    * 
    * @param {string} align The new text alignment.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4390,8 +4230,8 @@ class Text extends GameObject2D {
    * new Impacto.GameObjects.Text(400, 300, "Hello World").setDirection("rtl");
    * 
    * @param {string} direction The new text direction.
-   * @returns {Impacto.GameObjects.Text} The text object.
-   * @memberof Impacto.GameObjects.Text
+   * @returns {Text} The text object.
+   * @memberof Text
    */
 
 
@@ -4404,8 +4244,7 @@ class Text extends GameObject2D {
    * Private (Core) function to render the position of the text.
    * 
    * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.Text
+   * @memberof Text
    */
 
 
@@ -4439,7 +4278,6 @@ class Text extends GameObject2D {
  * 
  * @class Triangle
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors 
  */
 
@@ -4454,6 +4292,7 @@ class Triangle extends GameObject2D {
    * Sets the X position of the Triangle.
    * 
    * @param {number} x - The horizontal position of this Triangle in the world.
+   * @memberof Triangle
    */
 
 
@@ -4464,6 +4303,7 @@ class Triangle extends GameObject2D {
    * Sets the Y position of the Triangle.
    * 
    * @param {number} y - The vertical position of this Triangle in the world.
+   * @memberof Triangle
    */
 
 
@@ -4472,6 +4312,7 @@ class Triangle extends GameObject2D {
   }
   /**
    * @returns {number} The horizontal position of this Triangle in the world relative to the origin.
+   * @memberof Triangle
    */
 
 
@@ -4480,6 +4321,7 @@ class Triangle extends GameObject2D {
   }
   /**
    * @returns {number} The vertical position of this Triangle in the world relative to the origin.
+   * @memberof Triangle
    */
 
 
@@ -4493,7 +4335,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getTop(); // 300
    * 
    * @returns {number} The topmost point of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4507,7 +4349,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getBottom(); // 400
    * 
    * @returns {number} The bottommost point of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4521,7 +4363,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getLeft(); // 400
    * 
    * @returns {number} The leftmost point of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4535,7 +4377,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRight(); // 500
    * 
    * @returns {number} The rightmost point of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4549,7 +4391,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getCenterX(); // 450
    * 
    * @returns {number} The width of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4563,7 +4405,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getCenterY(); // 450
    * 
    * @returns {number} The height of the triangle
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4577,7 +4419,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealTop(); // 300
    * 
    * @returns {number} The real top position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4591,7 +4433,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealBottom(); // 400
    * 
    * @returns {number} The real bottom position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4605,7 +4447,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealLeft(); // 400
    * 
    * @returns {number} The real left position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4619,7 +4461,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealRight(); // 400
    * 
    * @returns {number} The real right position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4633,7 +4475,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealCenterX(); // 450
    * 
    * @returns {number} The real center position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4647,7 +4489,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getRealCenterY(); // 450
    * 
    * @returns {number} The real center position of the triangle in the world
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4661,8 +4503,8 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).setWidth(200); // 200
    * 
    * @param {number} width - The new width of the triangle.
-   * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-   * @memberof Impacto.GameObjects.Triangle
+   * @returns {Triangle} The triangle itself.
+   * @memberof Triangle
    */
 
 
@@ -4677,8 +4519,8 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).setHeight(200); // 200
    * 
    * @param {number} height - The new height of the triangle.
-   * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-   * @memberof Impacto.GameObjects.Triangle
+   * @returns {Triangle} The triangle itself.
+   * @memberof Triangle
    */
 
 
@@ -4696,8 +4538,8 @@ class Triangle extends GameObject2D {
    * 
    * @param {number} width - The new width of the triangle.
    * @param {number} height - The new height of the triangle.
-   * @returns {Impacto.GameObjects.Triangle} The triangle itself.
-   * @memberof Impacto.GameObjects.Triangle
+   * @returns {Triangle} The triangle itself.
+   * @memberof Triangle
    */
 
 
@@ -4713,7 +4555,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getArea(); // 5000
    * 
    * @returns {number} The area of the triangle.
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4727,7 +4569,7 @@ class Triangle extends GameObject2D {
    * new Impacto.GameObjects.Triangle(400, 300, 100, 100).getPerimeter(); // 300
    * 
    * @returns {number} The perimeter of the triangle.
-   * @memberof Impacto.GameObjects.Triangle
+   * @memberof Triangle
    */
 
 
@@ -4743,8 +4585,8 @@ class Triangle extends GameObject2D {
    *  {"x": 200,"y": 100},
    *  {"x": 150,"y": 200}]
    * 
-   * @returns {Object} The triangle's vertices.
-   * @memberof Impacto.GameObjects.Triangle
+   * @returns {Object[]} The triangle's vertices.
+   * @memberof Triangle
    */
 
 
@@ -4763,9 +4605,8 @@ class Triangle extends GameObject2D {
   /**
    * Private (Core) function to render.
    * 
+   * @memberof Polygon
    * @private
-   * @readonly
-   * @memberof Impacto.GameObjects.Polygon
    */
 
 
@@ -4877,15 +4718,13 @@ const GameObjectsInstance = new GameObjects();
 
 /**
  * @classdesc
- * The Rectangle Shape is a 2D Game Object that can be added to a Scene. 
- * Its possible to set a rounder corner radius.
+ * Manages the keyboard input.
  * 
  * @example
  * const { left } = Impacto.Inputs.KeyBoard.keys;
  * if (Impacto.Inputs.KeyBoard.isKeyPressed(left)) { console.log("Left"); }
  * 
  * @class KeyboardManager
- * @memberof Impacto.Inputs
  * @constructors
  */
 
@@ -4901,12 +4740,12 @@ class KeyboardManager {
    * Returns the name of the key by its keyCode.
    * 
    * @example
-   * const { left } = Impacto.Inputs.KeyBoard.keys;
-   * console.log(Impacto.Inputs.KeyBoard.getNameByKeyCode(left)); // left
+   * const { left } = Impacto.Inputs.KeyboardManager.keys;
+   * console.log(Impacto.Inputs.KeyboardManager.getNameByKeyCode(left)); // left
    * 
    * @param {number} keyCode - The key code of the key.
    * @returns {string} The name of the key.
-   * @memberof Impacto.Inputs.KeyBoard
+   * @memberof KeyboardManager
    */
 
 
@@ -4917,11 +4756,11 @@ class KeyboardManager {
    * Returns the key code of the key by its name.
    * 
    * @example
-   * console.log(Impacto.Inputs.KeyBoard.getKeyCodeByName("left")); // 37
+   * console.log(Impacto.Inputs.KeyboardManager.getKeyCodeByName("left")); // 37
    * 
    * @param {string} name - The name of the key.
    * @returns {number} The key code of the key.
-   * @memberof Impacto.Inputs.KeyBoard
+   * @memberof KeyboardManager
    */
 
 
@@ -4932,12 +4771,12 @@ class KeyboardManager {
    * Returns true if the key is pressed.
    * 
    * @example
-   * const { left } = Impacto.Inputs.KeyBoard.keys;
-   * Impacto.Inputs.KeyBoard.isKeyPressed(left); // false
+   * const { left } = Impacto.Inputs.KeyboardManager.keys;
+   * Impacto.Inputs.KeyboardManager.isKeyPressed(left); // false
    * 
    * @param {number| string} key - The key code or name of the key.
    * @returns {boolean} True if the key is pressed.
-   * @memberof Impacto.Inputs.KeyBoard
+   * @memberof KeyboardManager
    */
 
 
@@ -4948,11 +4787,11 @@ class KeyboardManager {
    * Returns true if the key is pressed by its name.
    * 
    * @example
-   * Impacto.Inputs.KeyBoard.isKeyPressedName("left"); // true
+   * Impacto.Inputs.KeyboardManager.isKeyPressedName("left"); // true
    * 
    * @param {string} name - The name of the key.
    * @returns {boolean} True if the key is pressed.
-   * @memberof Impacto.Inputs.KeyBoard
+   * @memberof KeyboardManager
    */
 
 
@@ -4963,11 +4802,11 @@ class KeyboardManager {
    * Returns true if the key is pressed by its key code.
    * 
    * @example
-   * Impacto.Inputs.KeyBoard.isKeyPressedKeyCode(37); // true
+   * Impacto.Inputs.KeyboardManager.isKeyPressedKeyCode(37); // true
    * 
    * @param {number} keyCode - The key code of the key.
    * @returns {boolean} True if the key is pressed.
-   * @memberof Impacto.Inputs.KeyBoard
+   * @memberof KeyboardManager
    */
 
 
@@ -4979,8 +4818,8 @@ class KeyboardManager {
    * @description
    * Private (Core) function to handle the key down event.
    * 
+   * @memberof KeyboardManager
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -4991,8 +4830,8 @@ class KeyboardManager {
    * @description
    * Private (Core) function to handle the key press event.
    * 
+   * @memberof KeyboardManager
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5002,8 +4841,8 @@ class KeyboardManager {
    * @description
    * Private (Core) function to handle the key up event.
    * 
+   * @memberof KeyboardManager
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5017,15 +4856,12 @@ const KeyboardManagerInstance = new KeyboardManager();
 
 /**
  * @classdesc
- * The Rectangle Shape is a 2D Game Object that can be added to a Scene. 
- * Its possible to set a rounder corner radius.
+ * Manages the mouse input.
  * 
  * @example
- * const { left } = Impacto.Inputs.KeyBoard.keys;
- * if (Impacto.Inputs.KeyBoard.isKeyPressed(left)) { console.log("Left"); }
+ * const { x, y } = Impacto.Inputs.Mouse;
  * 
- * @class KeyboardManager
- * @memberof Impacto.Inputs
+ * @class MouseManager
  * @constructors
  */
 
@@ -5047,13 +4883,14 @@ class MouseManager {
     window.addEventListener("contextmenu", e => e.preventDefault()); // Right click show options
   }
   /**
+   * @description
    * Returns the mouse position relative to the canvas.
    * 
    * @example
    * const { x, y } = Impacto.Inputs.Mouse.getPosition();
    * 
-   * @returns {Object} - The current mouse position {x, y}
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {Object} The current mouse position {x, y}
+   * @memberof MouseManager
    */
 
 
@@ -5069,8 +4906,8 @@ class MouseManager {
    * @example
    * const { x, y } = Impacto.Inputs.Mouse.getWindowPosition();
    * 
-   * @returns {Object} - The current mouse position {x, y}
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {Object} The current mouse position {x, y}
+   * @memberof MouseManager
    */
 
 
@@ -5087,8 +4924,8 @@ class MouseManager {
    * console.log(Impacto.Inputs.Mouse.getNameByButtonCode(1)); // "middle"
    * 
    * @param {number} buttonCode - The button code
-   * @returns {string} - The name of the button
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {string} The name of the button
+   * @memberof MouseManager
    */
 
 
@@ -5114,8 +4951,8 @@ class MouseManager {
    * console.log(Impacto.Inputs.Mouse.getButtonCodeByName("left")); // 0
    * 
    * @param {string} buttonName - The name of the button
-   * @returns {number} - The button code
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {number} The button code
+   * @memberof MouseManager
    */
 
 
@@ -5141,8 +4978,8 @@ class MouseManager {
    * Impacto.Inputs.Mouse.isButtonPressed("left") // True
    * 
    * @param {string|number} button - The button name or code
-   * @returns {boolean} - True if the button is pressed
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {boolean} True if the button is pressed
+   * @memberof MouseManager
    */
 
 
@@ -5156,8 +4993,8 @@ class MouseManager {
    * Impacto.Inputs.Mouse.isButtonDownByName("left") // True
    * 
    * @param {string|number} button - The button name
-   * @returns {boolean} - True if the button is pressed
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {boolean} True if the button is pressed
+   * @memberof MouseManager
    */
 
 
@@ -5171,8 +5008,8 @@ class MouseManager {
    * Impacto.Inputs.Mouse.isButtonDownByName(2) // True
    * 
    * @param {string|number} button - The button code
-   * @returns {boolean} - True if the button is pressed
-   * @memberof Impacto.Inputs.MouseManager
+   * @returns {boolean} True if the button is pressed
+   * @memberof MouseManager
    */
 
 
@@ -5184,8 +5021,8 @@ class MouseManager {
    * @description
    * Private (Core) function to handle the mouse position.
    * 
+   * @memberof KeyBoard
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5199,8 +5036,8 @@ class MouseManager {
    * @description
    * Private (Core) function to handle the mouse position.
    * 
+   * @memberof KeyBoard
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5211,8 +5048,8 @@ class MouseManager {
    * @description
    * Private (Core) function to handle the mouse position.
    * 
+   * @memberof KeyBoard
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5225,8 +5062,8 @@ class MouseManager {
    * @description
    * Private (Core) function to handle the mouse position.
    * 
+   * @memberof KeyBoard
    * @private
-   * @memberof Impacto.Inputs.KeyBoard
    */
 
 
@@ -5242,10 +5079,10 @@ const MouseInstance = new MouseManager();
 
 
 /**
- * @class Inputs
- * @description Inputs class
- * @memberof Impacto
- * @instance
+ * @namespace Impacto.Inputs
+ * 
+ * @property {Impacto.Inputs.KeyBoard} KeyBoard
+ * @property {Impacto.Inputs.MouseManager} MouseManager
  */
 
 class Inputs {
@@ -5261,10 +5098,11 @@ const InputsInstance = new Inputs();
 
 
 /**
- * @class State
- * @description State class
- * @memberof Impacto
- * @instance
+ * @namespace Impacto.State
+ * 
+ * @property {Impacto.Inputs.AssetsManager} Assets
+ * @property {Impacto.Inputs.CanvasState} Canvas
+ * @property {Impacto.Inputs.GlobalStateManager} Global
  */
 
 class State {
@@ -5276,12 +5114,14 @@ class State {
 
 }
 const StateInstance = new State();
+;// CONCATENATED MODULE: ./package.json
+const package_namespaceObject = {"i8":"0.9.0"};
 ;// CONCATENATED MODULE: ./src/Utils/Utils.js
+
 
 /**
  * @class Utils
  * @description Utils class
- * @memberof Impacto
  * @instance
  */
 
@@ -5296,14 +5136,14 @@ class Utils {
    * @example
    * console.log(Impacto.Utils.getVersion());
    * 
-   * @returns {String}
-   * @memberof Impacto.Utils
-   * @method getVersion
+   * @returns {String} The current version of the library
+   * @memberof Utils
+   * @static
    */
 
 
-  getVersion() {
-    return "0.9.0-0";
+  static getVersion() {
+    return package_namespaceObject.i8;
   }
 
 }

@@ -20,7 +20,6 @@ import { UtilsMathInstance } from "../Utils/Math.js";
  * }
  * 
  * @class GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 export default class GameObject2D {
@@ -52,8 +51,8 @@ export default class GameObject2D {
 	 * obj.setName("My Game Object");
 	 * 
 	 * @param {string} name - The name of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setName(name) {
 		this.name = name;
@@ -68,8 +67,8 @@ export default class GameObject2D {
 	 * obj.setX(100);
 	 * 
 	 * @param {number} x - The horizontal position of the game object in the world.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setX(x) {
 		this.setPosition(x + (this.width || this.radius) * this.origin.x, this._y, this.z);
@@ -84,8 +83,8 @@ export default class GameObject2D {
 	 * obj.setY(100);
 	 * 
 	 * @param {number} y - The vertical position of the game object in the world.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setY(y) {
 		this.setPosition(this._x, y + (this.height || this.radius) * this.origin.y, this.z);
@@ -100,8 +99,8 @@ export default class GameObject2D {
 	 * obj.setZ(100);
 	 * 
 	 * @param {number} z - The Z position of the game object in the world.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setZ(z) {
 		this.setPosition(this._x, this._y, z);
@@ -115,9 +114,8 @@ export default class GameObject2D {
 	 * @example
 	 * obj.getPosition();
 	 * 
-	 * @returns {Object} - {x:number, y:number, z:number} - The position of the object in the world.
-	 * @readonly
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {Object} {x:number, y:number, z:number} - The position of the object in the world.
+	 * @memberof GameObject2D
 	 */
 	getPosition() { return { x: this.x, y: this.y, z: this.z }; }
 
@@ -128,9 +126,8 @@ export default class GameObject2D {
 	 * @example
 	 * obj.getRealPosition();
 	 * 
-	 * @returns {Object} - {x:number, y:number, z:number} - The real position of the object in the world.
-	 * @readonly
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {Object} {x:number, y:number, z:number} - The real position of the object in the world.
+	 * @memberof GameObject2D
 	 */
 	getRealPosition() { return { x: this._x, y: this._y, z: this.z }; }
 
@@ -144,8 +141,8 @@ export default class GameObject2D {
 	 * @param {number} x - The horizontal position of the game object in the world.
 	 * @param {number} y - The vertical position of the game object in the world.
 	 * @param {number} z - The Z position of the game object in the world.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setPosition(x, y, z = this.z) {
 		this.lastPosition = { x: this.x, y: this.y, z: this.z };
@@ -163,8 +160,8 @@ export default class GameObject2D {
 	 * @example
 	 * obj.setRandomPosition();
 	 * 
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setRandomPosition(x = 0, y = 0, width = CanvasStateInstance.width, height = CanvasStateInstance.height) {
 		this.setPosition(
@@ -182,8 +179,8 @@ export default class GameObject2D {
 	 * obj.setRotation(1.5);
 	 * 
 	 * @param {number} rotation - The rotation of the game object in the world in radians.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setRotation(rotation) {
 		this.rotation = rotation;
@@ -199,8 +196,8 @@ export default class GameObject2D {
 	 * obj.setAngle(90);
 	 * 
 	 * @param {number} angle - The angle of the game object in the world in degrees.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setAngle(angle) {
 		this.angle = angle;
@@ -216,8 +213,8 @@ export default class GameObject2D {
 	 * obj.setScaleX(2);
 	 * 
 	 * @param {number} scaleX - The horizontal scale of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setScaleX(x) {
 		this.setScale(x, this.scale.y);
@@ -232,8 +229,8 @@ export default class GameObject2D {
 	 * obj.setScaleY(2);
 	 * 
 	 * @param {number} scaleY - The vertical scale of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setScaleY(y) {
 		this.setScale(this.scale.x, y);
@@ -248,8 +245,8 @@ export default class GameObject2D {
 	 * obj.setScale(2);
 	 * 
 	 * @param {number} scale - The scale of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setScale(x = 0, y = x) {
 		this.scale = { x, y };
@@ -265,8 +262,8 @@ export default class GameObject2D {
 	 * obj.setOriginX(0.5);
 	 * 
 	 * @param {number} originX - The horizontal origin point of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setOriginX(x) {
 		this.setOrigin(x, this.origin.y);
@@ -282,8 +279,8 @@ export default class GameObject2D {
 	 * obj.setOriginY(0.5);
 	 * 
 	 * @param {number} originY - The vertical origin point of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setOriginY(y) {
 		this.setOrigin(this.origin.x, y);
@@ -299,8 +296,8 @@ export default class GameObject2D {
 	 * obj.setOrigin(0.5);
 	 * 
 	 * @param {number} origin - The origin point of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setOrigin(x = 0, y = x) {
 		this.origin = { x, y };
@@ -315,8 +312,8 @@ export default class GameObject2D {
 	 * obj.setFillColor("#FF0000");
 	 * 
 	 * @param {string} color - The fill color of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setFillColor(fillColor) {
 		this.fillColor = fillColor;
@@ -331,7 +328,8 @@ export default class GameObject2D {
 	 * obj.setStrokeColor("#FF0000");
 	 * 
 	 * @param {string} color - The stroke color of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setStrokeColor(strokeColor) {
 		this.strokeColor = strokeColor;
@@ -346,8 +344,8 @@ export default class GameObject2D {
 	 * obj.setStrokeWidth(2);
 	 * 
 	 * @param {number} width - The stroke width of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setStrokeWidth(strokeWidth) {
 		this.strokeWidth = strokeWidth;
@@ -362,8 +360,8 @@ export default class GameObject2D {
 	 * obj.setVisible(false);
 	 * 
 	 * @param {boolean} visible - The visibility of the game object.
-	 * @returns {Impacto.GameObjects.GameObject2D}
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @returns {GameObject2D}
+	 * @memberof GameObject2D
 	 */
 	setVisible(isVisible) {
 		this.visible = isVisible;
@@ -374,10 +372,9 @@ export default class GameObject2D {
 	 * @description
 	 * Private (Core) function to render the game object.
 	 * 
-	 * @private
-	 * @readonly
-	 * @memberof Impacto.GameObjects.GameObject2D
+	 * @memberof GameObject2D
 	 * @param {number} deltaTime - The time since the last frame.
+	 * @private
 	 */
 	_render(deltaTime) {
 		if (!this.visible) return;

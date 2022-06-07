@@ -75,3 +75,4 @@ export default class UtilsMath {
     };
 }
 export const UtilsMathInstance: UtilsMath;
+//# sourceMappingURL=Math.d.ts.map

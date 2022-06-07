@@ -1,0 +1,9 @@
+{
+  "customTitle": "Impacto",
+  "customTitleLink": "https://github.com/201flaviosilva/Impacto",
+  "name": "Runtime data validation for TypeScript",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "out": "api",
+  "readme": "README-api.md"
+}

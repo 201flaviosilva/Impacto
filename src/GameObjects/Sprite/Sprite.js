@@ -8,7 +8,7 @@ import Animations from "./Animations.js";
 /**
  * @param {number} x - The horizontal position of this Sprite in the world.
  * @param {number} y - The vertical position of this Sprite in the world.
- * @param {number} key - The name of the Sprite.
+ * @param {string} key - The name of the Sprite.
  * @param {number} [frame=0] - The frame of the Sprite.
  * @param {number} [width=0] - The width of the Sprite.
  * @param {number} [height=0] - The height of the Sprite.
@@ -20,8 +20,7 @@ import Animations from "./Animations.js";
  * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32);
  * 
  * @class Sprite
- * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
+ * @extends Impacto.GameObjects.Rectangle
  * @constructors
  */
 export default class Sprite extends Rectangle {
@@ -41,6 +40,7 @@ export default class Sprite extends Rectangle {
  * Sets the X position of the Sprite.
  * 
  * @param {number} x - The horizontal position of this Sprite in the world.
+ * @memberof Sprite
  */
 	set x(x) { this.setX(x); }
 
@@ -48,16 +48,19 @@ export default class Sprite extends Rectangle {
  * Sets the Y position of the Sprite.
  * 
  * @param {number} y - The vertical position of this Sprite in the world.
+ * @memberof Sprite
  */
 	set y(y) { this.setY(y); }
 
 	/**
 	 * @returns {number} The horizontal position of this Sprite in the world relative to the origin.
+	 * @memberof Sprite
 	 */
 	get x() { return this._x - this.width * this.origin.x * this.scale.x; }
 
 	/**
 	* @returns {number} The vertical position of this Sprite in the world relative to the origin.
+	* @memberof Sprite
 	*/
 	get y() { return this._y - this.height * this.origin.y * this.scale.y; }
 
@@ -68,8 +71,8 @@ export default class Sprite extends Rectangle {
 	 * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).setFrame(1);
 	 * 
 	 * @param {number} frame - The frame of the Sprite.
-	 * @returns {Impacto.GameObjects.Sprite} The Sprite itself.
-	 * @memberof Impacto.GameObjects.Sprite
+	 * @returns {Sprite} The Sprite itself.
+	 * @memberof Sprite
 	 */
 	setFrame(frame) {
 		this.frame = frame;
@@ -83,7 +86,7 @@ export default class Sprite extends Rectangle {
 	 * new Impacto.GameObjects.Sprite(400, 300, "MySprite", 0, 32, 32).getNumFramesByWidth(); // 8
 	 * 
 	 * @returns {number} The number of frames by width.
-	 * @memberof Impacto.GameObjects.Sprite
+	 * @memberof Sprite
 	 */
 	getNumFramesByWidth() { return Math.floor(this.texture.width / this.width); }
 
@@ -92,8 +95,7 @@ export default class Sprite extends Rectangle {
 	 * Private (Core) function to render the position of the Sprite.
 	 * 
 	 * @private
-	 * @readonly
-	 * @memberof Impacto.GameObjects.Sprite
+	 * @memberof Sprite
 	 */
 	_renderType(deltaTime) {
 		this.animations._update(deltaTime);

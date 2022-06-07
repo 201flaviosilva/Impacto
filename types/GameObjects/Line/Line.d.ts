@@ -13,7 +13,6 @@
  *
  * @class Line
  * @extends Impacto.GameObjects.GameObject2D
- * @memberof Impacto.GameObjects
  * @constructors
  */
 export default class Line {
@@ -23,16 +22,14 @@ export default class Line {
     _type: string;
     /**
      * @returns {number} The width of the line.
-     * @readonly
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
-    readonly get width(): number;
+    get width(): number;
     /**
      * @returns {number} The height of the line.
-     * @readonly
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
-    readonly get height(): number;
+    get height(): number;
     /**
      * @description
      * Sets the X position.
@@ -42,13 +39,12 @@ export default class Line {
      * myLine.x = 200;
      *
      * @param {number} x - The horizontal position in the world.
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
     set x(arg: number);
     /**
      * @returns {number} The horizontal position.
-     * @readonly
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
     get x(): number;
     /**
@@ -60,13 +56,12 @@ export default class Line {
      * myLine.y = 200;
      *
      * @param {number} y - The vertical position in the world.
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
     set y(arg: number);
     /**
      * @returns {number} The vertical position.
-     * @readonly
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
     get y(): number;
     /**
@@ -77,12 +72,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getTop(); // 300
      *
      * @returns {number} The vertical position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getTop(): number;
+    getTop(): number;
     /**
      * @description
      * Returns the bottom side position of the Line.
@@ -91,12 +83,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getBottom(); // 325
      *
      * @returns {number} The vertical position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getBottom(): number;
+    getBottom(): number;
     /**
      * @description
      * Returns the left side position of the Line.
@@ -105,12 +94,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getLeft(); // 400
      *
      * @returns {number} The horizontal position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getLeft(): number;
+    getLeft(): number;
     /**
      * @description
      * Returns the right side position of the Line.
@@ -119,12 +105,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRight(); // 450
      *
      * @returns {number} The horizontal position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRight(): number;
+    getRight(): number;
     /**
      * @description
      * Returns the center X position of the Line.
@@ -133,12 +116,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getCenterX(); // 425
      *
      * @returns {number} The horizontal position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getCenterX(): number;
+    getCenterX(): number;
     /**
      * @description
      * Returns the center Y position of the Line.
@@ -147,12 +127,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getCenterY(); // 325
      *
      * @returns {number} The vertical position of this Line in the world relative to the origin.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getCenterY(): number;
+    getCenterY(): number;
     /**
      * @description
      * Returns the real top side position of the Line (not relative to the origin).
@@ -161,12 +138,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealTop(); // 300
      *
      * @returns {number} The vertical position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealTop(): number;
+    getRealTop(): number;
     /**
      * @description
      * Returns the real bottom side position of the Line (not relative to the origin).
@@ -175,12 +149,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealBottom(); // 350
      *
      * @returns {number} The vertical position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealBottom(): number;
+    getRealBottom(): number;
     /**
      * @description
      * Returns the real left side position of the Line (not relative to the origin).
@@ -189,12 +160,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealLeft(); // 400
      *
      * @returns {number} The horizontal position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealLeft(): number;
+    getRealLeft(): number;
     /**
      * @description
      * Returns the real right side position of the Line (not relative to the origin).
@@ -203,12 +171,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealRight(); // 450
      *
      * @returns {number} The horizontal position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealRight(): number;
+    getRealRight(): number;
     /**
      * @description
      * Returns the real center X position of the Line (not relative to the origin).
@@ -217,12 +182,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealCenterX(); // 425
      *
      * @returns {number} The horizontal position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealCenterX(): number;
+    getRealCenterX(): number;
     /**
      * @description
      * Returns the real center Y position of the Line (not relative to the origin).
@@ -231,12 +193,9 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).getRealCenterY(); // 325
      *
      * @returns {number} The vertical position of this Line in the world.
-     * @memberof Impacto.GameObjects.Line
-     * @readonly
-     * @public
-     * @instance
+     * @memberof Line
      */
-    public readonly getRealCenterY(): number;
+    getRealCenterY(): number;
     /**
      * @description
      * Sets the end position of the Line based on the width.
@@ -245,12 +204,10 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).setWidth(100);
      *
      * @param {number} width - The new width.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setWidth(width: number): Impacto.GameObjects.Line;
+    setWidth(width: number): Line;
     /**
      * @description
      * Sets the end position of the Line based on the height.
@@ -259,12 +216,10 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).setHeight(100);
      *
      * @param {number} height - The new height.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setHeight(height: number): Impacto.GameObjects.Line;
+    setHeight(height: number): Line;
     /**
      * @description
      * Sets the end position of the Line based on the size.
@@ -274,12 +229,10 @@ export default class Line {
      *
      * @param {number} width - The new width.
      * @param {number} height - The new height.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setSize(width: number, height: number): Impacto.GameObjects.Line;
+    setSize(width: number, height: number): Line;
     /**
      * @description
      * Sets the end horizontal position.
@@ -288,12 +241,10 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).setEndX(500);
      *
      * @param {number} endX - The new horizontal position.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setEndX(endX: number): Impacto.GameObjects.Line;
+    setEndX(endX: number): Line;
     /**
      * @description
      * Sets the end vertical position.
@@ -302,12 +253,10 @@ export default class Line {
      * new Impacto.GameObjects.Line(400, 300, 450, 350).setEndY(500);
      *
      * @param {number} endY - The new vertical position.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setEndY(endY: number): Impacto.GameObjects.Line;
+    setEndY(endY: number): Line;
     /**
      * @description
      * Sets the end position of the Line.
@@ -317,19 +266,17 @@ export default class Line {
      *
      * @param {number} endX - The new horizontal position.
      * @param {number} endY - The new vertical position.
-     * @returns {Impacto.GameObjects.Line} This Line.
-     * @memberof Impacto.GameObjects.Line
-     * @public
-     * @instance
+     * @returns {Line} This Line.
+     * @memberof Line
      */
-    public setEnd(endX: number, endY: number): Impacto.GameObjects.Line;
+    setEnd(endX: number, endY: number): Line;
     /**
      * @description
      * Private (Core) function to render the position.
      *
      * @private
-     * @readonly
-     * @memberof Impacto.GameObjects.Line
+     * @memberof Line
      */
-    private readonly _renderType;
+    private _renderType;
 }
+//# sourceMappingURL=Line.d.ts.map

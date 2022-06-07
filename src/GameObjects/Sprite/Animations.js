@@ -9,7 +9,7 @@ import Animation from "./Animation.js";
  * @param {boolean} [loop] - Whether the Animations should loop or not.
  * 
  * @classdesc
- * A class to animate sprites
+ * A class to manage the animations of a sprite
  * 
  * @example
  * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
@@ -34,7 +34,8 @@ export default class Animations {
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth(), 0, 10, false);
 	 * console.log(mySprite.animations.get(""Default""));
 	 * 
-	 * @returns {Animation} - The animation state
+	 * @param {string} name - The name of the Animation.
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	get(name) { return this.animations[name]; }
@@ -52,6 +53,7 @@ export default class Animations {
 	 * @param {number} [startFrame=0] - The first frame of the Animation.
 	 * @param {number} [speed=100] - The speed of the Animation.
 	 * @param {boolean} [loop=true] - Whether the Animation should loop or not.
+	 * @memberof Animations
 	 */
 	add(name, numberOfFrames, startFrame = 0, speed = 100, loop = true) {
 		this.animations[name] = new Animation(this._parent, name, startFrame, numberOfFrames, speed, loop);
@@ -66,7 +68,7 @@ export default class Animations {
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth());
 	 * console.log(mySprite.animations.getAnimationsNames());
 	 * 
-	 * @returns {string[]} - The names of the animations
+	 * @returns {string[]} The names of the animations
 	 * @memberof Animations
 	 */
 	getAnimationsNames() { return Object.keys(this.animations); }
@@ -78,7 +80,7 @@ export default class Animations {
 	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).reset();
 	 * 
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	reset(name) {
@@ -94,7 +96,7 @@ export default class Animations {
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).play("Default");
 	 * 
 	 * @param {string} name - The name of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	play(name) {
@@ -111,7 +113,7 @@ export default class Animations {
 	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).pause();
 	 * 
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	pause() {
@@ -126,7 +128,7 @@ export default class Animations {
 	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
 	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).resume();
 	 * 
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	resume() {
@@ -143,7 +145,7 @@ export default class Animations {
 	 * 
 	 * @param {string} oldName - The name of the Animation.
 	 * @param {string} newName - The new name of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	setName(oldName, newName) { return this.animations[oldName].setName(newName); }
@@ -157,7 +159,7 @@ export default class Animations {
 	 * 
 	 * @param {string} name - The name of the Animation.
 	 * @param {number} speed - The new speed of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	setSpeed(name, speed) { return this.animations[name].setSpeed(speed); }
@@ -171,7 +173,7 @@ export default class Animations {
 	 * 
 	 * @param {string} name - The name of the Animation.
 	 * @param {number} numberOfFrames - The new number of frames of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	setNumberOfFrames(name, numberOfFrames) { return this.animations[name].setNumberOfFrames(numberOfFrames); }
@@ -185,7 +187,7 @@ export default class Animations {
 	 * 
 	 * @param {string} name - The name of the Animation.
 	 * @param {boolean} loop - The new loop state of the Animation.
-	 * @returns {Animation} - The animation state
+	 * @returns {Animation} The animation state
 	 * @memberof Animations
 	 */
 	setLoop(name, loop) { return this.animations[name].setLoop(loop); }
@@ -194,7 +196,6 @@ export default class Animations {
 	 * Private (Core) function to update the animation.
 	 * 
 	 * @private
-	 * @readonly
 	 * @memberof Animations
 	 */
 	_update(deltaTime) {

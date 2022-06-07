@@ -1,8 +1,6 @@
 /**
  * @class AssetsManager
  * @description A class to manage the assets.
- * @memberof Impacto.State
- * @instance
  */
 export default class AssetsManager {
 	constructor() {
@@ -28,7 +26,8 @@ export default class AssetsManager {
 	 * 
 	 * 
 	 * @param {Object} assets - The assets to load
-	 * @memberof Impacto.State.AssetsManager
+	 * @returns {void}
+	 * @memberof AssetsManager
 	 */
 	async load(assets) {
 		for (const key in assets) {
@@ -63,7 +62,8 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the sprite
 	 * @param {string} path - The path of the sprite
-	 * @memberof Impacto.State.AssetsManager
+	 * @returns {void}
+	 * @memberof AssetsManager
 	 */
 	async loadSprite(name, path) {
 		const image = await this._loadImage(path);
@@ -78,8 +78,8 @@ export default class AssetsManager {
 	 * @description
 	 * Private (Core) function to load images/sprites
 	 * 
+	 * @memberof AssetsManager
 	 * @private
-	 * @memberof Impacto.State.AssetsManager
 	 */
 	async _loadImage(path) {
 		return new Promise((resolve, reject) => {
@@ -95,7 +95,8 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the font
 	 * @param {string} path - The path of the font
-	 * @memberof Impacto.State.AssetsManager
+	 * @returns {void}
+	 * @memberof AssetsManager
 	 */
 	async loadFont(name, path) {
 		this.assets.fonts[name] = name;
@@ -114,19 +115,19 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the sound
 	 * @param {string} path - The path of the sound
-	 * @memberof Impacto.State.AssetsManager
+	 * @returns {void}
+	 * @memberof AssetsManager
 	 */
 	async loadAudios(name, path) {
 		this.assets.audios[name] = await this._loadAudio(path);
-		console.log(this.assets.audios[name]);
 	}
 
 	/**
 	 * @description
 	 * Private (Core) function to load sounds/audios
 	 * 
+	 * @memberof AssetsManager
 	 * @private
-	 * @memberof Impacto.State.AssetsManager
 	 */
 	async _loadAudio(path) {
 		return new Promise((resolve, reject) => {
@@ -142,7 +143,7 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the sprite
 	 * @returns {Object} The sprite
-	 * @memberof Impacto.State.AssetsManager
+	 * @memberof AssetsManager
 	 */
 	getSprite(name) { return this.assets.sprites[name].image; }
 
@@ -151,7 +152,7 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the font
 	 * @returns {string} The font
-	 * @memberof Impacto.State.AssetsManager
+	 * @memberof AssetsManager
 	 */
 	getFont(name) { return this.assets.fonts[name]; }
 
@@ -160,7 +161,7 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the audio
 	 * @returns {Object} The audio
-	 * @memberof Impacto.State.AssetsManager
+	 * @memberof AssetsManager
 	 */
 	getAudio(name) { return this.assets.audios[name]; }
 
@@ -169,7 +170,7 @@ export default class AssetsManager {
 	 * 
 	 * @param {string} name - The name of the sprite
 	 * @returns {Object} The size of the sprite
-	 * @memberof Impacto.State.AssetsManager
+	 * @memberof AssetsManager
 	 */
 	getSpriteSize(name) {
 		const sprite = this.getSprite(name);
