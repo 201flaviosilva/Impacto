@@ -8,14 +8,16 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Impacto",
   tagline: "A modular javascript canvas render",
-  url: "https://201flaviosilva.github.io/Impacto/",
-  baseUrl: "/",
+  url: "https://201flaviosilva.github.io/",
+  baseUrl: "/Impacto/",
   staticDirectories: ["static", "jsdoc"],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "201flaviosilva", // Usually your GitHub org/user name.
-  projectName: "impacto", // Usually your repo name.
+  projectName: "Impacto", // Usually your repo name.
+  trailingSlash: false,
+  deploymentBranch: "gh-pages",
 
   presets: [
     [
