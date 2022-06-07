@@ -9,7 +9,7 @@ const config = {
   title: "Impacto",
   tagline: "A modular javascript canvas render",
   url: "https://201flaviosilva-labs.github.io/Impacto/",
-  baseUrl: "/Impacto",
+  baseUrl: "/Impacto/",
   staticDirectories: ["static", "jsdoc"],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
