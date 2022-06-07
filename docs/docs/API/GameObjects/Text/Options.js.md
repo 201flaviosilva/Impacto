@@ -1,6 +1,6 @@
 <a name="TextOptions"></a>
 
 # TextOptions
-All the options for the text object
+<p>All the options for the text object</p>
 
 **Kind**: global constant  

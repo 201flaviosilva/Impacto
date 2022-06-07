@@ -1,6 +1,6 @@
 <a name="Types"></a>
 
 # Types
-The types of the game objects.
+<p>The types of the game objects.</p>
 
 **Kind**: global constant  

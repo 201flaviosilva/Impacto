@@ -58,6 +58,6 @@ function jsdoc2docusaurus(context, opts) {
 		async loadContent() { return generateDocs(context, opts); },
 	};
 };
-// generateDocs();
+generateDocs();
 
 module.exports = jsdoc2docusaurus;
