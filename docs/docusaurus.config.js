@@ -26,7 +26,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
           editUrl: "https://github.com/201flaviosilva/Impacto",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -36,9 +35,20 @@ const config = {
         },
       }),
     ],
+  ],
 
-    ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
-    ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
+  plugins: [
+    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
+    // ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "API",
+        path: "API",
+        routeBasePath: "API",
+        sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ],
   ],
 
   i18n: {
@@ -51,6 +61,7 @@ const config = {
     ({
       navbar: {
         title: "Impacto",
+        hideOnScroll: false,
         logo: {
           alt: "My Site Logo",
           src: "img/logo.svg",
@@ -61,6 +72,11 @@ const config = {
             docId: "intro",
             position: "left",
             label: "Documentation",
+          },
+          {
+            to: "/API/intro",
+            position: "left",
+            label: "API",
           },
           {
             href: "https://github.com/201flaviosilva/Impacto",

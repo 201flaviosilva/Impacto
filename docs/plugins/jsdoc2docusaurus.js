@@ -36,7 +36,7 @@ function generateDocs(context, opts) {
 
 		const writeDir = path.join(
 			__dirname,
-			`../docs/API/${relativePath.replace(fileName, "").replace("../src/", "")}`,
+			`../API/${relativePath.replace(fileName, "").replace("../src/", "")}`,
 		);
 
 		if (markdown) {
@@ -58,6 +58,6 @@ function jsdoc2docusaurus(context, opts) {
 		async loadContent() { return generateDocs(context, opts); },
 	};
 };
-generateDocs();
+// generateDocs();
 
 module.exports = jsdoc2docusaurus;

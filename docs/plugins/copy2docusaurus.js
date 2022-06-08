@@ -26,6 +26,6 @@ function copy2docusaurus(context, opts) {
 		async loadContent() { return copyFiles(context, opts); },
 	};
 };
-copyFiles();
+// copyFiles();
 
 module.exports = copy2docusaurus;

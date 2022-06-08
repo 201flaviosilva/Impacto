@@ -6,6 +6,7 @@
 	- [Table of Contents](#table-of-contents)
 	- [Description](#description)
 	- [Get Started](#get-started)
+	- [Community](#community)
 
 ## Description
 
@@ -44,5 +45,12 @@ const game = new Impacto.Game({
 });
 ```
 
-
 For more information about the Impacto API, please check the Doc or check the examples.
+
+## Community
+
+- [Web Site (Documentation)](https://201flaviosilva.github.io/Impacto/);
+- [GitHub Repository](https://github.com/201flaviosilva/Impacto);
+  - [Issues](https://github.com/201flaviosilva/Impacto/issues);
+  - [Pull Requests](https://github.com/201flaviosilva/Impacto/pulls);
+  - [Discussions (Forum)](https://github.com/201flaviosilva/Impacto/discussions);
