@@ -10,7 +10,7 @@ const config = {
   tagline: "A modular javascript canvas render",
   url: "https://201flaviosilva.github.io/",
   baseUrl: "/Impacto/",
-  staticDirectories: ["static", "jsdoc"],
+  staticDirectories: ["static"],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -38,8 +38,8 @@ const config = {
   ],
 
   plugins: [
-    ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
-    ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
+    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
+    // ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
     [
       "@docusaurus/plugin-content-docs",
       {
