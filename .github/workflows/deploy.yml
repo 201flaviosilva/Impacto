@@ -19,12 +19,19 @@ jobs:
           node-version: 16.x
           cache: "npm"
 
+      # Docusaurus
       - name: Install dependencies
         working-directory: ./docs
         run: cd docs && npm install
       - name: Build website
         working-directory: ./docs
         run: cd docs && npm run build
+
+      # JsDoc
+      - name: Install dependencies
+        run: npm install
+      - name: Build Jsdoc
+        run: npm run jsdoc
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
