@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GameObjects/AudioPlay/AudioPlay.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GameObjects/AudioPlay/AudioPlay.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { AssetsManagerInstance } from "../../State/AssetsManager.js";
+import { GlobalStateManagerInstance } from "../../State/GlobalStateManager.js";
+import Types from "../Types.js";
+
+
+/**
+ * @property {string} key - The key of the sprite.
+ * @property {boolean} loop - If the audio file should loop.
+ * @property {boolean} paused - If the audio file is paused.
+ * @property {number} volume - The volume of the audio file.
+ * @property {boolean} muted - If the audio file should be muted.
+ * @property {number} delay - The delay of the audio file.
+ * 
+ * @classdesc 
+ * AudioPlay is a class that plays audio files.
+ * 
+ * @example
+ * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+ * 
+ * @class AudioPlay
+ */
+export default class AudioPlay {
+	constructor(key, loop = false, paused = false, volume = GlobalStateManagerInstance.volume, muted = false, delay = 0) {
+		/**
+		* @type {string}
+		* @default ""
+		* @description The source of the audio file.
+		*
+		* @memberof AudioPlay
+		*/
+		this.name = key;
+
+		/**
+		 * @private
+		 */
+		this.audio = AssetsManagerInstance.getAudio(key);
+		this.audio.volume = volume;
+		this.audio.loop = loop;
+		this.audio.muted = muted;
+
+		/**
+		 * @type {boolean}
+		 * @default false
+		 * @description If the audio file should loop.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.paused = paused;
+
+		/**
+		 * @type {number}
+		 * @default 1
+		 * @description The volume on reproducing the audio file.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.volume = volume;
+
+		/**
+		 * @type {boolean}
+		 * @default false
+		 * @description If the audio should be in loop.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.loop = loop;
+
+		/**
+		 * @type {boolean}
+		 * @default false
+		 * @description If the audio should be muted.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.muted = muted;
+
+		/**
+		 * @type {number}
+		 * @default 0
+		 * @description The delay of the audio file.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.delay = delay;
+
+		/**
+		 * @type {number}
+		 * @default 0
+		 * @description The time of the audio file.
+		 * 
+		 * @memberof AudioPlay
+		 */
+		this.loopDelay = delay; // TODO: not implemented yet
+
+		/**
+		 * @description Core properties of the audio file.
+		 * @private
+		 */
+		this._delayTimer = null;
+
+		/**
+		 * @description The type of the object.
+		 * @private
+		 */
+		this._type = Types.audioPlay;
+
+		if (!this.paused) this.play();
+	}
+
+	/**
+	 * @description Plays the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.play();
+	 * 
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	play() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
+		this.audio.currentTime = 0;
+		this.audio.loop = this.loop;
+
+		if (this.delay > 0) {
+			this._delayTimer = setTimeout(() => this.audio.play(), this.delay);
+		} else this.audio.play();
+
+		return this;
+	}
+
+	/**
+	 * @description just plays once time the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.playOnce();
+	 * 
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	playOnce() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
+		this.audio.currentTime = 0;
+		this.audio.loop = false;
+		this.audio.play();
+		return this;
+	}
+
+	/**
+	 * @description Pause the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.pause();
+	 * 
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	pause() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
+		this.paused = true;
+		this.audio.pause();
+		return this;
+	}
+
+	/**
+	 * @description Resume the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.resume();
+	 * 
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	resume() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
+		this.paused = false;
+		this.audio.loop = this.loop;
+		this.audio.play();
+		return this;
+	}
+
+	/**
+	 * @description Stop the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.stop();
+	 * 
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	stop() {
+		if (this._delayTimer) clearTimeout(this._delayTimer);
+		this.audio.pause();
+		this.audio.currentTime = 0;
+		return this;
+	}
+
+	/**
+	 * @description Set the volume of the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.setVolume(0.5);
+	 * 
+	 * @param {number} volume - The volume of the audio file.
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	setVolume(volume) {
+		this.volume = volume;
+		this.audio.volume = volume;
+		return this;
+	}
+
+	/**
+	 * @description Set loop of the audio file. If the audio file is looping, it will be played again.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.setLoop(true);
+	 * 
+	 * @param {boolean} loop - If the audio file should be looping.
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	setLoop(loop) {
+		this.loop = loop;
+		this.audio.loop = loop;
+		return this;
+	}
+
+	/**
+	 * @description Set the delay of the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.setDelay(1000);
+	 * 
+	 * @param {number} delay - The delay of the audio file.
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	setMuted(muted) {
+		this.muted = muted;
+		this.audio.muted = muted;
+		return this;
+	}
+
+	/**
+	 * @description Set the delay of the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.setDelay(1000);
+	 * 
+	 * @param {number} delay - The delay of the audio file.
+	 * @returns {AudioPlay}
+	 * @memberof AudioPlay
+	 */
+	setDelay(delay) {
+		this.delay = delay;
+		return this;
+	}
+
+	/**
+	 * @description Check if the audio file is ended playing.
+	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended}
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.isEnded();
+	 * 
+	 * @returns {boolean} If the audio file is ended playing.
+	 * @memberof AudioPlay
+	 */
+	isEnded() { return this.audio.ended; }
+
+	/**
+	 * @description Returns the time of the audio file.
+	 * 
+	 * @example
+	 * const myAudioPlay = new Impacto.GameObjects.AudioPlay("MyAudio");
+	 * myAudioPlay.getDuration();
+	 * 
+	 * @returns {number} The time of the audio file.
+	 * @memberof AudioPlay
+	 */
+	getDuration() { return this.audio.duration; }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Impacto.html">Impacto</a></li><li><a href="Impacto.GameObjects.html">GameObjects</a></li><li><a href="Impacto.Inputs.html">Inputs</a></li><li><a href="Impacto.State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="Animations.html">Animations</a></li><li><a href="AssetsManager.html">AssetsManager</a></li><li><a href="AudioPlay.html">AudioPlay</a></li><li><a href="CanvasState.html">CanvasState</a></li><li><a href="Circle.html">Circle</a></li><li><a href="GameObject2D.html">GameObject2D</a></li><li><a href="GlobalStateManager.html">GlobalStateManager</a></li><li><a href="KeyboardManager.html">KeyboardManager</a></li><li><a href="Line.html">Line</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="MouseManager.html">MouseManager</a></li><li><a href="Polygon.html">Polygon</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="Text.html">Text</a></li><li><a href="Triangle.html">Triangle</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TextOptions">TextOptions</a></li><li><a href="global.html#Types">Types</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jun 08 2022 16:22:22 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

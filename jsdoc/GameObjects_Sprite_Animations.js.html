@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GameObjects/Sprite/Animations.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GameObjects/Sprite/Animations.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Animation from "./Animation.js";
+
+/**
+ * @param {Impacto.GameObjects.Sprite} parent - The parent Sprite.
+ * @param {string} name - The name of the Animations.
+ * @param {number} startFrame - The first frame of the Animations.
+ * @param {number} numberOfFrames - Number of frames of the Animations.
+ * @param {number} [speed] - The speed of the Animations.
+ * @param {boolean} [loop] - Whether the Animations should loop or not.
+ * 
+ * @classdesc
+ * A class to manage the animations of a sprite
+ * 
+ * @example
+ * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+ * mySprite.animations.add("Default", mySprite.getNumFramesByWidth(), 0, 10, false);
+ * 
+ * @class Animations
+ * @constructors
+ */
+export default class Animations {
+	constructor(parent) {
+		this._parent = parent;
+		this.animations = {};
+		this.currentAnimation = null;
+		this.paused = true;
+	}
+
+	/**
+	 * Returns the animation state
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth(), 0, 10, false);
+	 * console.log(mySprite.animations.get(""Default""));
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	get(name) { return this.animations[name]; }
+
+
+	/**
+	 * Add a new animation to the sprite
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth(), 0, 10, false);
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @param {number} numberOfFrames - Number of frames of the Animation.
+	 * @param {number} [startFrame=0] - The first frame of the Animation.
+	 * @param {number} [speed=100] - The speed of the Animation.
+	 * @param {boolean} [loop=true] - Whether the Animation should loop or not.
+	 * @memberof Animations
+	 */
+	add(name, numberOfFrames, startFrame = 0, speed = 100, loop = true) {
+		this.animations[name] = new Animation(this._parent, name, startFrame, numberOfFrames, speed, loop);
+		return this.get(name);
+	}
+
+	/**
+	 * Returns all animations names
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth());
+	 * console.log(mySprite.animations.getAnimationsNames());
+	 * 
+	 * @returns {string[]} The names of the animations
+	 * @memberof Animations
+	 */
+	getAnimationsNames() { return Object.keys(this.animations); }
+
+	/**
+	 * Reset the animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).reset();
+	 * 
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	reset(name) {
+		this.animations[name].reset();
+		return this.get(this.currentAnimation);
+	}
+
+	/**
+	 * Play the animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).play("Default");
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	play(name) {
+		if (this.currentAnimation) this.currentAnimation.reset();
+		this.currentAnimation = this.animations[name];
+		this.resume();
+		return this.get(this.currentAnimation);
+	}
+
+	/**
+	 * Pause the animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).pause();
+	 * 
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	pause() {
+		this.paused = true;
+		return this.get(this.currentAnimation);
+	}
+
+	/**
+	 * Resume the animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).resume();
+	 * 
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	resume() {
+		this.paused = false;
+		return this.get(this.currentAnimation);
+	}
+
+	/**
+	 * Change the name of a animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).changeName("NewName");
+	 * 
+	 * @param {string} oldName - The name of the Animation.
+	 * @param {string} newName - The new name of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	setName(oldName, newName) { return this.animations[oldName].setName(newName); }
+
+	/**
+	 * Change the speed of a animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).changeSpeed(100);
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @param {number} speed - The new speed of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	setSpeed(name, speed) { return this.animations[name].setSpeed(speed); }
+
+	/**
+	 * Change the number of frame of a animation
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).changeNumberOfFrames(10);
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @param {number} numberOfFrames - The new number of frames of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	setNumberOfFrames(name, numberOfFrames) { return this.animations[name].setNumberOfFrames(numberOfFrames); }
+
+	/**
+	 * Change if animation if in loop or not
+	 * 
+	 * @example
+	 * const mySprite = new Impacto.GameObjects.Sprite(400, 300, "MySprite");
+	 * mySprite.animations.add("Default", mySprite.getNumFramesByWidth()).changeLoop(false);
+	 * 
+	 * @param {string} name - The name of the Animation.
+	 * @param {boolean} loop - The new loop state of the Animation.
+	 * @returns {Animation} The animation state
+	 * @memberof Animations
+	 */
+	setLoop(name, loop) { return this.animations[name].setLoop(loop); }
+
+	/**
+	 * Private (Core) function to update the animation.
+	 * 
+	 * @private
+	 * @memberof Animations
+	 */
+	_update(deltaTime) {
+		if (this.paused) return;
+		if (this.currentAnimation) this.currentAnimation._update(deltaTime);
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Impacto.html">Impacto</a></li><li><a href="Impacto.GameObjects.html">GameObjects</a></li><li><a href="Impacto.Inputs.html">Inputs</a></li><li><a href="Impacto.State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="Animations.html">Animations</a></li><li><a href="AssetsManager.html">AssetsManager</a></li><li><a href="AudioPlay.html">AudioPlay</a></li><li><a href="CanvasState.html">CanvasState</a></li><li><a href="Circle.html">Circle</a></li><li><a href="GameObject2D.html">GameObject2D</a></li><li><a href="GlobalStateManager.html">GlobalStateManager</a></li><li><a href="KeyboardManager.html">KeyboardManager</a></li><li><a href="Line.html">Line</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="MouseManager.html">MouseManager</a></li><li><a href="Polygon.html">Polygon</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sprite.html">Sprite</a></li><li><a href="Text.html">Text</a></li><li><a href="Triangle.html">Triangle</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TextOptions">TextOptions</a></li><li><a href="global.html#Types">Types</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jun 08 2022 16:22:22 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
