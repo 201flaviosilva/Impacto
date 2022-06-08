@@ -38,8 +38,8 @@ const config = {
   ],
 
   plugins: [
-    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
-    // ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
+    ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
+    ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
     [
       "@docusaurus/plugin-content-docs",
       {
@@ -77,6 +77,11 @@ const config = {
             to: "/API/intro",
             position: "left",
             label: "API",
+          },
+          {
+            href: "https://201flaviosilva.github.io/Impacto/jsdoc/index.html",
+            position: "right",
+            label: "JS Doc",
           },
           {
             href: "https://github.com/201flaviosilva/Impacto",
