@@ -38,8 +38,8 @@ const config = {
   ],
 
   plugins: [
-    // ["./plugins/jsdoc2docusaurus.js", {},], // Generate the docs from jsdoc
-    // ["./plugins/copy2docusaurus.js", {},], // Copy files to the docs folder
+    // ["./plugins/jsdoc2docusaurus.js", { output: "API/", },], // Generate the docs from jsdoc
+    // ["./plugins/copy2docusaurus.js", { files: ["../../Awesome.md", "../../CHANGELOG.md",], },], // Copy files to the docs folder
     [
       "@docusaurus/plugin-content-docs",
       {

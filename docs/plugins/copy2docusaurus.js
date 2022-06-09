@@ -1,23 +1,24 @@
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * Copy files from the given source directory to the destination directory.
+ * 
+ * @param {Object} context - Object given by the Docusaurus
+ * @param {Object} opts - The options object.
+ * @param {string[]} opts.files - The files to copy.
+ * @param {string} opts.output - The destination directory.
+ */
 function copyFiles(context, opts) {
-	console.log("Start copy");
-
-	const files = [
-		"../../Awesome.md",
-		"../../CHANGELOG.md",
-	];
+	const { files = [], output = "docs/" } = opts;
 
 	files.forEach(file => {
-		const output = "../docs/" + file.replaceAll("../", "");
-		fs.copyFile(path.join(__dirname, file), path.join(__dirname, output), (err) => {
-			if (err) throw err;
-			console.log(`${file} was copied to ${output}`);
-		});
+		const formattedOutput = "../" + output + file.replaceAll("../", "");
+		fs.copyFile(
+			path.join(__dirname, file),
+			path.join(__dirname, formattedOutput),
+			(err) => { if (err) throw err; });
 	});
-	// Let the user know what step we're on
-	console.log("\u001B[32m", "✔️ All files copied", "\u001B[0m");
 }
 
 function copy2docusaurus(context, opts) {
@@ -26,6 +27,5 @@ function copy2docusaurus(context, opts) {
 		async loadContent() { return copyFiles(context, opts); },
 	};
 };
-// copyFiles();
 
 module.exports = copy2docusaurus;
