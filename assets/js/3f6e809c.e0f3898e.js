@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkimpacto_docs=self.webpackChunkimpacto_docs||[]).push([[791],{6239:function(s){s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"API"}')}}]);
